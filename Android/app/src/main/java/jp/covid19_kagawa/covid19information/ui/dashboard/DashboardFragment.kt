@@ -1,28 +1,30 @@
 package jp.covid19_kagawa.covid19information.ui.dashboard
 
-import android.graphics.Color
+import android.graphics.DashPathEffect
+import android.graphics.RectF
 import android.os.Bundle
-import android.os.DropBoxManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.MarkerView
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.Legend.LegendForm
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.components.YAxis.AxisDependency
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.utils.ColorTemplate
-import jp.covid19_kagawa.covid19information.ChartActionCreator
-import jp.covid19_kagawa.covid19information.ChartStore
-import jp.covid19_kagawa.covid19information.R
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.utils.MPPointF
+import jp.covid19_kagawa.covid19information.*
 import jp.covid19_kagawa.covid19information.entity.InspectionData
-import jp.covid19_kagawa.covid19information.observe
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -30,15 +32,17 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
+class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
+    OnChartValueSelectedListener {
 
     private val store: ChartStore by viewModel()
     private val actionCreator: ChartActionCreator by inject()
     private lateinit var tvX: TextView
-    private lateinit var tvY: TextView
+    //private lateinit var tvY: TextView
     private lateinit var seekBarX: SeekBar
-    private lateinit var seekBarY: SeekBar
-    private lateinit var chart: LineChart
+    //  private lateinit var seekBarY: SeekBar
+    private lateinit var chart: BarChart
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,51 +62,38 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         setupGraphWindow(root)
         observeState()
         //actionCreator.getInfectData(seekBarX.progress, seekBarY.progress.toFloat())
-        actionCreator.getInfectData(150, 3.0f)
+        actionCreator.getInfectData(150, 1.0f)
 
         return root
     }
 
     private fun setupGraphWindow(root: View) {
         tvX = root.findViewById(R.id.tvXMax)
-        tvY = root.findViewById(R.id.tvYMax)
+        //tvY = root.findViewById(R.id.tvYMax)
         seekBarX = root.findViewById(R.id.seekBar1)
-        seekBarX.setOnSeekBarChangeListener(this)
-
-        seekBarY = root.findViewById(R.id.seekBar2)
-        seekBarY.setMax(100)
-        seekBarY.setOnSeekBarChangeListener(this)
-
         chart = root.findViewById(R.id.chart1)
-        chart.setBackgroundColor(Color.WHITE)
+
+        seekBarX.setOnSeekBarChangeListener(this)
+        chart.setOnChartValueSelectedListener(this)
+        chart.setDrawBarShadow(false)
+        chart.setDrawValueAboveBar(true)
+
         chart.description.isEnabled = false
-        chart.setTouchEnabled(true)
-        //chart.setOnChartValueSelectedListener(this)
+
+        chart.setMaxVisibleValueCount(50)
+        chart.setPinchZoom(false)
+
         chart.setDrawGridBackground(false)
 
-        val markerView = MarkerView(context, R.layout.marker_view)
-
-        markerView.chartView = chart
-        chart.marker = markerView
-
-        chart.isDragEnabled = true
-        chart.isScaleXEnabled = true
-        chart.isScaleYEnabled = true
-        chart.setPinchZoom(true)
-
-
-        chart.xAxis.setTextSize(10f);
-        chart.xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-        chart.xAxis.setTextColor(Color.WHITE);
-        chart.xAxis.setDrawAxisLine(false);
-        chart.xAxis.setDrawGridLines(true);
-        chart.xAxis.setTextColor(Color.rgb(255, 192, 56));
-        chart.xAxis.setCenterAxisLabels(true);
-        chart.xAxis.setGranularity(1f); // one hour
-        chart.xAxis.valueFormatter = object : ValueFormatter() {
+        val xl = chart.xAxis
+        xl.position = XAxisPosition.BOTTOM
+        //   xl.typeface = tfLight
+        xl.setDrawAxisLine(true)
+        xl.setDrawGridLines(true)
+        xl.granularity = 10f
+        xl.valueFormatter = object : ValueFormatter() {
             private val mFormat =
-                SimpleDateFormat("dd MMM", Locale.ENGLISH)
-            //SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX", Locale.JAPAN)
+                SimpleDateFormat("MM/dd", Locale.JAPAN)
 
             override fun getFormattedValue(value: Float): String {
                 val millis =
@@ -110,44 +101,84 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
                 return mFormat.format(Date(millis))
             }
         }
-        chart.axisRight.isEnabled = false
-        chart.axisLeft.enableGridDashedLine(10f, 10f, 0f)
+        val yl = chart.axisLeft
+//        yl.typeface = tfLight
+        yl.setDrawAxisLine(true)
+        yl.setDrawGridLines(true)
+        yl.axisMinimum = 0f // this replaces setStartAtZero(true)
+
+//        yl.setInverted(true);
+
+        //        yl.setInverted(true);
+        val yr = chart.axisRight
+        //      yr.typeface = tfLight
+        yr.setDrawAxisLine(true)
+        yr.setDrawGridLines(false)
+        yr.axisMinimum = 0f // this replaces setStartAtZero(true)
+
+        chart.setFitBars(true)
+        chart.animateY(1250)
+
+        seekBarX.progress = 12
+        val l = chart.legend
+        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+        l.orientation = Legend.LegendOrientation.HORIZONTAL
+        l.setDrawInside(false)
+        l.form = LegendForm.SQUARE
+        l.formSize = 9f
+        l.textSize = 11f
+        l.xEntrySpace = 4f
+        val mv = XYMarkerView(context, xl.valueFormatter)
+        mv.setChartView(chart) // For bounds control
+
+        chart.marker = mv // Set the marker to the chart
+
     }
 
 
     private fun updateGraph(src: List<InspectionData>) {
+        val barWidth = 20f
 
         val values =
-            ArrayList<Entry>()
+            ArrayList<BarEntry>()
 
         for (content in src) {
-            values.add(Entry(content.date, content.count))
+            values.add(BarEntry(content.date, content.count))
         }
+        val set1: BarDataSet
 
-        // create a dataset and give it a type
-        val set1 = LineDataSet(values, "DataSet 1")
-        set1.axisDependency = YAxis.AxisDependency.LEFT
-        set1.color = ColorTemplate.getHoloBlue()
-        set1.valueTextColor = ColorTemplate.getHoloBlue()
-        set1.lineWidth = 1.5f
-        set1.setDrawCircles(false)
-        set1.setDrawValues(false)
-        set1.fillAlpha = 65
-        set1.fillColor = ColorTemplate.getHoloBlue()
-        set1.highLightColor = Color.rgb(244, 117, 117)
-        set1.setDrawCircleHole(false)
-        // text size of values
-        set1.valueTextSize = 9f
-        // create a data object with the data sets
-        // create a data object with the data sets
-        val data = LineData(set1)
-        data.setValueTextColor(Color.WHITE)
-        data.setValueTextSize(9f)
+        if (chart.data != null &&
+            chart.data.dataSetCount > 0
+        ) {
+            set1 = chart.data.getDataSetByIndex(0) as BarDataSet
+            set1.setValues(values)
+            set1.notifyDataSetChanged()
+            chart.data.notifyDataChanged()
+            chart.notifyDataSetChanged()
+        } else { // create a dataset and give it a type
+            set1 = BarDataSet(values, "東京都のＰＣＲ検査受信数")
+            set1.setDrawIcons(false)
 
-        // set data
-        // set data
-        chart.data = data
+            // customize legend entry
+            set1.setFormLineWidth(1f)
+            set1.setFormLineDashEffect(DashPathEffect(floatArrayOf(10f, 5f), 0f))
+            set1.setFormSize(15f)
+            // text size of values
 
+            set1.setValueTextSize(9f)
+
+            val dataSets = java.util.ArrayList<IBarDataSet>()
+            dataSets.add(set1) // add the data sets
+            // create a data object with the data sets
+            val data = BarData(dataSets)
+            data.barWidth = barWidth
+            data.setValueTextSize(10f)
+
+
+            // set data
+            chart.data = data
+        }
     }
 
     override fun onProgressChanged(
@@ -156,12 +187,9 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         fromUser: Boolean
     ) {
         tvX.text = seekBarX.progress.toString()
-        tvY.text = seekBarY.progress.toString()
-        //actionCreator.getInfectData(seekBarX.progress, seekBarY.progress.toFloat())
-        // redraw
+        chart.setFitBars(true)
         chart.invalidate()
     }
-
 
     private fun observeState() {
 //        store.loadingState.observe(this) {
@@ -171,8 +199,34 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         store.loadedRepositoryListState.observe(this) {
             updateGraph(it)
         }
+
+        store.inspectionNum.observe(this){
+            this.view!!.findViewById<TextView>(R.id.inspection_num).text = it.toString() + "（人）"
+        }
+
     }
 
+    private val onValueSelectedRectF = RectF()
+
+    override fun onValueSelected(
+        e: Entry?,
+        h: Highlight?
+    ) {
+        if (e == null) return
+        val bounds: RectF = onValueSelectedRectF
+        chart.getBarBounds(e as BarEntry?, bounds)
+        val position = chart.getPosition(e, AxisDependency.LEFT)
+//        Log.i("bounds", bounds.toString())
+//        Log.i("position", position.toString())
+//        Log.i(
+//            "x-index",
+//            "low: " + chart.lowestVisibleX + ", high: "
+//                    + chart.highestVisibleX
+//        )
+        MPPointF.recycleInstance(position)
+    }
+
+    override fun onNothingSelected() {}
     override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {}
