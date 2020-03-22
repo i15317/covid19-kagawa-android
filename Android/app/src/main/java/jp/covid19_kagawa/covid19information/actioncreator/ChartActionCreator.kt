@@ -1,9 +1,11 @@
-package jp.covid19_kagawa.covid19information
+package jp.covid19_kagawa.covid19information.actioncreator
 
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import jp.covid19_kagawa.covid19information.action.ChartAction
+import jp.covid19_kagawa.covid19information.repository.ChartRepository
 import jp.covid19_kagawa.covid19information.data.mapper.InspectionMapper
 import timber.log.Timber
 

@@ -24,6 +24,8 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.MPPointF
 import jp.covid19_kagawa.covid19information.*
+import jp.covid19_kagawa.covid19information.actioncreator.ChartActionCreator
+import jp.covid19_kagawa.covid19information.store.ChartStore
 import jp.covid19_kagawa.covid19information.entity.InspectionData
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

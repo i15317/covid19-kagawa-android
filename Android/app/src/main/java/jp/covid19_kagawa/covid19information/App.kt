@@ -3,10 +3,16 @@ package jp.covid19_kagawa.covid19information
 
 import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import jp.covid19_kagawa.covid19information.actioncreator.ChartActionCreator
+import jp.covid19_kagawa.covid19information.actioncreator.InfectionActionCreator
+import jp.covid19_kagawa.covid19information.store.ChartStore
+import jp.covid19_kagawa.covid19information.repository.ChartRepository
 
 
-import jp.covid19_kagawa.covid19information.data.api.DownloaderApi
+import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
+import jp.covid19_kagawa.covid19information.repository.InfectionRepository
+import jp.covid19_kagawa.covid19information.store.InfectionStore
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,7 +21,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
-import java.lang.reflect.Array.get
 
 
 class App : Application() {
@@ -37,7 +42,7 @@ class App : Application() {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(MoshiConverterFactory.create())
                 .build()
-                .create(DownloaderApi::class.java)
+                .create(TokyoAPi::class.java)
         }
 //        single {
 //            Retrofit
@@ -47,15 +52,36 @@ class App : Application() {
 //                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 //                .addConverterFactory(MoshiConverterFactory.create())
 //                .build()
-//                .create(DownloaderApi::class.java)
+//                .create(TokyoAPi::class.java)
 //        }
-        single { ChartRepository(get()) }
+
+        single {
+            ChartRepository(
+                get()
+            )
+        }
+        single {
+            InfectionRepository(
+                get()
+            )
+        }
 
     }
 
     private val uiModule = module {
-        factory { ChartActionCreator(get(), get()) }
+        factory {
+            ChartActionCreator(
+                get(),
+                get()
+            )
+        }
         viewModel { ChartStore(get()) }
+
+        factory {
+            InfectionActionCreator(get(), get())
+        }
+        viewModel { InfectionStore(get()) }
+
     }
 
     override fun onCreate() {

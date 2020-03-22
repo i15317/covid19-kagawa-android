@@ -1,22 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/text_home"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_news"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@color/colorPrimaryDarkofDark"
+            android:textColor="#FFFFFF"
+            android:text="最新のニュース"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/news_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_weight="1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/news_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/text_news"
+            app:layout_constraintTop_toTopOf="@id/text_news"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_weight="9"
+            tools:context="jp.digital_future.cameraxsample.ui.dashboard.DashboardFragment"
+            tools:listitem="@layout/news_repo_item" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <TextView
+            android:id="@+id/text_infection"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@color/colorPrimaryDarkofDark"
+            android:textColor="#FFFFFF"
+            android:text="検査陽性者の状況"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/infection_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
+            app:layout_constraintVertical_weight="1" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/infection_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_infection"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_weight="9"
+            tools:context="jp.digital_future.cameraxsample.ui.dashboard.DashboardFragment"
+            tools:listitem="@layout/news_repo_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

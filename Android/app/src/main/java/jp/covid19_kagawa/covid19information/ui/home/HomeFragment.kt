@@ -4,28 +4,57 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import jp.covid19_kagawa.covid19information.R
+import jp.covid19_kagawa.covid19information.actioncreator.InfectionActionCreator
+import jp.covid19_kagawa.covid19information.store.InfectionStore
+import jp.covid19_kagawa.covid19information.adapter.InfectionAdapter
+import jp.covid19_kagawa.covid19information.adapter.NewsAdapter
+import jp.covid19_kagawa.covid19information.databinding.FragmentHomeBinding
+import jp.covid19_kagawa.covid19information.observe
+import okhttp3.internal.notify
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
-
+    private val store: InfectionStore by viewModel()
+    private val actionCreator: InfectionActionCreator by inject()
+    private val newsAdapter = NewsAdapter()
+    private val infectionAdapter = InfectionAdapter()
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        //アダプターセット
+        binding.infectionList.adapter = infectionAdapter
+        binding.newsList.adapter = newsAdapter
+        observeState()
+        actionCreator.fetchNewsData()
+        actionCreator.getInfectData()
+        return binding.root
+    }
+
+    private fun observeState() {
+        store.loadedNewsList.observe(this) {
+            it ?: return@observe
+            newsAdapter.run {
+                items.clear()
+                items.addAll(it)
+                notifyDataSetChanged()
+            }
+        }
+
+        store.loadedInfectionData.observe(this) {
+            it ?: return@observe
+
+            infectionAdapter.run {
+                items.clear()
+                items.addAll(it)
+                notifyDataSetChanged()
+            }
+        }
+
     }
 }

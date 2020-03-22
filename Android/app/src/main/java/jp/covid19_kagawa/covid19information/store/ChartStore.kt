@@ -1,6 +1,7 @@
-package jp.covid19_kagawa.covid19information
+package jp.covid19_kagawa.covid19information.store
 
 
+import jp.covid19_kagawa.covid19information.action.ChartAction
 import jp.covid19_kagawa.covid19information.entity.InspectionData
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.flux.Store
