@@ -39,9 +39,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
 
     private val store: ChartStore by viewModel()
     private val actionCreator: ChartActionCreator by inject()
-    private lateinit var tvX: TextView
-    //private lateinit var tvY: TextView
-    private lateinit var seekBarX: SeekBar
+
     //  private lateinit var seekBarY: SeekBar
     private lateinit var chart: BarChart
 
@@ -72,12 +70,10 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
     }
 
     private fun setupGraphWindow(root: View) {
-        tvX = root.findViewById(R.id.tvXMax)
+
         //tvY = root.findViewById(R.id.tvYMax)
-        seekBarX = root.findViewById(R.id.seekBar1)
         chart = root.findViewById(R.id.chart1)
 
-        seekBarX.setOnSeekBarChangeListener(this)
         chart.setOnChartValueSelectedListener(this)
         chart.setDrawBarShadow(false)
         chart.setDrawValueAboveBar(true)
@@ -123,7 +119,6 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
         chart.setFitBars(true)
         chart.animateY(1250)
 
-        seekBarX.progress = 12
         val l = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
         l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
@@ -190,7 +185,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
         progress: Int,
         fromUser: Boolean
     ) {
-        tvX.text = seekBarX.progress.toString()
+
         chart.setFitBars(true)
         chart.invalidate()
     }
