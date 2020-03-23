@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
 
     private fun observeState() {
         store.loadedNewsList.observe(this) {
-            it ?: return@observe
+            it
             newsAdapter.run {
                 items.clear()
                 items.addAll(it)
@@ -54,7 +54,7 @@ class HomeFragment : Fragment() {
         }
 
         store.loadedInfectionData.observe(this) {
-            it ?: return@observe
+            it
 
             infectionAdapter.run {
                 items.clear()
@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.main, menu)
     }

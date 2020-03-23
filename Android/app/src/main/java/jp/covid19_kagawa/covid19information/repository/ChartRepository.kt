@@ -8,7 +8,6 @@ import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
 import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
 import jp.covid19_kagawa.covid19information.entity.InspectionData
 
-
 class ChartRepository(
     private val tokyoRepository: TokyoRepository
 ) {

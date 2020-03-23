@@ -37,7 +37,7 @@ class InspectionFragment : Fragment() {
 
     private fun observeState() {
         store.loadedInspectionData.observe(this) {
-            it ?: return@observe
+            it
             infectionAdapter.run {
                 items.clear()
                 items.addAll(it)
@@ -48,7 +48,7 @@ class InspectionFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.main, menu)
     }

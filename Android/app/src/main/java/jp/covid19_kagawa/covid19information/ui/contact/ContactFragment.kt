@@ -100,7 +100,7 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         l.textSize = 11f
         l.xEntrySpace = 4f
         val mv = XYMarkerView(context, xl.valueFormatter)
-        mv.setChartView(chart) // For bounds control
+        mv.chartView = chart // For bounds control
 
         chart.marker = mv // Set the marker to the chart
     }
@@ -120,7 +120,7 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
             chart.data.dataSetCount > 0
         ) {
             set1 = chart.data.getDataSetByIndex(0) as BarDataSet
-            set1.setValues(values)
+            set1.values = values
             set1.notifyDataSetChanged()
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
@@ -129,12 +129,12 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
             set1.setDrawIcons(false)
 
             // customize legend entry
-            set1.setFormLineWidth(1f)
-            set1.setFormLineDashEffect(DashPathEffect(floatArrayOf(10f, 5f), 0f))
-            set1.setFormSize(15f)
+            set1.formLineWidth = 1f
+            set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
+            set1.formSize = 15f
             // text size of values
 
-            set1.setValueTextSize(9f)
+            set1.valueTextSize = 9f
 
             val dataSets = java.util.ArrayList<IBarDataSet>()
             dataSets.add(set1) // add the data sets
@@ -183,7 +183,7 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        super.onCreateOptionsMenu(menu, inflater)
 
         inflater.inflate(R.menu.main, menu)
     }

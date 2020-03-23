@@ -11,8 +11,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-object PrefectureMapper{
-}
+object PrefectureMapper
 
 
 object TokyoMapper {
@@ -25,7 +24,7 @@ object TokyoMapper {
             e.printStackTrace()
         }
         println("Today is $date")
-        return date.getTime()
+        return date.time
     }
 
     fun getInspectionData(data: InfectData): List<InspectionData> {
@@ -76,7 +75,7 @@ object TokyoMapper {
         }
         println("Today is $date")
         return InfectionSummary(
-            date.getTime(), //日付
+            date.time, //日付
             rootData.value, //検査実施人数
             latestData.value, //陽性患者
             latestData.children[0].value,

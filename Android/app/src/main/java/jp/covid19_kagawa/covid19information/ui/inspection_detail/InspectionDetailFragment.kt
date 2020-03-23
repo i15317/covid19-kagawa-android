@@ -130,7 +130,7 @@ class InspectionDetailFragment : Fragment(),
             set1 = BarDataSet(values, "検査実施件数")
             set1.setDrawIcons(false)
             set1.stackLabels = labels
-            set1.colors = getColors()!!.toMutableList()
+            set1.colors = getColors().toMutableList()
             // customize legend entry
             set1.formLineWidth = 1f
             set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
