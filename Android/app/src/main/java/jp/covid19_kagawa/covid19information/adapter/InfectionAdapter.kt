@@ -6,11 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.databinding.InfectionRepoItemBinding
-import jp.covid19_kagawa.covid19information.entity.InfectionEntity
+import jp.covid19_kagawa.covid19information.entity.SummaryEntity
 
 class InfectionAdapter : RecyclerView.Adapter<InfectionAdapter.ViewHolder>() {
-    val items = ArrayList<InfectionEntity>()
-    var onItemClicked: ((item: InfectionEntity) -> Unit)? = null
+    val items = ArrayList<SummaryEntity>()
+    var onItemClicked: ((item: SummaryEntity) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

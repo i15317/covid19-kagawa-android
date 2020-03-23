@@ -5,14 +5,17 @@ import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import jp.covid19_kagawa.covid19information.actioncreator.ChartActionCreator
 import jp.covid19_kagawa.covid19information.actioncreator.InfectionActionCreator
-import jp.covid19_kagawa.covid19information.store.ChartStore
-import jp.covid19_kagawa.covid19information.repository.ChartRepository
-
-
+import jp.covid19_kagawa.covid19information.actioncreator.InspectionActionCreator
+import jp.covid19_kagawa.covid19information.actioncreator.InspectionDetailActionCreator
 import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
+import jp.covid19_kagawa.covid19information.repository.ChartRepository
 import jp.covid19_kagawa.covid19information.repository.InfectionRepository
+import jp.covid19_kagawa.covid19information.repository.InspectionRepository
+import jp.covid19_kagawa.covid19information.store.ChartStore
 import jp.covid19_kagawa.covid19information.store.InfectionStore
+import jp.covid19_kagawa.covid19information.store.InspectionDetailStore
+import jp.covid19_kagawa.covid19information.store.InspectionStore
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -65,7 +68,11 @@ class App : Application() {
                 get()
             )
         }
-
+        single {
+            InspectionRepository(
+                get()
+            )
+        }
     }
 
     private val uiModule = module {
@@ -81,7 +88,14 @@ class App : Application() {
             InfectionActionCreator(get(), get())
         }
         viewModel { InfectionStore(get()) }
-
+        factory {
+            InspectionActionCreator(get(), get())
+        }
+        viewModel { InspectionStore(get()) }
+        factory {
+            InspectionDetailActionCreator(get(), get())
+        }
+        viewModel { InspectionDetailStore(get()) }
     }
 
     override fun onCreate() {

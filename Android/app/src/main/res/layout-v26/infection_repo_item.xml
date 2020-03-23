@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="jp.covid19_kagawa.covid19information.entity.InfectionEntity" />
+            type="jp.covid19_kagawa.covid19information.entity.SummaryEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

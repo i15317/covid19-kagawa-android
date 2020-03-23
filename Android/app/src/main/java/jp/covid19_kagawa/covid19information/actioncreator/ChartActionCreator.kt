@@ -6,7 +6,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.action.ChartAction
 import jp.covid19_kagawa.covid19information.repository.ChartRepository
-import jp.covid19_kagawa.covid19information.data.mapper.InspectionMapper
+import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
 import timber.log.Timber
 
 class ChartActionCreator(
@@ -23,7 +23,7 @@ class ChartActionCreator(
                     dispatch(
 
                         ChartAction.FetchInfectData(
-                            InspectionMapper.getInspectionData(
+                            TokyoMapper.getInspectionData(
                                 it,
                                 count,
                                 range

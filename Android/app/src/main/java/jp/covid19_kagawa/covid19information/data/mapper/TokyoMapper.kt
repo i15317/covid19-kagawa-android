@@ -2,12 +2,9 @@ package jp.covid19_kagawa.covid19information.data.mapper
 
 
 import jp.covid19_kagawa.covid19information.data.entity.InfectData
-import jp.covid19_kagawa.covid19information.data.entity.NewsData
 import jp.covid19_kagawa.covid19information.data.entity.NewsItem
+import jp.covid19_kagawa.covid19information.entity.*
 
-import jp.covid19_kagawa.covid19information.entity.InspectionData
-import jp.covid19_kagawa.covid19information.entity.InfectionSummary
-import jp.covid19_kagawa.covid19information.entity.NewsEntity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,7 +12,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 
-object InspectionMapper {
+object TokyoMapper {
     fun getMilliFromDate(dateFormat: String): Long {
         var date = Date()
         val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
@@ -53,7 +50,7 @@ object InspectionMapper {
                     "",
                     content.text,
                     content.url,
-                    ""
+                    "上をクリックするとWebを開きます"
                 )
             )
         }
@@ -88,5 +85,41 @@ object InspectionMapper {
 
     }
 
+    fun getInspectionSummaryData(data: InfectData): InspectionSummary {
+        //ここの人数で検査実施人数
+        val rootData = data.inspection_status_summary
+        //ここの数で検査実施件数
+        val inspection = rootData.children.last()
+        //地域内
+        val inspection_inside = inspection.children.get(0).value
+        //地域外
+        val inspection_outside = inspection.children.get(1).value
+
+        return InspectionSummary(
+            rootData.date,
+            rootData.value.toString(),
+            inspection_inside.toString(),
+            inspection_outside.toString(),
+            inspection.value.toString()
+        )
+    }
+
+    fun getInspectionDetailData(data: InfectData): List<InspectionDetailSummary> {
+        val rootData = data.inspections_summary
+        val insideData = rootData.data.都内
+        val outsideData = rootData.data.その他
+        val label = data.inspection_persons.labels
+        val list = ArrayList<InspectionDetailSummary>()
+        for (i in 0 until label.count()) {
+            list.add(
+                InspectionDetailSummary(
+                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(label[i])),
+                    insideData[i],
+                    outsideData[i]
+                )
+            )
+        }
+        return list
+    }
 
 }

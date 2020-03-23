@@ -2,53 +2,56 @@ package jp.covid19_kagawa.covid19information.ui.notifications
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
 import jp.covid19_kagawa.covid19information.CustomViewPager
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.ui.dashboard.DashboardFragment
+import jp.covid19_kagawa.covid19information.ui.inspection.InspectionFragment
+import jp.covid19_kagawa.covid19information.ui.inspection_detail.InspectionDetailFragment
 
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
-    R.string.tab_text_2
+    R.string.tab_text_2,
+    R.string.tab_text_3
 )
+private const val COUNT_FRAGMENTS = 3
 
 class NotificationsFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
     private lateinit var viewPager: CustomViewPager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProviders.of(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
         //val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            //    textView.text = it
-        })
+
         viewPager = root.findViewById(R.id.view_pager)
         viewPager.adapter = object :
             FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             override fun getItem(i: Int): Fragment {
+                Toast.makeText(context, "鍵アイコンでスワイプを無効にします", Toast.LENGTH_SHORT).show()
                 when (i) {
                     0 -> {
-                        return DashboardFragment.newInstance()
+                        return InspectionFragment()
+                    }
+                    1 -> {
+                        return InspectionDetailFragment()
                     }
                     else -> {
                         return DashboardFragment.newInstance()
                     }
                 }
+
             }
 
             override fun getCount(): Int {
-                return 2
+                return COUNT_FRAGMENTS
             }
 
             override fun getPageTitle(position: Int): CharSequence? {
@@ -77,6 +80,7 @@ class NotificationsFragment : Fragment() {
                     R.drawable.ic_lock_outline_black_24dp,
                     null
                 )
+                Toast.makeText(context, "スワイプ機能がロックされました", Toast.LENGTH_SHORT).show()
             } else {
                 viewPager.setPagingEnabled(true)
                 item.icon = ResourcesCompat.getDrawable(
@@ -84,6 +88,8 @@ class NotificationsFragment : Fragment() {
                     R.drawable.ic_lock_open_black_24dp,
                     null
                 )
+                Toast.makeText(context, "スワイプ機能が解除されました", Toast.LENGTH_SHORT).show()
+
             }
             true
         }

@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Covid19-kagawa</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">トップ</string>
+    <string name="title_dashboard">役立つ情報</string>
+    <string name="title_notifications">検査状況</string>
     <string name="dash">-</string>
     <string name="action_setting">action_setting</string>
     <string name="action_sync">action_sync</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_1">検査実施状況</string>
+    <string name="tab_text_2">検査実施件数</string>
+    <string name="tab_text_3">検査実施人数</string>
 </resources>

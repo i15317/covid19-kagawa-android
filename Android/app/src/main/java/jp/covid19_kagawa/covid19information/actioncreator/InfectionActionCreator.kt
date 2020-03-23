@@ -3,7 +3,7 @@ package jp.covid19_kagawa.covid19information.actioncreator
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.action.InfectionAction
-import jp.covid19_kagawa.covid19information.data.mapper.InspectionMapper
+import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.InfectionRepository
@@ -22,7 +22,7 @@ class InfectionActionCreator(
                 onSuccess = {
                     dispatch(
                         InfectionAction.FetchInfectionData(
-                            InspectionMapper.getInfectionData(it)
+                            TokyoMapper.getInfectionData(it)
                         )
                     )
                 },
@@ -37,7 +37,7 @@ class InfectionActionCreator(
                 onSuccess = {
                     dispatch(
                         InfectionAction.FetchNewsData(
-                            InspectionMapper.getNewsData(it.newsItems)
+                            TokyoMapper.getNewsData(it.newsItems)
                         )
                     )
                 },
