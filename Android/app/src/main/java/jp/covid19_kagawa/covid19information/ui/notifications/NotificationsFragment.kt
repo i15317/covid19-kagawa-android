@@ -11,6 +11,7 @@ import jp.covid19_kagawa.covid19information.CustomViewPager
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.ui.contact.ContactFragment
 import jp.covid19_kagawa.covid19information.ui.dashboard.DashboardFragment
+import jp.covid19_kagawa.covid19information.ui.entrance.EntranceFragment
 import jp.covid19_kagawa.covid19information.ui.inspection.InspectionFragment
 import jp.covid19_kagawa.covid19information.ui.inspection_detail.InspectionDetailFragment
 
@@ -18,9 +19,10 @@ private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
     R.string.tab_text_2,
     R.string.tab_text_3,
-    R.string.tab_text_4
+    R.string.tab_text_4,
+    R.string.tab_text_5
 )
-private const val COUNT_FRAGMENTS = 4
+private const val COUNT_FRAGMENTS = 5
 
 class NotificationsFragment : Fragment() {
 
@@ -47,6 +49,9 @@ class NotificationsFragment : Fragment() {
                     }
                     2 -> {
                         return ContactFragment()
+                    }
+                    3 -> {
+                        return EntranceFragment()
                     }
                     else -> {
                         return DashboardFragment.newInstance()

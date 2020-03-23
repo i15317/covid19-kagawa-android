@@ -71,30 +71,38 @@ class App : Application() {
     }
 
     private val uiModule = module {
+        viewModel { ChartStore(get()) }
         factory {
             ChartActionCreator(
                 get(),
                 get()
             )
         }
-        viewModel { ChartStore(get()) }
-
+        viewModel { InfectionStore(get()) }
         factory {
             InfectionActionCreator(get(), get())
         }
-        viewModel { InfectionStore(get()) }
+
+        viewModel { InspectionStore(get()) }
         factory {
             InspectionActionCreator(get(), get())
         }
-        viewModel { InspectionStore(get()) }
+
+        viewModel { InspectionDetailStore(get()) }
         factory {
             InspectionDetailActionCreator(get(), get())
         }
-        viewModel { InspectionDetailStore(get()) }
+
+
+        viewModel { ContactStore(get()) }
         factory {
             ContactActionCreator(get(), get())
         }
-        viewModel { ContactStore(get()) }
+
+        viewModel { EntranceStore(get()) }
+        factory {
+            EntranceActionCreator(get(), get())
+        }
     }
 
     override fun onCreate() {

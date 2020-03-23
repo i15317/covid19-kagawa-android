@@ -1,9 +1,10 @@
-package jp.covid19_kagawa.covid19information.ui.contact
+package jp.covid19_kagawa.covid19information.ui.entrance
 
 import android.graphics.DashPathEffect
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.*
+import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
@@ -22,11 +23,10 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.MPPointF
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.XYMarkerView
-import jp.covid19_kagawa.covid19information.actioncreator.ContactActionCreator
 import jp.covid19_kagawa.covid19information.actioncreator.EntranceActionCreator
-import jp.covid19_kagawa.covid19information.entity.ContactEntry
+import jp.covid19_kagawa.covid19information.entity.EntranceEntry
 import jp.covid19_kagawa.covid19information.observe
-import jp.covid19_kagawa.covid19information.store.ContactStore
+import jp.covid19_kagawa.covid19information.store.EntranceStore
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -34,10 +34,11 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class ContactFragment : Fragment(), OnChartValueSelectedListener {
+class EntranceFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
+    OnChartValueSelectedListener {
 
-    private val store: ContactStore by viewModel()
-    private val actionCreator: ContactActionCreator by inject()
+    private val store: EntranceStore by viewModel()
+    private val actionCreator: EntranceActionCreator by inject()
     private lateinit var chart: BarChart
 
     override fun onCreateView(
@@ -45,16 +46,17 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_contact, container, false)
+        val root = inflater.inflate(R.layout.fragment_entrance, container, false)
         setHasOptionsMenu(true)
         setupGraphWindow(root)
         observeState()
-        actionCreator.fetchContactData()
+
+        actionCreator.fetchEntranceData()
         return root
     }
 
     private fun setupGraphWindow(root: View) {
-        chart = root.findViewById(R.id.chart_contact)
+        chart = root.findViewById(R.id.chart_entrance)
         chart.setOnChartValueSelectedListener(this)
         chart.setDrawBarShadow(false)
         chart.setDrawValueAboveBar(true)
@@ -64,7 +66,6 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         chart.setDrawGridBackground(false)
         val xl = chart.xAxis
         xl.position = XAxisPosition.BOTTOM
-        //   xl.typeface = tfLight
         xl.setDrawAxisLine(true)
         xl.setDrawGridLines(true)
         xl.granularity = 10f
@@ -82,11 +83,11 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         yl.setDrawAxisLine(true)
         yl.setDrawGridLines(true)
         yl.axisMinimum = 0f // this replaces setStartAtZero(true)
+
         val yr = chart.axisRight
         yr.setDrawAxisLine(true)
         yr.setDrawGridLines(false)
         yr.axisMinimum = 0f // this replaces setStartAtZero(true)
-
         chart.setFitBars(true)
         chart.animateY(1250)
 
@@ -103,9 +104,11 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         mv.setChartView(chart) // For bounds control
 
         chart.marker = mv // Set the marker to the chart
+
     }
 
-    private fun updateGraph(src: List<ContactEntry>) {
+
+    private fun updateGraph(src: List<EntranceEntry>) {
         val barWidth = 20f
 
         val values =
@@ -125,7 +128,7 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else { // create a dataset and give it a type
-            set1 = BarDataSet(values, "コールセンター相談件数")
+            set1 = BarDataSet(values, "受信相談窓口の相談件数")
             set1.setDrawIcons(false)
 
             // customize legend entry
@@ -133,20 +136,24 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
             set1.setFormLineDashEffect(DashPathEffect(floatArrayOf(10f, 5f), 0f))
             set1.setFormSize(15f)
             // text size of values
-
             set1.setValueTextSize(9f)
-
             val dataSets = java.util.ArrayList<IBarDataSet>()
             dataSets.add(set1) // add the data sets
             // create a data object with the data sets
             val data = BarData(dataSets)
             data.barWidth = barWidth
             data.setValueTextSize(10f)
-
-
-            // set data
             chart.data = data
         }
+    }
+
+    override fun onProgressChanged(
+        seekBar: SeekBar?,
+        progress: Int,
+        fromUser: Boolean
+    ) {
+        chart.setFitBars(true)
+        chart.invalidate()
     }
 
     private fun observeState() {
@@ -154,9 +161,10 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
             updateGraph(it)
         }
 
-        store.contactNum.observe(this) {
+        store.entranceNum.observe(this) {
             this.view!!.findViewById<TextView>(R.id.entrance_num).text = it.toString() + "（件）"
         }
+
     }
 
     private val onValueSelectedRectF = RectF()
@@ -169,16 +177,18 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         val bounds: RectF = onValueSelectedRectF
         chart.getBarBounds(e as BarEntry?, bounds)
         val position = chart.getPosition(e, AxisDependency.LEFT)
-
         MPPointF.recycleInstance(position)
     }
 
     override fun onNothingSelected() {}
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
 
     companion object {
         @JvmStatic
-        fun newInstance(): ContactFragment {
-            return ContactFragment()
+        fun newInstance(): EntranceFragment {
+            return EntranceFragment()
         }
     }
 
@@ -190,8 +200,7 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_sync -> {
-            actionCreator.fetchContactData()
-
+            actionCreator.fetchEntranceData()
             true
         }
         else -> {

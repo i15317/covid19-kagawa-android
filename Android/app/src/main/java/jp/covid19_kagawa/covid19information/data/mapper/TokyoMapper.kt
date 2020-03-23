@@ -136,4 +136,19 @@ object TokyoMapper {
         }
         return ContactData(rootData.date, list)
     }
+
+    fun getEntranceData(data: InfectData): EntranceData {
+        val rootData = data.querents
+        val entries = rootData.data
+        val list = ArrayList<EntranceEntry>()
+        for (entry in entries) {
+            list.add(
+                EntranceEntry(
+                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(entry.日付)),
+                    entry.小計
+                )
+            )
+        }
+        return EntranceData(rootData.date, list)
+    }
 }

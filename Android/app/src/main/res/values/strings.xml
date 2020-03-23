@@ -8,6 +8,7 @@
     <string name="action_sync">action_sync</string>
     <string name="tab_text_1">検査実施状況</string>
     <string name="tab_text_2">検査実施件数</string>
-    <string name="tab_text_3">相談件数</string>
-    <string name="tab_text_4">検査実施人数</string>
+    <string name="tab_text_3">電話窓口相談件数</string>
+    <string name="tab_text_4">窓口相談件数</string>
+    <string name="tab_text_5">検査実施人数</string>
 </resources>

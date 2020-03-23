@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/contact_title"
+        android:id="@+id/entrance_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
@@ -20,17 +20,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
-                android:text="コールセンター相談件数"
+                android:text="電話相談件数（総計）"
                 android:gravity="left|center_vertical"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/contact_num"
+                android:id="@+id/entrance_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="right|center_vertical"
-
                 android:text="0件"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -115,6 +114,6 @@
         android:id="@+id/chart_contact"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/contact_title" />
+        android:layout_below="@+id/entrance_title" />
 
 </RelativeLayout>
