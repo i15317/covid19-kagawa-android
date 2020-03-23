@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.google.android.material.tabs.TabLayout
 import jp.covid19_kagawa.covid19information.CustomViewPager
 import jp.covid19_kagawa.covid19information.R
+import jp.covid19_kagawa.covid19information.ui.contact.ContactFragment
 import jp.covid19_kagawa.covid19information.ui.dashboard.DashboardFragment
 import jp.covid19_kagawa.covid19information.ui.inspection.InspectionFragment
 import jp.covid19_kagawa.covid19information.ui.inspection_detail.InspectionDetailFragment
@@ -16,9 +17,10 @@ import jp.covid19_kagawa.covid19information.ui.inspection_detail.InspectionDetai
 private val TAB_TITLES = arrayOf(
     R.string.tab_text_1,
     R.string.tab_text_2,
-    R.string.tab_text_3
+    R.string.tab_text_3,
+    R.string.tab_text_4
 )
-private const val COUNT_FRAGMENTS = 3
+private const val COUNT_FRAGMENTS = 4
 
 class NotificationsFragment : Fragment() {
 
@@ -42,6 +44,9 @@ class NotificationsFragment : Fragment() {
                     }
                     1 -> {
                         return InspectionDetailFragment()
+                    }
+                    2 -> {
+                        return ContactFragment()
                     }
                     else -> {
                         return DashboardFragment.newInstance()

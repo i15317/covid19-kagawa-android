@@ -20,6 +20,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:gravity="left|center_vertical"
                 android:text="検査実施件数"
                 android:textSize="24sp" />
 
@@ -28,6 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="right|center_vertical"
                 android:text="0件"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -112,7 +114,6 @@
         android:id="@+id/chart_inspection_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/seekBar1"
         android:layout_below="@+id/inspection_detail_title" />
 
 </RelativeLayout>

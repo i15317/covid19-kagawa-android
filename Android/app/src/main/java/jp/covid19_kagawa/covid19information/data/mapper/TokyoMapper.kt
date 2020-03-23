@@ -122,4 +122,18 @@ object TokyoMapper {
         return list
     }
 
+    fun getContactData(data: InfectData): ContactData {
+        val rootData = data.contacts
+        val entries = rootData.data
+        val list = ArrayList<ContactEntry>()
+        for (entry in entries) {
+            list.add(
+                ContactEntry(
+                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(entry.日付)),
+                    entry.`13-17時` + entry.`17-21時` + entry.`9-13時`
+                )
+            )
+        }
+        return ContactData(rootData.date, list)
+    }
 }
