@@ -5,10 +5,9 @@ import android.app.Application
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import jp.covid19_kagawa.covid19information.actioncreator.*
 import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
+import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
-import jp.covid19_kagawa.covid19information.repository.ChartRepository
-import jp.covid19_kagawa.covid19information.repository.InfectionRepository
-import jp.covid19_kagawa.covid19information.repository.InspectionRepository
+import jp.covid19_kagawa.covid19information.repository.*
 import jp.covid19_kagawa.covid19information.store.*
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -53,6 +52,11 @@ class App : Application() {
 //        }
 
         single {
+            TokyoRepository(
+                get()
+            )
+        }
+        single {
             ChartRepository(
                 get()
             )
@@ -67,7 +71,27 @@ class App : Application() {
                 get()
             )
         }
+        single {
+            ContactRepository(
+                get()
+            )
+        }
+        single {
+            EntranceRepository(
+                get()
+            )
+        }
+        single {
+            InspectionDetailRepository(
+                get()
+            )
+        }
+        single {
 
+            NewsRepository(
+                get()
+            )
+        }
     }
 
     private val uiModule = module {
@@ -80,7 +104,7 @@ class App : Application() {
         }
         viewModel { InfectionStore(get()) }
         factory {
-            InfectionActionCreator(get(), get())
+            InfectionActionCreator(get(), get(), get())
         }
 
         viewModel { InspectionStore(get()) }

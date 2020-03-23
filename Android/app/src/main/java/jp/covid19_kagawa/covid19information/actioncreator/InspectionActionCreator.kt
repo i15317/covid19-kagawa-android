@@ -2,8 +2,8 @@ package jp.covid19_kagawa.covid19information.actioncreator
 
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.action.InspectionAction
-import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.InspectionRepository
@@ -14,7 +14,7 @@ class InspectionActionCreator(
     dispatcher: Dispatcher
 ) : ActionCreator<InspectionAction>(dispatcher) {
     fun fetchInspectData() =
-        repository.getInspectionData()
+        repository.fetchInspectionData(Prefecture.TOKYO)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe { dispatch(InspectionAction.ShowLoading(true)) }
             .doFinally { dispatch(InspectionAction.ShowLoading(false)) }
@@ -22,7 +22,7 @@ class InspectionActionCreator(
                 onSuccess = {
                     dispatch(
                         InspectionAction.FetchInspectionData(
-                            TokyoMapper.getInspectionSummaryData(it)
+                            it
                         )
                     )
                 },

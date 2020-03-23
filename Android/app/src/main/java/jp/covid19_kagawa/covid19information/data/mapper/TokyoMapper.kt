@@ -11,6 +11,9 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
+object PrefectureMapper{
+}
+
 
 object TokyoMapper {
     fun getMilliFromDate(dateFormat: String): Long {
@@ -25,7 +28,7 @@ object TokyoMapper {
         return date.getTime()
     }
 
-    fun getInspectionData(data: InfectData, count: Int, range: Float): List<InspectionData> {
+    fun getInspectionData(data: InfectData): List<InspectionData> {
         val rootData = data.inspection_persons.labels
         val countData = data.inspection_persons.datasets.get(0).data
         val makeData = ArrayList<InspectionData>()
@@ -33,12 +36,12 @@ object TokyoMapper {
         for (i in 0 until rootData.count()) {
             makeData.add(
                 InspectionData(
-                    countData.get(i) * range,
+                    countData.get(i).toFloat(),
                     TimeUnit.MILLISECONDS.toHours(getMilliFromDate(rootData.get(i))).toFloat()
                 )
             )
         }
-        return makeData.dropWhile { makeData.count() >= count }
+        return makeData
     }
 
     fun getNewsData(data: List<NewsItem>): List<NewsEntity> {

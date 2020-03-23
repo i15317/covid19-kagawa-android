@@ -2,19 +2,21 @@ package jp.covid19_kagawa.covid19information.actioncreator
 
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.action.InfectionAction
-import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.InfectionRepository
+import jp.covid19_kagawa.covid19information.repository.NewsRepository
 import timber.log.Timber
 
 class InfectionActionCreator(
-    private val repository: InfectionRepository,
+    private val infectionRepository: InfectionRepository,
+    private val newsRepository: NewsRepository,
     dispatcher: Dispatcher
 ) : ActionCreator<InfectionAction>(dispatcher) {
     fun getInfectData() =
-        repository.getInfectionData()
+        infectionRepository.fetchInfectionData(Prefecture.TOKYO)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe { dispatch(InfectionAction.ShowLoading(true)) }
             .doFinally { dispatch(InfectionAction.ShowLoading(false)) }
@@ -22,7 +24,7 @@ class InfectionActionCreator(
                 onSuccess = {
                     dispatch(
                         InfectionAction.FetchInfectionData(
-                            TokyoMapper.getInfectionData(it)
+                            it
                         )
                     )
                 },
@@ -30,15 +32,13 @@ class InfectionActionCreator(
             )
 
     fun fetchNewsData() =
-        repository.getNewsData().subscribeOn(Schedulers.io())
+        newsRepository.fetchNewsData(Prefecture.TOKYO).subscribeOn(Schedulers.io())
             .doOnSubscribe { dispatch(InfectionAction.ShowLoading(true)) }
             .doFinally { dispatch(InfectionAction.ShowLoading(false)) }
             .subscribeBy(
                 onSuccess = {
                     dispatch(
-                        InfectionAction.FetchNewsData(
-                            TokyoMapper.getNewsData(it.newsItems)
-                        )
+                        InfectionAction.FetchNewsData(it)
                     )
                 },
                 onError = {

@@ -64,7 +64,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
         observeState()
 
         //actionCreator.getInfectData(seekBarX.progress, seekBarY.progress.toFloat())
-        actionCreator.getInfectData(150, 1.0f)
+        actionCreator.getInfectData()
 
         return root
     }
@@ -245,7 +245,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_sync -> {
-            actionCreator.getInfectData(150, 1.0f)
+            actionCreator.getInfectData()
 
             true
         }

@@ -6,13 +6,13 @@ import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
 import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
-import jp.covid19_kagawa.covid19information.entity.InfectionSummary
+import jp.covid19_kagawa.covid19information.entity.EntranceData
 
-class InfectionRepository(
+class EntranceRepository(
     private val tokyoRepository: TokyoRepository
 ) {
-    fun fetchInfectionData(prefecture: Prefecture): Single<InfectionSummary> {
-        return Single.create<InfectionSummary> { emitter ->
+    fun fetchEntranceData(prefecture: Prefecture): Single<EntranceData> {
+        return Single.create<EntranceData> { emitter ->
             when (prefecture) {
                 Prefecture.TOKYO -> {
                     tokyoRepository.fetchInspectData()
@@ -20,7 +20,7 @@ class InfectionRepository(
                         .subscribeBy(
                             onSuccess = {
                                 emitter.onSuccess(
-                                    TokyoMapper.getInfectionData(it)
+                                    TokyoMapper.getEntranceData(it)
                                 )
                             },
                             onError = { emitter.onError(it) }
