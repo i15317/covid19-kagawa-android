@@ -2,8 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_setting"
-        app:showAsAction="never" />
+        android:id="@+id/action_sync"
+        android:icon="@drawable/ic_sync_black_24dp"
+        android:title="@string/action_sync"
+        app:showAsAction="ifRoom"/>
+
+<!--    <item-->
+    <!--        android:id="@+id/action_settings"-->
+    <!--        android:orderInCategory="100"-->
+    <!--        android:title="@string/action_setting"-->
+    <!--        app:showAsAction="never" />-->
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_notifications" />
 </menu>

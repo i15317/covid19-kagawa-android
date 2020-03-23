@@ -45,6 +45,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
                 loadingState.postValue(action.isLoading)
             }
             is InfectionAction.FetchInfectionData -> {
+                loadingInfectionList.clear()
                 loadingInfectionList.addAll(makeInfectionList(action.data))
                 loadedInfectionData.postValue(loadingInfectionList)
             }
@@ -61,12 +62,12 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
 
     private fun makeInfectionList(infectionSummary: InfectionSummary): List<InfectionEntity> {
 
-        val inspectedEntity = InfectionEntity(
-            MAIN_TITLE,
-            SUB_TITLE,
-            infectionSummary.inspection_num.toString(),
-            ""
-        )
+//        val inspectedEntity = InfectionEntity(
+//            MAIN_TITLE,
+//            SUB_TITLE,
+//            infectionSummary.inspection_num.toString(),
+//            ""
+//        )
 
         //陽性患者数
         val infectedEntity = InfectionEntity(
@@ -116,7 +117,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
             ""
         )
         return mutableListOf(
-            inspectedEntity,
+      //      inspectedEntity,
             infectedEntity,
             hospitalEntity,
             lightEntity,

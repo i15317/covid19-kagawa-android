@@ -3,9 +3,7 @@ package jp.covid19_kagawa.covid19information.ui.dashboard
 import android.graphics.DashPathEffect
 import android.graphics.RectF
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -44,7 +42,6 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
     private lateinit var seekBarX: SeekBar
     //  private lateinit var seekBarY: SeekBar
     private lateinit var chart: BarChart
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -61,8 +58,10 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
 //            it ?: Toast.makeText(context, "Chartdata is null", Toast.LENGTH_SHORT).show()
 //            updateGraph(it)
 //        })
+        setHasOptionsMenu(true)
         setupGraphWindow(root)
         observeState()
+
         //actionCreator.getInfectData(seekBarX.progress, seekBarY.progress.toFloat())
         actionCreator.getInfectData(150, 1.0f)
 
@@ -202,7 +201,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
             updateGraph(it)
         }
 
-        store.inspectionNum.observe(this){
+        store.inspectionNum.observe(this) {
             this.view!!.findViewById<TextView>(R.id.inspection_num).text = it.toString() + "（人）"
         }
 
@@ -232,4 +231,30 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
     override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
     override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+
+    companion object {
+        @JvmStatic
+        fun newInstance(): DashboardFragment {
+            return DashboardFragment()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_sync -> {
+            actionCreator.getInfectData(150, 1.0f)
+
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+
+    }
+
 }

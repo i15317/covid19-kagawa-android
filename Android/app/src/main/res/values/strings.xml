@@ -5,4 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="dash">-</string>
     <string name="action_setting">action_setting</string>
+    <string name="action_sync">action_sync</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

@@ -26,7 +26,7 @@ class ChartStore(dispatcher: Dispatcher) : Store(dispatcher) {
                 loadingState.postValue(action.isLoading)
             }
             is ChartAction.FetchInfectData -> {
-                //    inspectionData.clear()
+                inspectionData.clear()
                 inspectionData.addAll(action.list)
                 loadedRepositoryListState.postValue(inspectionData)
                 inspectionNum.postValue(inspectionData.sumBy { it.count.toInt() })
