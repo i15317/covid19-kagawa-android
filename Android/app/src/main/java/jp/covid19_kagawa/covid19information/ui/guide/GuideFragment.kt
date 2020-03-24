@@ -17,7 +17,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private enum class SCENE {
     SCENE1,
-    SCENE2
+    SCENE2,
+    SCENE3,
+    SCENE4
 }
 
 class GuideFragment : Fragment() {
@@ -47,8 +49,20 @@ class GuideFragment : Fragment() {
         mSceneRoot = view.findViewById<View>(R.id.scene_root) as ViewGroup
         //各シーンのビューのインスタンスを作成
         mView1 = Scene1Binding.inflate(inflater, mSceneRoot, false)
+        mView1.scene1GotoNext.setOnClickListener {
+            //Scene2へ遷移させる
+            actionCreator.changeGuideScene(selectScene(SCENE.SCENE2))
+        }
         mView2 = Scene2Binding.inflate(inflater, mSceneRoot, false)
+        mView2.scene2GotoScene3.setOnClickListener {
+            //Scene3へ遷移させる
+            actionCreator.changeGuideScene(selectScene(SCENE.SCENE3))
+        }
         mView3 = Scene3Binding.inflate(inflater, mSceneRoot, false)
+        mView3.scene3GotoScene4.setOnClickListener {
+            //Scene4へ遷移させる
+            actionCreator.changeGuideScene(selectScene(SCENE.SCENE4))
+        }
         mView4 = Scene4Binding.inflate(inflater, mSceneRoot, false)
 
 //        //シーンのリソース周りの設定
@@ -62,6 +76,8 @@ class GuideFragment : Fragment() {
         //シーンの登録
         mScene1 = Scene(mSceneRoot, mView1.root)
         mScene2 = Scene(mSceneRoot, mView2.root)
+        mScene3 = Scene(mSceneRoot, mView3.root)
+        mScene4 = Scene(mSceneRoot, mView4.root)
 
         //デフォルトのシーンに移動
         actionCreator.changeGuideScene(selectScene(SCENE.SCENE1))
@@ -76,6 +92,10 @@ class GuideFragment : Fragment() {
     private fun selectScene(scene: SCENE): TransitionData =
         when (scene) {
             SCENE.SCENE1 -> TransitionData(this.mScene1, GuideSelection.TOP)
-            SCENE.SCENE2 -> TransitionData(this.mScene2, GuideSelection.GUIDE)
+            SCENE.SCENE2 -> TransitionData(this.mScene2, GuideSelection.SCENE2)
+            SCENE.SCENE3 -> TransitionData(this.mScene3, GuideSelection.SCENE3)
+            SCENE.SCENE4 -> TransitionData(this.mScene4, GuideSelection.SCENE4)
         }
+
+
 }
