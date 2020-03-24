@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Covid19-kagawa</string>
     <string name="title_home">トップ</string>
-    <string name="title_dashboard">役立つ情報</string>
+    <string name="title_dashboard">感染が心配な時</string>
     <string name="title_notifications">検査状況</string>
     <string name="dash">-</string>
     <string name="action_setting">action_setting</string>

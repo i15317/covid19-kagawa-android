@@ -51,47 +51,15 @@ class App : Application() {
 //                .create(TokyoAPi::class.java)
 //        }
 
-        single {
-            TokyoRepository(
-                get()
-            )
-        }
-        single {
-            ChartRepository(
-                get()
-            )
-        }
-        single {
-            InfectionRepository(
-                get()
-            )
-        }
-        single {
-            InspectionRepository(
-                get()
-            )
-        }
-        single {
-            ContactRepository(
-                get()
-            )
-        }
-        single {
-            EntranceRepository(
-                get()
-            )
-        }
-        single {
-            InspectionDetailRepository(
-                get()
-            )
-        }
-        single {
-
-            NewsRepository(
-                get()
-            )
-        }
+        single { TokyoRepository(get()) }
+        single { ChartRepository(get()) }
+        single { InfectionRepository(get()) }
+        single { InspectionRepository(get()) }
+        single { ContactRepository(get()) }
+        single { EntranceRepository(get()) }
+        single { InspectionDetailRepository(get()) }
+        single { NewsRepository(get()) }
+        single { GuideRepository() }
     }
 
     private val uiModule = module {
@@ -127,6 +95,11 @@ class App : Application() {
         factory {
             EntranceActionCreator(get(), get())
         }
+        viewModel {
+            GuideStore(get())
+        }
+        factory { GuideActionCreator(get(), get()) }
+
     }
 
     override fun onCreate() {

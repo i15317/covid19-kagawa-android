@@ -14,24 +14,236 @@
  limitations under the License.
 -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorBack">
 
-        <Button
-            android:id="@+id/button_scene1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Scene1"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4">
+
+                <TextView
+                    android:id="@+id/corona_top_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="発症前2週間以内の出来事と症状"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/corona_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/corona_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="「新型コロナウイルス感染者と」"
+                    android:textAlignment="center"
+                    android:textColor="@color/green600"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/two_weeks_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/corona_top_text" />
+
+                <TextView
+                    android:id="@+id/two_weeks_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="濃厚接触をした方"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/textView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/corona_text" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="130dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="18dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/frame_style"
+                    android:maxLines="1"
+                    android:padding="16dp"
+                    android:text="発熱"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                    app:layout_constraintEnd_toStartOf="@+id/button2"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="130dp"
+                    android:layout_height="70dp"
+                    android:layout_marginEnd="18dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/frame_style"
+                    android:maxLines="1"
+                    android:padding="16dp"
+                    android:text="呼吸器症状"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/button"
+                    app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:text="または"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/button2"
+                    app:layout_constraintStart_toEndOf="@id/button"
+                    app:layout_constraintTop_toBottomOf="@id/two_weeks_text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/corona_contact_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="流行地域への渡航・居住歴がある方"
+                    android:textAlignment="center"
+                    android:textColor="@color/green600"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/deep_contact_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/deep_contact_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:autoSizeTextType="uniform"
+                    android:gravity="center_horizontal"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:text="ご本人か濃厚接触をした方"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/contact_and_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/corona_contact_text" />
+
+                <Button
+                    android:id="@+id/contact_fever_button"
+                    android:layout_width="130dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="18dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/frame_style"
+                    android:maxLines="1"
+                    android:padding="16dp"
+                    android:text="呼吸器症状"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/contact_and_text"
+                    app:layout_constraintEnd_toStartOf="@+id/contact_fever_37_button"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/contact_and_text" />
+
+                <Button
+                    android:id="@+id/contact_fever_37_button"
+                    android:layout_width="130dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="18dp"
+                    android:autoSizeTextType="uniform"
+                    android:background="@drawable/frame_style"
+                    android:maxLines="2"
+                    android:padding="16dp"
+                    android:text="発熱\n37.5℃以上"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/contact_and_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/contact_fever_button"
+                    app:layout_constraintTop_toTopOf="@+id/contact_and_text" />
+
+                <TextView
+                    android:id="@+id/contact_and_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center_horizontal"
+                    android:padding="8dp"
+                    android:text="または"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/contact_fever_37_button"
+                    app:layout_constraintStart_toEndOf="@id/contact_fever_button"
+                    app:layout_constraintTop_toBottomOf="@id/deep_contact_text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/scene1_goto_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoSizeTextType="uniform"
+                android:background="@color/colorAccent"
+                android:maxLines="1"
+                android:padding="6dp"
+                android:text="上に該当する方はこちら"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/scene1_goto_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="そうでない方はこちら" />
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

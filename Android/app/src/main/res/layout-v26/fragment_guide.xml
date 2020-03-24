@@ -16,11 +16,10 @@
         <TextView
             android:id="@+id/root_text"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:padding="4dp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
             android:autoSizeTextType="uniform"
             android:maxLines="1"
+            android:padding="4dp"
             android:text="@{item.titleMessage}"
             app:layout_constraintBottom_toTopOf="@id/scene_root"
             app:layout_constraintStart_toStartOf="parent"
