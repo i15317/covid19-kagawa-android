@@ -6,7 +6,6 @@ import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.action.ContactAction
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
-import jp.covid19_kagawa.covid19information.repository.ChartRepository
 import jp.covid19_kagawa.covid19information.repository.ContactRepository
 import timber.log.Timber
 
@@ -26,5 +25,4 @@ class ContactActionCreator(
                 },
                 onError = { Timber.e(it) }
             )
-
 }
