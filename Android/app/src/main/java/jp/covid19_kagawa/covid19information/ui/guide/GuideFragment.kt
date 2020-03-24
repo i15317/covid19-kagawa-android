@@ -10,9 +10,7 @@ import jp.covid19_kagawa.covid19information.GuideSelection
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.TransitionData
 import jp.covid19_kagawa.covid19information.actioncreator.GuideActionCreator
-import jp.covid19_kagawa.covid19information.databinding.FragmentGuideBinding
-import jp.covid19_kagawa.covid19information.databinding.Scene1Binding
-import jp.covid19_kagawa.covid19information.databinding.Scene2Binding
+import jp.covid19_kagawa.covid19information.databinding.*
 import jp.covid19_kagawa.covid19information.store.GuideStore
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,17 +22,20 @@ private enum class SCENE {
 
 class GuideFragment : Fragment() {
 
-    // We transition between these Scenes
-
     private lateinit var mView1: Scene1Binding
     private lateinit var mView2: Scene2Binding
+    private lateinit var mView3: Scene3Binding
+    private lateinit var mView4: Scene4Binding
     private lateinit var mScene1: Scene
     private lateinit var mScene2: Scene
+    private lateinit var mScene3: Scene
+    private lateinit var mScene4: Scene
 
     /** Transitions take place in this ViewGroup. We retain this for the dynamic transition on scene 4.  */
     private lateinit var mSceneRoot: ViewGroup
     private val store: GuideStore by viewModel()
     private val actionCreator: GuideActionCreator by inject()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,6 +48,8 @@ class GuideFragment : Fragment() {
         //各シーンのビューのインスタンスを作成
         mView1 = Scene1Binding.inflate(inflater, mSceneRoot, false)
         mView2 = Scene2Binding.inflate(inflater, mSceneRoot, false)
+        mView3 = Scene3Binding.inflate(inflater, mSceneRoot, false)
+        mView4 = Scene4Binding.inflate(inflater, mSceneRoot, false)
 
 //        //シーンのリソース周りの設定
 //        mView1.buttonScene1.setOnClickListener {
