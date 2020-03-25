@@ -24,21 +24,26 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
-        android:id="@+id/area_setting"
-        android:name="jp.covid19_kagawa.covid19information.ui.preferences.PrefectureFragment"
-        android:label="都道府県の設定">
+        android:id="@+id/navigation_setting_area"
+        android:name="jp.covid19_kagawa.covid19information.ui.preferences.AreaFragment"
+        android:label="都道府県の設定"
+        android:layout="@layout/fragment_area">
         <action
             android:id="@+id/action_area_to_pref"
-            app:destination="@+id/pref_setting" />
+            app:argType="jp.covid19_kagawa.covid19information.room.entity.AreaEntity"
+            app:destination="@id/navigation_setting_pref" />
     </fragment>
 
     <fragment
-        android:id="@+id/pref_setting"
+        android:id="@+id/navigation_setting_pref"
         android:name="jp.covid19_kagawa.covid19information.ui.preferences.PrefectureFragment"
-        android:label="都道府県の設定" />
+        android:label="都道府県の設定"
+        android:layout="@layout/fragment_pref">
 
-    <!--Global action-->
-    <action
-        android:id="@+id/open_settings_fragment"
-        app:destination="@+id/area_setting" />
+        <argument
+            android:name="content"
+            app:argType="jp.covid19_kagawa.covid19information.room.entity.AreaEntity" />
+    </fragment>
+
+
 </navigation>

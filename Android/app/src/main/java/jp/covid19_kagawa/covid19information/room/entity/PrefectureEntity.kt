@@ -1,4 +1,4 @@
-package jp.digital_future.cameraxsample.room.entity
+package jp.covid19_kagawa.covid19information.room.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

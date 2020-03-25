@@ -3,10 +3,10 @@ package jp.covid19_kagawa.covid19information.repository
 import android.content.Context
 import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.R
-import jp.digital_future.cameraxsample.room.database.JapanTopDatabase
-import jp.digital_future.cameraxsample.room.database.PrefectureDatabase
-import jp.digital_future.cameraxsample.room.entity.AreaEntity
-import jp.digital_future.cameraxsample.room.entity.PrefectureEntity
+import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
+import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
+import jp.covid19_kagawa.covid19information.room.entity.AreaEntity
+import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
 
 class DatabaseRepository() {
     private val areaDao by lazy { JapanTopDatabase.getInstance().japanTopDao() }

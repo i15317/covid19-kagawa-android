@@ -1,4 +1,4 @@
-package jp.digital_future.cameraxsample.room.dao
+package jp.covid19_kagawa.covid19information.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.Completable
 import io.reactivex.Single
-import jp.digital_future.cameraxsample.room.entity.AreaEntity
+import jp.covid19_kagawa.covid19information.room.entity.AreaEntity
 
 @Dao
 interface JapanTopDao {
@@ -15,7 +15,7 @@ interface JapanTopDao {
     fun upsert(entities: List<AreaEntity>): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsert(entity: AreaEntity): Completable
+    fun upsert(entity: AreaEntity)
 
     @Query("SELECT count(*) FROM japan_top")
     fun getDashboardItemSize(): Int

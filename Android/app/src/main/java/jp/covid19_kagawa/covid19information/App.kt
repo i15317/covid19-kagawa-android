@@ -8,9 +8,9 @@ import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
 import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.*
+import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
+import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
 import jp.covid19_kagawa.covid19information.store.*
-import jp.digital_future.cameraxsample.room.database.JapanTopDatabase
-import jp.digital_future.cameraxsample.room.database.PrefectureDatabase
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -62,6 +62,7 @@ class App : Application() {
         single { InspectionDetailRepository(get()) }
         single { NewsRepository(get()) }
         single { GuideRepository() }
+        single { DatabaseRepository() }
     }
 
     private val uiModule = module {
@@ -102,6 +103,10 @@ class App : Application() {
         }
         factory { GuideActionCreator(get(), get()) }
 
+        factory { PrefectureActionCreator(get(), get()) }
+        viewModel { PrefectureStore(get()) }
+        factory { AreaActionCreator(get(), get()) }
+        viewModel { AreaStore(get()) }
     }
 
     override fun onCreate() {

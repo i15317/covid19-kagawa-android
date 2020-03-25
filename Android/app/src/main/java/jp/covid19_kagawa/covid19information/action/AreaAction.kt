@@ -1,6 +1,6 @@
 package jp.covid19_kagawa.covid19information.action
 
-import jp.digital_future.cameraxsample.room.entity.AreaEntity
+import jp.covid19_kagawa.covid19information.room.entity.AreaEntity
 
 sealed class AreaAction {
     class ShowLoading(val isLoading: Boolean) : AreaAction()

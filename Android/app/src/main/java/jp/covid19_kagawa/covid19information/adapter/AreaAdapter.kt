@@ -6,9 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.databinding.AreaRepoItemBinding
+import jp.covid19_kagawa.covid19information.room.entity.AreaEntity
 import jp.covid19_kagawa.covid19information.setSafeClickListener
-import jp.digital_future.cameraxsample.room.entity.AreaEntity
-import kotlinx.android.synthetic.main.news_repo_item.view.*
 
 class AreaAdapter : RecyclerView.Adapter<AreaAdapter.ViewHolder>() {
     val items = ArrayList<AreaEntity>()
@@ -27,7 +26,7 @@ class AreaAdapter : RecyclerView.Adapter<AreaAdapter.ViewHolder>() {
 
         // holder.binding.repo = item
         holder.binding.item = item
-        holder.binding.root.news_main_num.setSafeClickListener {
+        holder.binding.root.setSafeClickListener {
             onItemClicked?.invoke(item)
         }
         holder.binding.executePendingBindings()

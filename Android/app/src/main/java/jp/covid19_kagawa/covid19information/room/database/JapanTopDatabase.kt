@@ -1,11 +1,11 @@
-package jp.digital_future.cameraxsample.room.database
+package jp.covid19_kagawa.covid19information.room.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import jp.digital_future.cameraxsample.room.dao.JapanTopDao
-import jp.digital_future.cameraxsample.room.entity.AreaEntity
+import jp.covid19_kagawa.covid19information.room.dao.JapanTopDao
+import jp.covid19_kagawa.covid19information.room.entity.AreaEntity
 
 @Database(entities = [AreaEntity::class], version = JapanTopDatabase.DATABASE_VERSION)
 abstract class JapanTopDatabase : RoomDatabase() {
@@ -15,7 +15,7 @@ abstract class JapanTopDatabase : RoomDatabase() {
         const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "chocolate_japan.db"
         private lateinit var instance: JapanTopDatabase
-        var TEST_MODE = false
+        private var TEST_MODE = true
         fun init(context: Context) {
             if (TEST_MODE) {
                 Room.inMemoryDatabaseBuilder(context, JapanTopDatabase::class.java)

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="item"
-            type="jp.digital_future.cameraxsample.room.entity.AreaEntity" />
+            type="jp.covid19_kagawa.covid19information.room.entity.AreaEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

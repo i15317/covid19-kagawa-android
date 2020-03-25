@@ -1,18 +1,29 @@
-package jp.digital_future.cameraxsample.room.database
+package jp.covid19_kagawa.covid19information.room.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import jp.digital_future.cameraxsample.room.dao.PrefectureDao
-import jp.digital_future.cameraxsample.room.entity.PrefectureEntity
+import androidx.room.*
+import jp.covid19_kagawa.covid19information.Prefecture
+import jp.covid19_kagawa.covid19information.room.dao.PrefectureDao
+import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
+
+class PrefectureConverter {
+    @TypeConverter
+    fun fromPrefecture(value: Prefecture): String {
+        return value.prefCode.toString()
+    }
+
+    @TypeConverter
+    fun toPrefecture(value: String): Prefecture {
+        return Prefecture.valueOf(value)
+    }
+}
 
 @Database(
     entities = [PrefectureEntity::class],
     version = PrefectureDatabase.DATABASE_VERSION
 )
+@TypeConverters(PrefectureConverter::class)
 abstract class PrefectureDatabase : RoomDatabase() {
-
     abstract fun prefectureDao(): PrefectureDao
 
     companion object {
@@ -20,9 +31,9 @@ abstract class PrefectureDatabase : RoomDatabase() {
         const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "chocolate_pref.db"
         private lateinit var instance: PrefectureDatabase
-        var TEST_MODE = false
+        private var TEST_MODE = true
         fun init(context: Context) {
-            if (PrefectureDatabase.TEST_MODE) {
+            if (TEST_MODE) {
                 Room.inMemoryDatabaseBuilder(context, PrefectureDatabase::class.java)
                     .allowMainThreadQueries()
                     .build()
@@ -31,7 +42,7 @@ abstract class PrefectureDatabase : RoomDatabase() {
                 Room.databaseBuilder(
                     context,
                     PrefectureDatabase::class.java,
-                    PrefectureDatabase.DATABASE_NAME
+                    DATABASE_NAME
                 ).fallbackToDestructiveMigration()
                     .build()
                     .also { instance = it }

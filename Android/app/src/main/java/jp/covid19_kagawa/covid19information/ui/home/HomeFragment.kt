@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
 
     private fun observeState() {
         store.loadedNewsList.observe(this) {
-            it
             newsAdapter.run {
                 items.clear()
                 items.addAll(it)
@@ -54,7 +53,6 @@ class HomeFragment : Fragment() {
         }
 
         store.loadedInfectionData.observe(this) {
-            it
 
             infectionAdapter.run {
                 items.clear()

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.databinding.PrefRepoItemBinding
 import jp.covid19_kagawa.covid19information.setSafeClickListener
-import jp.digital_future.cameraxsample.room.entity.PrefectureEntity
+import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
 import kotlinx.android.synthetic.main.news_repo_item.view.*
 
 class PrefAdapter : RecyclerView.Adapter<PrefAdapter.ViewHolder>() {
@@ -27,7 +27,7 @@ class PrefAdapter : RecyclerView.Adapter<PrefAdapter.ViewHolder>() {
 
         // holder.binding.repo = item
         holder.binding.item = item
-        holder.binding.root.news_main_num.setSafeClickListener {
+        holder.binding.root.setSafeClickListener {
             onItemClicked?.invoke(item)
         }
         holder.binding.executePendingBindings()

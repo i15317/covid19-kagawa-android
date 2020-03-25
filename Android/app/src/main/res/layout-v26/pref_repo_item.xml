@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="jp.digital_future.cameraxsample.room.entity.PrefectureEntity" />
+            type="jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

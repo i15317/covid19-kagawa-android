@@ -1,36 +1,39 @@
 package jp.covid19_kagawa.covid19information
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.AppLaunchChecker
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import boolean
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import jp.digital_future.cameraxsample.room.database.JapanTopDatabase
-import jp.digital_future.cameraxsample.room.database.PrefectureDatabase
+import jp.covid19_kagawa.covid19information.actioncreator.AreaActionCreator
+import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
+import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
+import org.koin.android.ext.android.inject
 
-private val PREFERENCES_NAME = "jp.covid19_kagawa.covid19information_preferences"
-private val IS_FIRST_FLAG = "is_first_flag"
-private val IS_UPDATE_FLAG = "is_update_flag"
+val PREFERENCES_NAME = "jp.covid19_kagawa.covid19information_preferences"
+val IS_FIRST_FLAG = "is_first_flag"
+val IS_UPDATE_FLAG = "is_update_flag"
 val DB_UPDATE_FLAG = "db_update_flag"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navView: BottomNavigationView
-    private val preferences by lazy { getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE) }
-    private var isFirstFlag: Boolean by preferences.boolean(true, IS_FIRST_FLAG)
-    private var isUpdateFlag: Boolean by preferences.boolean(true, IS_UPDATE_FLAG)
-    private var dbUpdateFlag: Boolean by preferences.boolean(false, DB_UPDATE_FLAG)
+    private val actionCreator: AreaActionCreator by inject()
+
+    //    private var isFirstFlag: Boolean by preferences.boolean(true, IS_FIRST_FLAG)
+//    private var isUpdateFlag: Boolean by preferences.boolean(true, IS_UPDATE_FLAG)
+//    private var dbUpdateFlag: Boolean by preferences.boolean(false, DB_UPDATE_FLAG)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         checkFirstFlag()
+        //preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -40,7 +43,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home,
                 R.id.navigation_dashboard,
                 R.id.navigation_notifications,
-                R.id.navigation_settings
+                R.id.navigation_setting_area,
+                R.id.navigation_setting_pref
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -58,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_setting -> {
                 navView.clearFocus()
                 navView.clearAnimation()
-                navController.navigate(R.id.navigation_settings)
+                navController.navigate(R.id.navigation_setting_area)
                 return true
             }
             else -> {
@@ -69,17 +73,24 @@ class MainActivity : AppCompatActivity() {
 
     //更新時はデータベースの初期化
     private fun checkFirstFlag() {
-        if (isFirstFlag) {
+        if (!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
             JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
             PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
-            dbUpdateFlag = true
-            isFirstFlag = false
+            actionCreator.initDatabase(this)
+        }else{
+            AppLaunchChecker.onActivityCreate(this)
         }
-        if (isUpdateFlag) {
-            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
-            PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
-            dbUpdateFlag = true
-            isUpdateFlag = false
-        }
+//        if (isFirstFlag) {
+//            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
+//            PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
+//            dbUpdateFlag = true
+//            isFirstFlag = false
+//        }
+//        if (isUpdateFlag) {
+//            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
+//            PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
+//            dbUpdateFlag = true
+//            isUpdateFlag = false
+//        }
     }
 }
