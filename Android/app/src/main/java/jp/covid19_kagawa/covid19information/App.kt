@@ -9,6 +9,8 @@ import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.*
 import jp.covid19_kagawa.covid19information.store.*
+import jp.digital_future.cameraxsample.room.database.JapanTopDatabase
+import jp.digital_future.cameraxsample.room.database.PrefectureDatabase
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -104,6 +106,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initRoomDatabase()
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
@@ -113,5 +116,11 @@ class App : Application() {
             // 先ほど宣言したmoduleを指定します。
             modules(listOf(appModule, uiModule, networkModule))
         }
+    }
+
+    //データベースの初期化
+    private fun initRoomDatabase() {
+        JapanTopDatabase.init(this)
+        PrefectureDatabase.init(this)
     }
 }

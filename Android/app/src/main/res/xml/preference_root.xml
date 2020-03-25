@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="prefecture_category"
+        app:summary="表示する都道府県を選択してください"
+        app:title="都道府県"
+        app:useSimpleSummaryProvider="true">
+        <ListPreference
+            android:dialogTitle="北海道・東北"
+            android:entries="@array/pref_hk"
+            android:entryValues="@array/pref_hk_value"
+            android:key="prefecture"
+            android:title="北海道・東北" />
+
+        <ListPreference
+            android:dialogTitle="関東"
+            android:entries="@array/pref_tokyo"
+            android:entryValues="@array/pref_tokyo_value"
+            android:key="prefecture"
+            android:title="関東" />
+
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>

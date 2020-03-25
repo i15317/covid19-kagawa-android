@@ -44,6 +44,7 @@ ext.moshi_version = "1.5.0"
 ext.retrofit_version = "2.3.0"
 ext.okhttp_version = "3.9.0"
 ext.glide_version = "4.2.0"
+ext.room_version = "2.2.5"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -59,7 +60,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
+    implementation 'androidx.preference:preference:1.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     // Koin
@@ -80,7 +81,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     // reactive
-    implementation "io.reactivex.rxjava2:rxjava:2.2.2"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.9"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
     implementation "io.reactivex.rxjava2:rxkotlin:2.3.0"
 
@@ -93,5 +94,13 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "com.github.bumptech.glide:okhttp-integration:$glide_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.room:room-guava:$room_version"
+    testImplementation "androidx.room:room-testing:$room_version"
 
 }

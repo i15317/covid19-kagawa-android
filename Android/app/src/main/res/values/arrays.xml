@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="area_names">
+        <item>北海道・東北</item>
+        <item>関東</item>
+        <item>信越・北陸</item>
+        <item>東海</item>
+        <item>関西</item>
+        <item>中国・四国</item>
+        <item>九州・沖縄</item>
+    </string-array>
+    <string-array name="class_codes">
+        <item>001</item>
+        <item>002</item>
+        <item>003</item>
+        <item>004</item>
+        <item>005</item>
+        <item>006</item>
+        <item>007</item>
+    </string-array>
+
+    <string-array name="pref_hk"></string-array>
+    <string-array name="pref_hk_value"></string-array>
+
+    <string-array name="pref_tokyo">
+        <item>東京</item>
+    </string-array>
+    <string-array name="pref_tokyo_value">
+        <item>13</item>
+    </string-array>
+
+    <string-array name="pref_kanazawa"></string-array>
+    <string-array name="pref_kanazawa_value"></string-array>
+
+    <string-array name="pref_central"></string-array>
+    <string-array name="pref_central_value"></string-array>
+
+    <string-array name="pref_osaka"></string-array>
+    <string-array name="pref_osaka_value"></string-array>
+
+    <string-array name="pref_udon"></string-array>
+    <string-array name="pref_udon_value"></string-array>
+
+    <string-array name="pref_hakata"></string-array>
+    <string-array name="pref_hakata_value"></string-array>
+</resources>
