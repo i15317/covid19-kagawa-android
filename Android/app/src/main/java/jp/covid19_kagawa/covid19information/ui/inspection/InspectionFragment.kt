@@ -2,6 +2,7 @@ package jp.covid19_kagawa.covid19information.ui.inspection
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.actioncreator.InspectionActionCreator
@@ -17,6 +18,7 @@ class InspectionFragment : Fragment() {
 
     private val store: InspectionStore by viewModel()
     private val actionCreator: InspectionActionCreator by inject()
+    private var isLoading = false
 
     private val infectionAdapter = InfectionAdapter()
     override fun onCreateView(
@@ -31,6 +33,8 @@ class InspectionFragment : Fragment() {
         binding.item = store
         setHasOptionsMenu(true)
         observeState()
+        isLoading = true
+
         actionCreator.fetchInspectData()
         return binding.root
     }
@@ -44,7 +48,11 @@ class InspectionFragment : Fragment() {
                 notifyDataSetChanged()
             }
         }
-
+        store.loadingState.observe(this) {
+            this.view!!.findViewById<ProgressBar>(R.id.progress_bar_inspection).visibility =
+                if (it) View.VISIBLE else View.GONE
+            isLoading = it
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

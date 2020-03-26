@@ -4,6 +4,7 @@ import android.graphics.DashPathEffect
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
@@ -38,6 +39,7 @@ class InspectionDetailFragment : Fragment(),
 
     private val store: InspectionDetailStore by viewModel()
     private val actionCreator: InspectionDetailActionCreator by inject()
+    private var isLoading = false
 
     //  private lateinit var seekBarY: SeekBar
     private lateinit var chart: BarChart
@@ -51,6 +53,8 @@ class InspectionDetailFragment : Fragment(),
         setHasOptionsMenu(true)
         setupGraphWindow(root)
         observeState()
+        isLoading = true
+
         actionCreator.getInspectionDetailData()
         return root
     }
@@ -162,7 +166,11 @@ class InspectionDetailFragment : Fragment(),
             this.view!!.findViewById<TextView>(R.id.inspection_detail_num).text =
                 it.toString() + "（件）"
         }
-
+        store.loadingState.observe(this) {
+            this.view!!.findViewById<ProgressBar>(R.id.progress_bar_detail).visibility =
+                if (it) View.VISIBLE else View.GONE
+            isLoading = it
+        }
     }
 
     private val onValueSelectedRectF = RectF()

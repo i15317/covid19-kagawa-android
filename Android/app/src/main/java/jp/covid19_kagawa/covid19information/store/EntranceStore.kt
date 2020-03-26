@@ -17,6 +17,7 @@ class EntranceStore(dispatcher: Dispatcher) : Store(dispatcher) {
     val loadedRepositoryListState = StoreLiveData<List<EntranceEntry>>()
     val entranceNum = StoreLiveData<Int>()
     val entranceDate = StoreLiveData<String>()
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun on(action: EntranceAction) {
         when (action) {

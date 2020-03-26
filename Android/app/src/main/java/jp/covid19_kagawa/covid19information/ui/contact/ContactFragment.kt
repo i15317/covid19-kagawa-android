@@ -4,6 +4,7 @@ import android.graphics.DashPathEffect
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
@@ -38,6 +39,7 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
     private val store: ContactStore by viewModel()
     private val actionCreator: ContactActionCreator by inject()
     private lateinit var chart: BarChart
+    private var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +50,8 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         setHasOptionsMenu(true)
         setupGraphWindow(root)
         observeState()
+        isLoading = true
+
         actionCreator.fetchContactData()
         return root
     }
@@ -141,8 +145,6 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
             val data = BarData(dataSets)
             data.barWidth = barWidth
             data.setValueTextSize(10f)
-
-
             // set data
             chart.data = data
         }
@@ -151,6 +153,11 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
     private fun observeState() {
         store.loadedRepositoryListState.observe(this) {
             updateGraph(it)
+        }
+        store.loadingState.observe(this) {
+            this.view!!.findViewById<ProgressBar>(R.id.progress_bar_contact).visibility =
+                if (it) View.VISIBLE else View.GONE
+            isLoading = it
         }
 
         store.contactNum.observe(this) {

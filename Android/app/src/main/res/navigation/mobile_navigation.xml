@@ -9,18 +9,30 @@
         android:id="@+id/navigation_home"
         android:name="jp.covid19_kagawa.covid19information.ui.home.HomeFragment"
         android:label="@string/title_home"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="jp.covid19_kagawa.covid19information.ui.guide.GuideFragment"
         android:label="@string/title_dashboard"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="jp.covid19_kagawa.covid19information.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
@@ -31,7 +43,11 @@
         <action
             android:id="@+id/action_area_to_pref"
             app:argType="jp.covid19_kagawa.covid19information.room.entity.AreaEntity"
-            app:destination="@id/navigation_setting_pref" />
+            app:destination="@id/navigation_setting_pref"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -43,6 +59,15 @@
         <argument
             android:name="content"
             app:argType="jp.covid19_kagawa.covid19information.room.entity.AreaEntity" />
+        <action
+            android:id="@+id/action_pref_to_area"
+            app:destination="@id/navigation_setting_area"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@+id/navigation_setting_area"
+            app:popUpToInclusive="true" />
     </fragment>
 
 

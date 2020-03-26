@@ -2,9 +2,13 @@ package jp.covid19_kagawa.covid19information
 
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import jp.covid19_kagawa.covid19information.actioncreator.*
 import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
+import jp.covid19_kagawa.covid19information.data.repository.DatabaseRepository
+import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.*
@@ -12,6 +16,7 @@ import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
 import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
 import jp.covid19_kagawa.covid19information.store.*
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -25,11 +30,20 @@ class App : Application() {
 
     companion object {
         private const val PREF_NAME = "PrefName"
+        private const val PREFERENCES_FILE_KEY = "jp.covid19_kagawa.covid19information_preferences"
     }
 
     private val appModule = module {
         single { Dispatcher() }
     }
+
+    private fun provideSettingsPreferences(app: Application): SharedPreferences =
+        app.getSharedPreferences(Companion.PREFERENCES_FILE_KEY, Context.MODE_PRIVATE)
+
+    private val preferenceModule = module {
+        single { provideSettingsPreferences(androidApplication()) }
+    }
+
 
     private val networkModule = module {
         single {
@@ -42,17 +56,6 @@ class App : Application() {
                 .build()
                 .create(TokyoAPi::class.java)
         }
-//        single {
-//            Retrofit
-//                .Builder()
-//                .client(OkHttpClient.Builder().build())
-//                .baseUrl("https://raw.githubusercontent.com/")
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .addConverterFactory(MoshiConverterFactory.create())
-//                .build()
-//                .create(TokyoAPi::class.java)
-//        }
-
         single { TokyoRepository(get()) }
         single { ChartRepository(get()) }
         single { InfectionRepository(get()) }
@@ -63,6 +66,7 @@ class App : Application() {
         single { NewsRepository(get()) }
         single { GuideRepository() }
         single { DatabaseRepository() }
+        single { PreferenceRepository(get()) }
     }
 
     private val uiModule = module {
@@ -103,9 +107,9 @@ class App : Application() {
         }
         factory { GuideActionCreator(get(), get()) }
 
-        factory { PrefectureActionCreator(get(), get()) }
+        factory { PrefectureActionCreator(get(), get(), get()) }
         viewModel { PrefectureStore(get()) }
-        factory { AreaActionCreator(get(), get()) }
+        factory { AreaActionCreator(get(), get(), get()) }
         viewModel { AreaStore(get()) }
     }
 
@@ -119,7 +123,7 @@ class App : Application() {
             // Contextを宣言し、
             androidContext(this@App)
             // 先ほど宣言したmoduleを指定します。
-            modules(listOf(appModule, uiModule, networkModule))
+            modules(listOf(appModule, preferenceModule, uiModule, networkModule))
         }
     }
 

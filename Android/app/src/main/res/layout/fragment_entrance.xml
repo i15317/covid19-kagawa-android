@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progress_bar_entrance"
+        style="@android:style/Widget.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:elevation="114514dp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <LinearLayout
         android:id="@+id/entrance_title"
@@ -9,7 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:orientation="vertical"
-        android:padding="3dp">
+        android:padding="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/chart_entrance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,8 +40,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
-                android:text="受診窓口相談件数(総計）"
                 android:gravity="left|center_vertical"
+                android:text="受診窓口相談件数(総計）"
                 android:textSize="18sp" />
 
             <TextView
@@ -114,7 +134,12 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_entrance"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/entrance_title" />
+        android:layout_height="0dp"
+        android:layout_below="@id/entrance_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
 
-</RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@id/entrance_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

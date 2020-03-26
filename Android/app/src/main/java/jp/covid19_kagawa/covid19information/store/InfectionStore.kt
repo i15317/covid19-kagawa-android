@@ -36,6 +36,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
     val loadingState = StoreLiveData<Boolean>()
     val loadedInfectionData = StoreLiveData<List<SummaryEntity>>()
     val loadedNewsList = StoreLiveData<List<NewsEntity>>()
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun on(action: InfectionAction) {
         when (action) {

@@ -12,6 +12,7 @@ class GuideStore(dispatcher: Dispatcher) : Store(dispatcher) {
     //    private val inspectionData = mutableListOf<InspectionData>()
     val loadingState = StoreLiveData<Boolean>()
     val titleMessage = StoreLiveData<String>()
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun on(action: GuideAction) {
         when (action) {

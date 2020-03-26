@@ -1,4 +1,4 @@
-package jp.covid19_kagawa.covid19information.repository
+package jp.covid19_kagawa.covid19information.data.repository
 
 import android.content.Context
 import jp.covid19_kagawa.covid19information.Prefecture

@@ -4,6 +4,7 @@ import android.graphics.DashPathEffect
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -40,6 +41,7 @@ class EntranceFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
     private val store: EntranceStore by viewModel()
     private val actionCreator: EntranceActionCreator by inject()
     private lateinit var chart: BarChart
+    private var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +52,7 @@ class EntranceFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
         setHasOptionsMenu(true)
         setupGraphWindow(root)
         observeState()
-
+        isLoading = true
         actionCreator.fetchEntranceData()
         return root
     }
@@ -160,11 +162,14 @@ class EntranceFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
         store.loadedRepositoryListState.observe(this) {
             updateGraph(it)
         }
-
         store.entranceNum.observe(this) {
             this.view!!.findViewById<TextView>(R.id.entrance_num).text = it.toString() + "（件）"
         }
-
+        store.loadingState.observe(this) {
+            this.view!!.findViewById<ProgressBar>(R.id.progress_bar_entrance).visibility =
+                if (it) View.VISIBLE else View.GONE
+            isLoading = it
+        }
     }
 
     private val onValueSelectedRectF = RectF()

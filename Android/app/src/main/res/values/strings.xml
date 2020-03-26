@@ -12,4 +12,5 @@
     <string name="tab_text_4">窓口相談件数</string>
     <string name="tab_text_5">検査実施人数</string>
     <string name="title_setting">都道府県の設定</string>
+    <string name="text_area_guide">エリアを選択</string>
 </resources>

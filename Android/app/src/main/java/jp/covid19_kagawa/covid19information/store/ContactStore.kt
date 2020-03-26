@@ -17,6 +17,7 @@ class ContactStore(dispatcher: Dispatcher) : Store(dispatcher) {
     val loadedRepositoryListState = StoreLiveData<List<ContactEntry>>()
     val contactNum = StoreLiveData<Int>()
     val contactDate = StoreLiveData<String>()
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun on(action: ContactAction) {
         when (action) {

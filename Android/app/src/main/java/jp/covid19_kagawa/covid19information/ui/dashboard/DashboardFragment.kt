@@ -4,6 +4,7 @@ import android.graphics.DashPathEffect
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -39,6 +40,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
 
     private val store: ChartStore by viewModel()
     private val actionCreator: ChartActionCreator by inject()
+    private var isLoading = false
 
     //  private lateinit var seekBarY: SeekBar
     private lateinit var chart: BarChart
@@ -62,6 +64,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
         setHasOptionsMenu(true)
         setupGraphWindow(root)
         observeState()
+        isLoading = true
 
         //actionCreator.getInfectData(seekBarX.progress, seekBarY.progress.toFloat())
         actionCreator.getInfectData()
@@ -191,14 +194,15 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
     }
 
     private fun observeState() {
-//        store.loadingState.observe(this) {
-//            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
-//            isLoading = it
-//        }
+
         store.loadedRepositoryListState.observe(this) {
             updateGraph(it)
         }
-
+        store.loadingState.observe(this) {
+            this.view!!.findViewById<ProgressBar>(R.id.progress_bar_dashboard).visibility =
+                if (it) View.VISIBLE else View.GONE
+            isLoading = it
+        }
         store.inspectionNum.observe(this) {
             this.view!!.findViewById<TextView>(R.id.inspection_num).text = it.toString() + "（人）"
         }

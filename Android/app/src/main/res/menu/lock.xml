@@ -5,5 +5,5 @@
         android:id="@+id/action_lock"
         android:icon="@drawable/ic_lock_open_black_24dp"
         android:title="@string/title_home"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 </menu>

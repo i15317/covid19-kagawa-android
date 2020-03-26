@@ -22,12 +22,15 @@ class HomeFragment : Fragment() {
     private val actionCreator: InfectionActionCreator by inject()
     private val newsAdapter = NewsAdapter()
     private val infectionAdapter = InfectionAdapter()
+    private lateinit var binding: FragmentHomeBinding
+    private var isLoading = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         //アダプターセット
         binding.infectionList.adapter = infectionAdapter
         binding.newsList.adapter = newsAdapter
@@ -38,6 +41,7 @@ class HomeFragment : Fragment() {
         }
         setHasOptionsMenu(true)
         observeState()
+        isLoading = true
         actionCreator.fetchNewsData()
         actionCreator.getInfectData()
         return binding.root
@@ -51,7 +55,10 @@ class HomeFragment : Fragment() {
                 notifyDataSetChanged()
             }
         }
-
+        store.loadingState.observe(this) {
+            binding.progressBarHome.visibility = if (it) View.VISIBLE else View.GONE
+            isLoading = it
+        }
         store.loadedInfectionData.observe(this) {
 
             infectionAdapter.run {
