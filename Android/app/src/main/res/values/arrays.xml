@@ -8,6 +8,7 @@
         <item>関西</item>
         <item>中国・四国</item>
         <item>九州・沖縄</item>
+        <item>未設定</item>
     </string-array>
     <string-array name="class_codes">
         <item>001</item>
@@ -17,6 +18,7 @@
         <item>005</item>
         <item>006</item>
         <item>007</item>
+        <item>008</item>
     </string-array>
 
     <string-array name="pref_hk"></string-array>
@@ -43,4 +45,11 @@
 
     <string-array name="pref_hakata"></string-array>
     <string-array name="pref_hakata_value"></string-array>
+
+    <string-array name="default_name">
+        <item>未設定</item>
+    </string-array>
+    <string-array name="default_value">
+        <item>0</item>
+    </string-array>
 </resources>

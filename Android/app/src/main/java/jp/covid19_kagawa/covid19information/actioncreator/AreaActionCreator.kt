@@ -8,6 +8,7 @@ import jp.covid19_kagawa.covid19information.data.repository.DatabaseRepository
 import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
+import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
 import timber.log.Timber
 
 class AreaActionCreator(
@@ -15,10 +16,12 @@ class AreaActionCreator(
     private val preferenceRepository: PreferenceRepository,
     dispatcher: Dispatcher
 ) : ActionCreator<AreaAction>(dispatcher) {
+    private val defaultEntity = PrefectureEntity(0, "008", "未設定", "0")
+
     //アンチパターンな気がするがまあ良し
     //判定はFragmentで行う（システムリソースの責務になるため）
     fun initDatabase(context: Context) = repository.initDatabase(context).also {
-        //何かする
+        preferenceRepository.updateCurrentPrefecture(defaultEntity)
     }
 
     fun getAreaNames() = repository.getAreaNames()

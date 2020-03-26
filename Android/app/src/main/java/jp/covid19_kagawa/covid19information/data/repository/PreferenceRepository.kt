@@ -29,4 +29,6 @@ class PreferenceRepository(
             emitter.onError(e)
         }
     }
+
+    fun getCurrentPrectureCode(): Int = currentPrefecture
 }

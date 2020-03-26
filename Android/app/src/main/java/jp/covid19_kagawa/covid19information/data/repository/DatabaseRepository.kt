@@ -42,6 +42,9 @@ class DatabaseRepository() {
         val hakataDatas = context.resources.getStringArray(R.array.pref_hakata)
         val hakataValues = context.resources.getStringArray(R.array.pref_hakata_value)
 
+        //デフォルト
+        val defaultDatas = context.resources.getStringArray(R.array.default_name)
+        val defaultValues = context.resources.getStringArray(R.array.default_value)
         //地方名の登録
         for (i in areaNames.indices) {
             areaDao.upsert(AreaEntity(0, areaNames[i], classCodes[i]))
@@ -61,6 +64,8 @@ class DatabaseRepository() {
         insertPref(classCodes[5], udonDatas, udonValues)
         //九州・沖縄
         insertPref(classCodes[6], hakataDatas, hakataValues)
+        //デフォルト
+        insertPref(classCodes[7], defaultDatas, defaultValues)
         return true
     }
 

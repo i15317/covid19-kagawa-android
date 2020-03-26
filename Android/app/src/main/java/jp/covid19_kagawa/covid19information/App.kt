@@ -73,34 +73,33 @@ class App : Application() {
         viewModel { ChartStore(get()) }
         factory {
             ChartActionCreator(
-                get(),
-                get()
+                get(), get(), get()
             )
         }
         viewModel { InfectionStore(get()) }
         factory {
-            InfectionActionCreator(get(), get(), get())
+            InfectionActionCreator(get(), get(), get(), get())
         }
 
         viewModel { InspectionStore(get()) }
         factory {
-            InspectionActionCreator(get(), get())
+            InspectionActionCreator(get(), get(), get())
         }
 
         viewModel { InspectionDetailStore(get()) }
         factory {
-            InspectionDetailActionCreator(get(), get())
+            InspectionDetailActionCreator(get(), get(), get())
         }
 
 
         viewModel { ContactStore(get()) }
         factory {
-            ContactActionCreator(get(), get())
+            ContactActionCreator(get(), get(), get())
         }
 
         viewModel { EntranceStore(get()) }
         factory {
-            EntranceActionCreator(get(), get())
+            EntranceActionCreator(get(), get(), get())
         }
         viewModel {
             GuideStore(get())
