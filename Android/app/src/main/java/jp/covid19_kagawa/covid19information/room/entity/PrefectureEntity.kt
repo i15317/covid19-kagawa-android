@@ -21,8 +21,8 @@ data class PrefectureEntity constructor(
     val prefName: String,
 
     @ColumnInfo(name = "pref_code")
-    val prefCode: String,
-
-    @ColumnInfo(name = "pref_enum")
-    val prefEnum: Prefecture
+    val prefCode: String
+//
+//    @ColumnInfo(name = "pref_enum")
+//    val prefEnum: Prefecture
 ) : Parcelable

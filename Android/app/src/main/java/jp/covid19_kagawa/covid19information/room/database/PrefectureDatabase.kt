@@ -6,23 +6,23 @@ import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.room.dao.PrefectureDao
 import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
 
-class PrefectureConverter {
-    @TypeConverter
-    fun fromPrefecture(value: Prefecture): String {
-        return value.prefCode.toString()
-    }
-
-    @TypeConverter
-    fun toPrefecture(value: String): Prefecture {
-        return Prefecture.valueOf(value)
-    }
-}
+//class PrefectureConverter {
+//    @TypeConverter
+//    fun fromPrefecture(value: Prefecture): String {
+//        return value.prefCode.toString()
+//    }
+//
+//    @TypeConverter
+//    fun toPrefecture(value: String): Prefecture {
+//        return Prefecture.valueOf(value)
+//    }
+//}
 
 @Database(
     entities = [PrefectureEntity::class],
     version = PrefectureDatabase.DATABASE_VERSION
 )
-@TypeConverters(PrefectureConverter::class)
+//@TypeConverters(PrefectureConverter::class)
 abstract class PrefectureDatabase : RoomDatabase() {
     abstract fun prefectureDao(): PrefectureDao
 

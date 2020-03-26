@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class PrefectureStore(dispatcher: Dispatcher) : Store(dispatcher) {
-
+    private val emptyEntity = PrefectureEntity(0, "", "表示可能な県がありません", "")
     private val areaList = mutableListOf<PrefectureEntity>()
     val loadingState = StoreLiveData<Boolean>()
     val loadedAreaList = StoreLiveData<List<PrefectureEntity>>()
@@ -22,9 +22,15 @@ class PrefectureStore(dispatcher: Dispatcher) : Store(dispatcher) {
                 loadingState.postValue(action.isLoading)
             }
             is PrefectureAction.SelectPrefAction -> {
-                areaList.clear()
-                areaList.addAll(action.prefList)
-                loadedAreaList.postValue(areaList)
+                if (action.prefList.isEmpty()) {
+                    areaList.clear()
+                    areaList.add(emptyEntity)
+                    loadedAreaList.postValue(areaList)
+                } else {
+                    areaList.clear()
+                    areaList.addAll(action.prefList)
+                    loadedAreaList.postValue(areaList)
+                }
             }
         }
     }
