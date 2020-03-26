@@ -1,7 +1,6 @@
 package jp.covid19_kagawa.covid19information.action
 
 
-import jp.covid19_kagawa.covid19information.entity.InspectionData
 import jp.covid19_kagawa.covid19information.entity.InspectionDetailSummary
 
 sealed class InspectionDetailAction {

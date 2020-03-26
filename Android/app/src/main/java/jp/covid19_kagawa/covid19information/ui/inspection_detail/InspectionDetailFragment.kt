@@ -159,7 +159,8 @@ class InspectionDetailFragment : Fragment(),
         }
 
         store.inspectionNum.observe(this) {
-            this.view!!.findViewById<TextView>(R.id.inspection_detail_num).text = it.toString() + "（件）"
+            this.view!!.findViewById<TextView>(R.id.inspection_detail_num).text =
+                it.toString() + "（件）"
         }
 
     }

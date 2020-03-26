@@ -75,7 +75,7 @@ class DatabaseRepository() {
                     classCode,
                     prefArrays[i],
                     prefValues[i]
-                  //  Prefecture.values().filter { prefValues[i].toInt() == it.prefCode }.first()
+                    //  Prefecture.values().filter { prefValues[i].toInt() == it.prefCode }.first()
                 )
             )
         }

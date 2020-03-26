@@ -23,7 +23,6 @@ import com.github.mikephil.charting.utils.MPPointF
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.XYMarkerView
 import jp.covid19_kagawa.covid19information.actioncreator.ContactActionCreator
-import jp.covid19_kagawa.covid19information.actioncreator.EntranceActionCreator
 import jp.covid19_kagawa.covid19information.entity.ContactEntry
 import jp.covid19_kagawa.covid19information.observe
 import jp.covid19_kagawa.covid19information.store.ContactStore

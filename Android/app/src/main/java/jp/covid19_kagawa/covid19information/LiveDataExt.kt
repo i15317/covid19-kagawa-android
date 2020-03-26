@@ -21,7 +21,7 @@ private const val CLICKABLE_DELAY_TIME = 100L
  * It prevents fast clicking by user.
  */
 @Suppress("UNCHECKED_CAST")
-fun <T: View> T.setSafeClickListener(listener: (it: T) -> Unit) {
+fun <T : View> T.setSafeClickListener(listener: (it: T) -> Unit) {
     setOnClickListener { view ->
         if (view == null) return@setOnClickListener
         view.isEnabled = false

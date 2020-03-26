@@ -1,9 +1,9 @@
 package jp.covid19_kagawa.covid19information.store
 
 import jp.covid19_kagawa.covid19information.action.InfectionAction
-import jp.covid19_kagawa.covid19information.entity.SummaryEntity
 import jp.covid19_kagawa.covid19information.entity.InfectionSummary
 import jp.covid19_kagawa.covid19information.entity.NewsEntity
+import jp.covid19_kagawa.covid19information.entity.SummaryEntity
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.flux.Store
 import jp.covid19_kagawa.covid19information.flux.StoreLiveData
@@ -117,7 +117,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
             ""
         )
         return mutableListOf(
-      //      inspectedEntity,
+            //      inspectedEntity,
             infectedEntity,
             hospitalEntity,
             lightEntity,

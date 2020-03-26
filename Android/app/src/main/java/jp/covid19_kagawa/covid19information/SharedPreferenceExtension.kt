@@ -7,19 +7,30 @@ import kotlin.reflect.KProperty
 /**
  * Boolean Read Write Delegate
  */
-fun SharedPreferences.boolean(defaultValue: Boolean = false, key: String? = null): ReadWriteProperty<Any, Boolean> =
+fun SharedPreferences.boolean(
+    defaultValue: Boolean = false,
+    key: String? = null
+): ReadWriteProperty<Any, Boolean> =
     delegate(defaultValue, key, SharedPreferences::getBoolean, SharedPreferences.Editor::putBoolean)
 
 /**
  * Nullable Boolean Read Write Delegate
  */
 fun SharedPreferences.nullableBoolean(key: String? = null): ReadWriteProperty<Any, Boolean?> =
-    nullableDelegate(false, key, SharedPreferences::getBoolean, SharedPreferences.Editor::putBoolean)
+    nullableDelegate(
+        false,
+        key,
+        SharedPreferences::getBoolean,
+        SharedPreferences.Editor::putBoolean
+    )
 
 /**
  * Float Read Write Delegate
  */
-fun SharedPreferences.float(defaultValue: Float = 0f, key: String? = null): ReadWriteProperty<Any, Float> =
+fun SharedPreferences.float(
+    defaultValue: Float = 0f,
+    key: String? = null
+): ReadWriteProperty<Any, Float> =
     delegate(defaultValue, key, SharedPreferences::getFloat, SharedPreferences.Editor::putFloat)
 
 /**
@@ -43,7 +54,10 @@ fun SharedPreferences.nullableInt(key: String? = null): ReadWriteProperty<Any, I
 /**
  * Long Read Write Delegate
  */
-fun SharedPreferences.long(defaultValue: Long = 0, key: String? = null): ReadWriteProperty<Any, Long> =
+fun SharedPreferences.long(
+    defaultValue: Long = 0,
+    key: String? = null
+): ReadWriteProperty<Any, Long> =
     delegate(defaultValue, key, SharedPreferences::getLong, SharedPreferences.Editor::putLong)
 
 /**
@@ -55,7 +69,10 @@ fun SharedPreferences.nullableLong(key: String? = null): ReadWriteProperty<Any, 
 /**
  * String Read Write Delegate
  */
-fun SharedPreferences.string(defaultValue: String = "", key: String? = null): ReadWriteProperty<Any, String> =
+fun SharedPreferences.string(
+    defaultValue: String = "",
+    key: String? = null
+): ReadWriteProperty<Any, String> =
     delegate(defaultValue, key, SharedPreferences::getString, SharedPreferences.Editor::putString)
 
 /**
@@ -67,7 +84,11 @@ fun SharedPreferences.nullableString(key: String? = null): ReadWriteProperty<Any
 /**
  * Enum Read Write Delegate
  */
-fun <T : Enum<T>> SharedPreferences.enum(valueOf: (String) -> T, defaultValue: Lazy<T>, key: String? = null) =
+fun <T : Enum<T>> SharedPreferences.enum(
+    valueOf: (String) -> T,
+    defaultValue: Lazy<T>,
+    key: String? = null
+) =
     object : ReadWriteProperty<Any, T> {
         override fun getValue(thisRef: Any, property: KProperty<*>): T {
             return getString(key ?: property.name, null)?.let { valueOf(it) } ?: defaultValue.value
@@ -114,10 +135,15 @@ inline fun <reified T : Any> SharedPreferences.nullableJson(
 /**
  * Moshi Json String Read Write Delegate
  */
-fun <T : Any> SharedPreferences.json(adapter: JsonAdapter<T>, defaultValue: Lazy<T>, key: String? = null) =
+fun <T : Any> SharedPreferences.json(
+    adapter: JsonAdapter<T>,
+    defaultValue: Lazy<T>,
+    key: String? = null
+) =
     object : ReadWriteProperty<Any, T> {
         override fun getValue(thisRef: Any, property: KProperty<*>): T {
-            return getString(key ?: property.name, null)?.let(adapter::fromJson) ?: defaultValue.value
+            return getString(key ?: property.name, null)?.let(adapter::fromJson)
+                ?: defaultValue.value
         }
 
         override fun setValue(thisRef: Any, property: KProperty<*>, value: T) {
@@ -144,7 +170,9 @@ private inline fun <T : Any> SharedPreferences.delegate(
     crossinline getter: SharedPreferences.(key: String, defaultValue: T) -> T?,
     crossinline setter: SharedPreferences.Editor.(key: String, value: T) -> SharedPreferences.Editor
 ) = object : ReadWriteProperty<Any, T> {
-    override fun getValue(thisRef: Any, property: KProperty<*>) = getter(key ?: property.name, defaultValue) ?: defaultValue
+    override fun getValue(thisRef: Any, property: KProperty<*>) =
+        getter(key ?: property.name, defaultValue) ?: defaultValue
+
     override fun setValue(thisRef: Any, property: KProperty<*>, value: T) =
         edit().setter(key ?: property.name, value).apply()
 }

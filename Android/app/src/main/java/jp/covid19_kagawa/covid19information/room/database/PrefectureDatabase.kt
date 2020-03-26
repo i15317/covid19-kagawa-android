@@ -1,8 +1,9 @@
 package jp.covid19_kagawa.covid19information.room.database
 
 import android.content.Context
-import androidx.room.*
-import jp.covid19_kagawa.covid19information.Prefecture
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import jp.covid19_kagawa.covid19information.room.dao.PrefectureDao
 import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
 

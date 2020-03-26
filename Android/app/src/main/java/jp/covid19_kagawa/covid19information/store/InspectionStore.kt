@@ -1,8 +1,8 @@
 package jp.covid19_kagawa.covid19information.store
 
 import jp.covid19_kagawa.covid19information.action.InspectionAction
-import jp.covid19_kagawa.covid19information.entity.SummaryEntity
 import jp.covid19_kagawa.covid19information.entity.InspectionSummary
+import jp.covid19_kagawa.covid19information.entity.SummaryEntity
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.flux.Store
 import jp.covid19_kagawa.covid19information.flux.StoreLiveData
@@ -70,7 +70,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
 
         //地域内住民
         val insideEntity = SummaryEntity(
-           INSIDE_TITLE,
+            INSIDE_TITLE,
             SUB_TITLE,
             InspectionSummary.value_inside,
             ""

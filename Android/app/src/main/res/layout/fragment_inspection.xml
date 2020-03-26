@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="jp.covid19_kagawa.covid19information.store.InspectionStore" />
@@ -29,11 +30,11 @@
             android:id="@+id/date_inspection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="@{item.updatedDate}"
-            android:textColor="#FFFFFF"
-            android:textSize="32sp"
+            android:background="@color/colorAccent"
             android:padding="4dp"
+            android:text="@{item.updatedDate}"
+            android:textColor="#000000"
+            android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@id/inspection_list"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_inspection" />

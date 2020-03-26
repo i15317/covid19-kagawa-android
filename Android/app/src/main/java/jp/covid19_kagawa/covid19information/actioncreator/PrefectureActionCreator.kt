@@ -1,6 +1,5 @@
 package jp.covid19_kagawa.covid19information.actioncreator
 
-import android.content.Context
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.action.PrefectureAction

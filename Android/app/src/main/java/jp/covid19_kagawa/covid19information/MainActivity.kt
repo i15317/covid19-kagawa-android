@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
             PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
             actionCreator.initDatabase(this)
-        }else{
+        } else {
             AppLaunchChecker.onActivityCreate(this)
         }
 //        if (isFirstFlag) {

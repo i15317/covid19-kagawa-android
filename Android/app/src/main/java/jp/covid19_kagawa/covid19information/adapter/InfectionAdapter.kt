@@ -34,5 +34,6 @@ class InfectionAdapter : RecyclerView.Adapter<InfectionAdapter.ViewHolder>() {
 
     override fun getItemCount() = items.size
 
-    inner class ViewHolder(val binding: InfectionRepoItemBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: InfectionRepoItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

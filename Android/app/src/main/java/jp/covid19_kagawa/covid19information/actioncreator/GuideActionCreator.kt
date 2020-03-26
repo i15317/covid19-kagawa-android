@@ -11,7 +11,7 @@ class GuideActionCreator(
     private val guideRepository: GuideRepository,
     dispatcher: Dispatcher
 ) : ActionCreator<GuideAction>(dispatcher) {
-    
+
     fun changeGuideScene(transitionData: TransitionData) {
         //シーン遷移
         TransitionManager.go(transitionData.scene).also {
