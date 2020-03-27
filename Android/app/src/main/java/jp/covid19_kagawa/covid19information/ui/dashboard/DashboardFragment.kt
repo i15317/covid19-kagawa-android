@@ -22,6 +22,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.MPPointF
+import jp.covid19_kagawa.covid19information.MyValueFormatter
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.XYMarkerView
 import jp.covid19_kagawa.covid19information.actioncreator.ChartActionCreator
@@ -109,6 +110,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
         yl.setDrawAxisLine(true)
         yl.setDrawGridLines(true)
         yl.axisMinimum = 0f // this replaces setStartAtZero(true)
+        yl.valueFormatter = MyValueFormatter("人")
 
 //        yl.setInverted(true);
 

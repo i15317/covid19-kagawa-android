@@ -19,6 +19,8 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         private const val INSIDE_TITLE = "地域内"
         private const val OUTSIDE_TITLE = "地域外"
         private const val SUB_TITLE = "（累計）"
+        private const val SUB_APPEND = "件"
+        private const val SUB_APPEND_H = "人"
     }
 
     var canFetchMore = false
@@ -56,7 +58,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val totalEntity = SummaryEntity(
             MAIN_TITLE,
             SUB_TITLE,
-            InspectionSummary.value,
+            InspectionSummary.value + SUB_APPEND_H,
             ""
         )
 
@@ -64,7 +66,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val countEntity = SummaryEntity(
             COUNT_TITLE,
             SUB_TITLE,
-            InspectionSummary.count_inspection,
+            InspectionSummary.count_inspection + SUB_APPEND,
             ""
         )
 
@@ -72,7 +74,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val insideEntity = SummaryEntity(
             INSIDE_TITLE,
             SUB_TITLE,
-            InspectionSummary.value_inside,
+            InspectionSummary.value_inside + SUB_APPEND,
             ""
         )
 
@@ -80,7 +82,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val outsideEntity = SummaryEntity(
             OUTSIDE_TITLE,
             SUB_TITLE,
-            InspectionSummary.value_outside,
+            InspectionSummary.value_outside + SUB_APPEND,
             ""
         )
 

@@ -23,6 +23,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         private const val RECOVERED_TITLE = "退院"
         private const val DIED_TITLE = "死亡"
         private const val SUB_TITLE = "（累計）"
+        private const val SUB_APPEND= "人"
     }
 
     var canFetchMore = false
@@ -74,7 +75,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val infectedEntity = SummaryEntity(
             INFECTED_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_num.toString(),
+            infectionSummary.infect_num.toString()+SUB_APPEND,
             ""
         )
 
@@ -82,7 +83,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val hospitalEntity = SummaryEntity(
             HOSPITAL_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_hospital.toString(),
+            infectionSummary.infect_hospital.toString()+SUB_APPEND,
             ""
         )
 
@@ -90,7 +91,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val lightEntity = SummaryEntity(
             LIGHT_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_light.toString(),
+            infectionSummary.infect_light.toString()+SUB_APPEND,
             ""
         )
 
@@ -98,7 +99,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val heavyEntity = SummaryEntity(
             HEAVY_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_heavy.toString(),
+            infectionSummary.infect_heavy.toString()+SUB_APPEND,
             ""
         )
 
@@ -106,7 +107,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val diedEntity = SummaryEntity(
             DIED_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_died.toString(),
+            infectionSummary.infect_died.toString()+SUB_APPEND,
             ""
         )
 
@@ -114,7 +115,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val recoverEntity = SummaryEntity(
             RECOVERED_TITLE,
             SUB_TITLE,
-            infectionSummary.inafect_recover.toString(),
+            infectionSummary.inafect_recover.toString()+SUB_APPEND,
             ""
         )
         return mutableListOf(

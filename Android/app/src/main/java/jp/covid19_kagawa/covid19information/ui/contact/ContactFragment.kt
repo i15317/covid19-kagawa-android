@@ -21,6 +21,7 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.MPPointF
+import jp.covid19_kagawa.covid19information.MyValueFormatter
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.XYMarkerView
 import jp.covid19_kagawa.covid19information.actioncreator.ContactActionCreator
@@ -89,6 +90,7 @@ class ContactFragment : Fragment(), OnChartValueSelectedListener {
         yr.setDrawAxisLine(true)
         yr.setDrawGridLines(false)
         yr.axisMinimum = 0f // this replaces setStartAtZero(true)
+        yl.valueFormatter = MyValueFormatter("件")
 
         chart.setFitBars(true)
         chart.animateY(1250)

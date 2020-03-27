@@ -21,6 +21,7 @@ import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
+import jp.covid19_kagawa.covid19information.MyValueFormatter
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.XYMarkerView
 import jp.covid19_kagawa.covid19information.actioncreator.InspectionDetailActionCreator
@@ -93,6 +94,7 @@ class InspectionDetailFragment : Fragment(),
         yr.axisMinimum = 0f // this replaces setStartAtZero(true)
         chart.setFitBars(true)
         chart.animateY(1250)
+        yl.valueFormatter = MyValueFormatter("件")
 
         val l = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM

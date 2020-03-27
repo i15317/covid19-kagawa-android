@@ -11,6 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.actioncreator.AreaActionCreator
 import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
 import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         checkFirstFlag()
+
         //preferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
         navView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
@@ -63,10 +66,10 @@ class MainActivity : AppCompatActivity() {
                 navView.clearFocus()
                 navView.clearAnimation()
                 navController.navigate(R.id.navigation_setting_area)
-                return true
+                return false
             }
             else -> {
-                return true
+                return false
             }
         }
     }
@@ -75,10 +78,12 @@ class MainActivity : AppCompatActivity() {
     private fun checkFirstFlag() {
         if (!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
             JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
-            PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
-            actionCreator.initDatabase(this)
-        } else {
-            AppLaunchChecker.onActivityCreate(this)
+                .subscribeOn(Schedulers.io()).subscribeBy {
+                    PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
+                        .subscribeOn(Schedulers.io()).subscribeBy {
+                            actionCreator.initDatabase(this)
+                        }
+                }
         }
 //        if (isFirstFlag) {
 //            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
@@ -92,5 +97,6 @@ class MainActivity : AppCompatActivity() {
 //            dbUpdateFlag = true
 //            isUpdateFlag = false
 //        }
+        AppLaunchChecker.onActivityCreate(this)
     }
 }
