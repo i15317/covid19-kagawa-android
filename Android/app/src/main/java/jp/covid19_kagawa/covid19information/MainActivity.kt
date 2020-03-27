@@ -11,8 +11,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.actioncreator.AreaActionCreator
 import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
 import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
@@ -52,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -77,14 +76,12 @@ class MainActivity : AppCompatActivity() {
     //更新時はデータベースの初期化
     private fun checkFirstFlag() {
         if (!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
-            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
-                .subscribeOn(Schedulers.io()).subscribeBy {
-                    PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
-                        .subscribeOn(Schedulers.io()).subscribeBy {
-                            actionCreator.initDatabase(this)
-                        }
-                }
+            JapanTopDatabase.getInstance().japanTopDao().evilDeleteAllData()
+            PrefectureDatabase.getInstance().prefectureDao().evilDeleteAllData()
+            actionCreator.initDatabase(this)
         }
+        AppLaunchChecker.onActivityCreate(this)
+    }
 //        if (isFirstFlag) {
 //            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
 //            PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
@@ -97,6 +94,4 @@ class MainActivity : AppCompatActivity() {
 //            dbUpdateFlag = true
 //            isUpdateFlag = false
 //        }
-        AppLaunchChecker.onActivityCreate(this)
-    }
 }

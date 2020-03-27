@@ -2,7 +2,6 @@ package jp.covid19_kagawa.covid19information.store
 
 import jp.covid19_kagawa.covid19information.action.InfectionAction
 import jp.covid19_kagawa.covid19information.entity.InfectionSummary
-import jp.covid19_kagawa.covid19information.entity.NewsEntity
 import jp.covid19_kagawa.covid19information.entity.SummaryEntity
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.flux.Store
@@ -23,7 +22,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         private const val RECOVERED_TITLE = "退院"
         private const val DIED_TITLE = "死亡"
         private const val SUB_TITLE = "（累計）"
-        private const val SUB_APPEND= "人"
+        private const val SUB_APPEND = "人"
     }
 
     var canFetchMore = false
@@ -32,11 +31,10 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
     var pageNum = INITIAL_PAGE
         private set
 
-    private val loadingNewsList = mutableListOf<NewsEntity>()
     private val loadingInfectionList = mutableListOf<SummaryEntity>()
     val loadingState = StoreLiveData<Boolean>()
     val loadedInfectionData = StoreLiveData<List<SummaryEntity>>()
-    val loadedNewsList = StoreLiveData<List<NewsEntity>>()
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun on(action: InfectionAction) {
@@ -52,13 +50,6 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
                 loadedInfectionData.postValue(loadingInfectionList)
             }
 
-            is InfectionAction.FetchNewsData -> {
-                canFetchMore = action.data.isNotEmpty()
-                pageNum++
-                loadingNewsList.clear()
-                loadingNewsList.addAll(action.data)
-                loadedNewsList.postValue(loadingNewsList)
-            }
         }
     }
 
@@ -75,7 +66,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val infectedEntity = SummaryEntity(
             INFECTED_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_num.toString()+SUB_APPEND,
+            infectionSummary.infect_num.toString() + SUB_APPEND,
             ""
         )
 
@@ -83,7 +74,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val hospitalEntity = SummaryEntity(
             HOSPITAL_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_hospital.toString()+SUB_APPEND,
+            infectionSummary.infect_hospital.toString() + SUB_APPEND,
             ""
         )
 
@@ -91,7 +82,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val lightEntity = SummaryEntity(
             LIGHT_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_light.toString()+SUB_APPEND,
+            infectionSummary.infect_light.toString() + SUB_APPEND,
             ""
         )
 
@@ -99,7 +90,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val heavyEntity = SummaryEntity(
             HEAVY_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_heavy.toString()+SUB_APPEND,
+            infectionSummary.infect_heavy.toString() + SUB_APPEND,
             ""
         )
 
@@ -107,7 +98,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val diedEntity = SummaryEntity(
             DIED_TITLE,
             SUB_TITLE,
-            infectionSummary.infect_died.toString()+SUB_APPEND,
+            infectionSummary.infect_died.toString() + SUB_APPEND,
             ""
         )
 
@@ -115,7 +106,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val recoverEntity = SummaryEntity(
             RECOVERED_TITLE,
             SUB_TITLE,
-            infectionSummary.inafect_recover.toString()+SUB_APPEND,
+            infectionSummary.inafect_recover.toString() + SUB_APPEND,
             ""
         )
         return mutableListOf(

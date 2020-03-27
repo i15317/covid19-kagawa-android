@@ -51,22 +51,22 @@ class GuideFragment : Fragment() {
         //元のビューの作成
         mSceneRoot = view.findViewById<View>(R.id.scene_root) as ViewGroup
         //各シーンのビューのインスタンスを作成
-        mView1 = Scene1Binding.inflate(inflater, mSceneRoot, false)
+        mView1 = Scene1Binding.inflate(inflater, container, false)
         mView1.scene1GotoNext.setOnClickListener {
             //Scene2へ遷移させる
             actionCreator.changeGuideScene(selectScene(SCENE.SCENE2))
         }
-        mView2 = Scene2Binding.inflate(inflater, mSceneRoot, false)
+        mView2 = Scene2Binding.inflate(inflater, container, false)
         mView2.scene2GotoScene3.setOnClickListener {
             //Scene3へ遷移させる
             actionCreator.changeGuideScene(selectScene(SCENE.SCENE3))
         }
-        mView3 = Scene3Binding.inflate(inflater, mSceneRoot, false)
+        mView3 = Scene3Binding.inflate(inflater, container, false)
         mView3.scene3GotoScene4.setOnClickListener {
             //Scene4へ遷移させる
             actionCreator.changeGuideScene(selectScene(SCENE.SCENE4))
         }
-        mView4 = Scene4Binding.inflate(inflater, mSceneRoot, false)
+        mView4 = Scene4Binding.inflate(inflater, container, false)
 
 //        //シーンのリソース周りの設定
 //        mView1.buttonScene1.setOnClickListener {

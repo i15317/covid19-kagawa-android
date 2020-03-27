@@ -78,7 +78,11 @@ class App : Application() {
         }
         viewModel { InfectionStore(get()) }
         factory {
-            InfectionActionCreator(get(), get(), get(), get())
+            InfectionActionCreator(get(), get(), get())
+        }
+        viewModel { NewsStore(get()) }
+        factory {
+            NewsActionCreator(get(), get(), get())
         }
 
         viewModel { InspectionStore(get()) }

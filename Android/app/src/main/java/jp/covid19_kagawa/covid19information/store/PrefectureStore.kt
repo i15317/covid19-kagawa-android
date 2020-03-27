@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 class PrefectureStore(dispatcher: Dispatcher) : Store(dispatcher) {
-    private val emptyEntity = PrefectureEntity(0, "", "表示可能な県がありません", "")
+    val emptyEntity = PrefectureEntity(0, "", "表示可能な県がありません", "-1")
     private val areaList = mutableListOf<PrefectureEntity>()
     val loadingState = StoreLiveData<Boolean>()
     val loadedAreaList = StoreLiveData<List<PrefectureEntity>>()

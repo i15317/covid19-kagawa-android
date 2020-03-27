@@ -39,19 +39,20 @@ class PrefectureFragment : Fragment() {
             }
         }
         adapter.onItemClicked = {
-            AlertDialog.Builder(context)
-                .setTitle("都道府県の変更")
-                .setMessage("都道府県を「" + it.prefName + "」に変更します")
-                .setPositiveButton(
-                    "OK"
-                ) { dialog, which ->
-                    actionCreator.updateCurrentPrefecture(it)
-                    findNavController().navigate(
-                        PrefectureFragmentDirections.actionPrefToArea()
-                    )
-                }
-                .setNegativeButton("Cancel", null)
-                .show()
+            if (it != store.emptyEntity)
+                AlertDialog.Builder(context)
+                    .setTitle("都道府県の変更")
+                    .setMessage("都道府県を「" + it.prefName + "」に変更します")
+                    .setPositiveButton(
+                        "OK"
+                    ) { dialog, which ->
+                        actionCreator.updateCurrentPrefecture(it)
+                        findNavController().navigate(
+                            PrefectureFragmentDirections.actionPrefToArea()
+                        )
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
         }
 
         actionCreator.getPrefNames(args.content.classCode)

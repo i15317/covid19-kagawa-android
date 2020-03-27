@@ -15,7 +15,7 @@ abstract class JapanTopDatabase : RoomDatabase() {
         const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "chocolate_japan.db"
         private lateinit var instance: JapanTopDatabase
-        private var TEST_MODE = true
+        private var TEST_MODE = false
         fun init(context: Context) {
             if (TEST_MODE) {
                 Room.inMemoryDatabaseBuilder(context, JapanTopDatabase::class.java)
@@ -24,6 +24,7 @@ abstract class JapanTopDatabase : RoomDatabase() {
                     .also { instance = it }
             } else {
                 Room.databaseBuilder(context, JapanTopDatabase::class.java, DATABASE_NAME)
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration().build()
                     .also { instance = it }
             }

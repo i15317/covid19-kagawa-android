@@ -22,4 +22,7 @@ interface PrefectureDao {
 
     @Query("delete from pref_name")
     fun deleteAllDatas(): Completable
+
+    @Query("delete from pref_name")
+    fun evilDeleteAllData()
 }

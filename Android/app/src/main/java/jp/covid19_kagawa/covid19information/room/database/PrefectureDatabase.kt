@@ -32,7 +32,7 @@ abstract class PrefectureDatabase : RoomDatabase() {
         const val DATABASE_VERSION = 1
         private const val DATABASE_NAME = "chocolate_pref.db"
         private lateinit var instance: PrefectureDatabase
-        private var TEST_MODE = true
+        private var TEST_MODE = false
         fun init(context: Context) {
             if (TEST_MODE) {
                 Room.inMemoryDatabaseBuilder(context, PrefectureDatabase::class.java)
@@ -44,7 +44,7 @@ abstract class PrefectureDatabase : RoomDatabase() {
                     context,
                     PrefectureDatabase::class.java,
                     DATABASE_NAME
-                ).fallbackToDestructiveMigration()
+                ).fallbackToDestructiveMigration().allowMainThreadQueries()
                     .build()
                     .also { instance = it }
             }

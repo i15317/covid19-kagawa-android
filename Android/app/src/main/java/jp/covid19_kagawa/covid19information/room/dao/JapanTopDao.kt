@@ -26,4 +26,6 @@ interface JapanTopDao {
     @Query("delete from japan_top")
     fun deleteAllDatas(): Completable
 
+    @Query("delete from japan_top")
+    fun evilDeleteAllData()
 }

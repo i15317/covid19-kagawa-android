@@ -7,39 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/text_news"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:background="@color/colorPrimaryDarkofDark"
-            android:text="最新のニュース"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/news_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_weight="1" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/news_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/text_news"
-            app:layout_constraintTop_toTopOf="@id/text_news"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_weight="9"
-            tools:context="jp.digital_future.cameraxsample.ui.dashboard.DashboardFragment"
-            tools:listitem="@layout/news_repo_item" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/horizontal_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.30" />
 
         <ProgressBar
             android:id="@+id/progress_bar_home"
@@ -59,13 +26,17 @@
             android:id="@+id/text_infection"
             android:layout_width="match_parent"
             android:layout_height="32dp"
+            android:layout_marginTop="8dp"
             android:background="@color/colorPrimaryDarkofDark"
+            android:gravity="center_vertical"
             android:text="検査陽性者の状況"
+            android:textAlignment="center"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:autoSizeTextType="uniform"
+            android:maxLines="1"
             app:layout_constraintBottom_toTopOf="@+id/infection_list"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_weight="1" />
 
 

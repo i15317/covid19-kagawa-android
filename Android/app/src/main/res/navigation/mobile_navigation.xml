@@ -16,6 +16,17 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_news"
+        android:name="jp.covid19_kagawa.covid19information.ui.news.NewsFragment"
+        android:label="@string/title_news"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        tools:layout="@layout/fragment_news" />
+
+
+    <fragment
         android:id="@+id/navigation_dashboard"
         android:name="jp.covid19_kagawa.covid19information.ui.guide.GuideFragment"
         android:label="@string/title_dashboard"
@@ -24,6 +35,7 @@
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim"
         tools:layout="@layout/fragment_dashboard" />
+
 
     <fragment
         android:id="@+id/navigation_notifications"

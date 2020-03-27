@@ -13,7 +13,6 @@ import timber.log.Timber
 
 class InfectionActionCreator(
     private val infectionRepository: InfectionRepository,
-    private val newsRepository: NewsRepository,
     private val preferenceRepository: PreferenceRepository,
     dispatcher: Dispatcher
 ) : ActionCreator<InfectionAction>(dispatcher) {
@@ -37,20 +36,5 @@ class InfectionActionCreator(
                 }
             )
 
-    fun fetchNewsData() =
-        newsRepository.fetchNewsData(Prefecture.values()
-            .filter { it.prefCode == preferenceRepository.getCurrentPrectureCode() }
-            .first()).subscribeOn(Schedulers.io())
-            .doOnSubscribe { dispatch(InfectionAction.ShowLoading(true)) }
-            .doFinally { dispatch(InfectionAction.ShowLoading(false)) }
-            .subscribeBy(
-                onSuccess = {
-                    dispatch(
-                        InfectionAction.FetchNewsData(it)
-                    )
-                },
-                onError = {
-                    //Timber.e(it)
-                }
-            )
+
 }
