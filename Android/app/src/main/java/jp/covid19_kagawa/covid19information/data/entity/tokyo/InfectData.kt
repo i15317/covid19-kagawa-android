@@ -1,4 +1,6 @@
-package jp.covid19_kagawa.covid19information.data.entity
+package jp.covid19_kagawa.covid19information.data.entity.tokyo
+
+
 
 
 data class InfectData(

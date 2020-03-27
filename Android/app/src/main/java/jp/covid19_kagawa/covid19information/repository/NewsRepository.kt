@@ -4,13 +4,16 @@ import io.reactivex.Single
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.Prefecture
+import jp.covid19_kagawa.covid19information.data.mapper.KagawaMapper
 import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
+import jp.covid19_kagawa.covid19information.data.repository.KagawaRepository
 import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
 import jp.covid19_kagawa.covid19information.entity.NewsEntity
 import timber.log.Timber
 
 class NewsRepository(
-    private val tokyoRepository: TokyoRepository
+    private val tokyoRepository: TokyoRepository,
+    private val kagawaRepository: KagawaRepository
 ) {
     fun fetchNewsData(prefecture: Prefecture): Single<List<NewsEntity>> {
         return Single.create<List<NewsEntity>> { emitter ->
@@ -20,6 +23,17 @@ class NewsRepository(
                         .subscribeBy(
                             onSuccess = {
                                 emitter.onSuccess(TokyoMapper.getNewsData(it.newsItems))
+                            },
+                            onError = {
+                                //Timber.e(it)
+                            }
+                        )
+                }
+                Prefecture.KAGAWA->{
+                    kagawaRepository.fetchNewsData().subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))
                             },
                             onError = {
                                 //Timber.e(it)

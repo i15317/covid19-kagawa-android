@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.AppLaunchChecker
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -12,8 +11,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import jp.covid19_kagawa.covid19information.actioncreator.AreaActionCreator
-import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
-import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
 import org.koin.android.ext.android.inject
 
 val PREFERENCES_NAME = "jp.covid19_kagawa.covid19information_preferences"
@@ -26,9 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView: BottomNavigationView
     private val actionCreator: AreaActionCreator by inject()
 
-    //    private var isFirstFlag: Boolean by preferences.boolean(true, IS_FIRST_FLAG)
-//    private var isUpdateFlag: Boolean by preferences.boolean(true, IS_UPDATE_FLAG)
-//    private var dbUpdateFlag: Boolean by preferences.boolean(false, DB_UPDATE_FLAG)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -45,7 +40,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_dashboard,
                 R.id.navigation_notifications,
                 R.id.navigation_setting_area,
-                R.id.navigation_setting_pref
+                R.id.navigation_setting_pref,
+                R.id.navigation_news
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -75,23 +71,12 @@ class MainActivity : AppCompatActivity() {
 
     //更新時はデータベースの初期化
     private fun checkFirstFlag() {
-        if (!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
-            JapanTopDatabase.getInstance().japanTopDao().evilDeleteAllData()
-            PrefectureDatabase.getInstance().prefectureDao().evilDeleteAllData()
-            actionCreator.initDatabase(this)
-        }
-        AppLaunchChecker.onActivityCreate(this)
+        actionCreator.updateDatabase(this)
+//        if (!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
+//            JapanTopDatabase.getInstance().japanTopDao().evilDeleteAllData()
+//            PrefectureDatabase.getInstance().prefectureDao().evilDeleteAllData()
+//            actionCreator.initDatabase(this)
+//        }
+//        AppLaunchChecker.onActivityCreate(this)
     }
-//        if (isFirstFlag) {
-//            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
-//            PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
-//            dbUpdateFlag = true
-//            isFirstFlag = false
-//        }
-//        if (isUpdateFlag) {
-//            JapanTopDatabase.getInstance().japanTopDao().deleteAllDatas()
-//            PrefectureDatabase.getInstance().prefectureDao().deleteAllDatas()
-//            dbUpdateFlag = true
-//            isUpdateFlag = false
-//        }
 }

@@ -40,8 +40,12 @@
     <string-array name="pref_osaka"></string-array>
     <string-array name="pref_osaka_value"></string-array>
 
-    <string-array name="pref_udon"></string-array>
-    <string-array name="pref_udon_value"></string-array>
+    <string-array name="pref_udon">
+        <item>香川</item>
+    </string-array>
+    <string-array name="pref_udon_value">
+        <item>37</item>
+    </string-array>
 
     <string-array name="pref_hakata"></string-array>
     <string-array name="pref_hakata_value"></string-array>

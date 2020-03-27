@@ -2,8 +2,9 @@ package jp.covid19_kagawa.covid19information.data.mapper
 
 
 import jp.covid19_kagawa.covid19information.data.entity.NewsItem
-import jp.covid19_kagawa.covid19information.data.entity.tokyo.InfectData
+import jp.covid19_kagawa.covid19information.data.entity.kagawa.KagawaData
 import jp.covid19_kagawa.covid19information.entity.*
+
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 
-object TokyoMapper {
+object KagawaMapper {
     fun getMilliFromDate(dateFormat: String): Long {
         var date = Date()
         val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
@@ -24,7 +25,7 @@ object TokyoMapper {
         return date.time
     }
 
-    fun getInspectionData(data: InfectData): List<InspectionData> {
+    fun getInspectionData(data: KagawaData): List<InspectionData> {
         val rootData = data.inspection_persons.labels
         val countData = data.inspection_persons.datasets.get(0).data
         val makeData = ArrayList<InspectionData>()
@@ -56,7 +57,7 @@ object TokyoMapper {
         return list
     }
 
-    fun getInfectionData(data: InfectData): InfectionSummary {
+    fun getInfectionData(data: KagawaData): InfectionSummary {
         //ここのvalueで検査人数
         val rootData = data.main_summary
         //ここのvalueで陽性患者数
@@ -84,7 +85,7 @@ object TokyoMapper {
 
     }
 
-    fun getInspectionSummaryData(data: InfectData): InspectionSummary {
+    fun getInspectionSummaryData(data: KagawaData): InspectionSummary {
         //ここの人数で検査実施人数
         val rootData = data.inspection_status_summary
         //ここの数で検査実施件数
@@ -103,9 +104,9 @@ object TokyoMapper {
         )
     }
 
-    fun getInspectionDetailData(data: InfectData): List<InspectionDetailSummary> {
+    fun getInspectionDetailData(data: KagawaData): List<InspectionDetailSummary> {
         val rootData = data.inspections_summary
-        val insideData = rootData.data.都内
+        val insideData = rootData.data.県内
         val outsideData = rootData.data.その他
         val label = data.inspection_persons.labels
         val list = ArrayList<InspectionDetailSummary>()
@@ -121,7 +122,7 @@ object TokyoMapper {
         return list
     }
 
-    fun getContactData(data: InfectData): ContactData {
+    fun getContactData(data: KagawaData): ContactData {
         val rootData = data.contacts
         val entries = rootData.data
         val list = ArrayList<ContactEntry>()
@@ -136,7 +137,7 @@ object TokyoMapper {
         return ContactData(rootData.date, list)
     }
 
-    fun getEntranceData(data: InfectData): EntranceData {
+    fun getEntranceData(data: KagawaData): EntranceData {
         val rootData = data.querents
         val entries = rootData.data
         val list = ArrayList<EntranceEntry>()

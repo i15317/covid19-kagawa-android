@@ -101,7 +101,7 @@ class NotificationsFragment : Fragment() {
                 Toast.makeText(context, "スワイプ機能が解除されました", Toast.LENGTH_SHORT).show()
 
             }
-            true
+            false
         }
         else -> {
             super.onOptionsItemSelected(item)

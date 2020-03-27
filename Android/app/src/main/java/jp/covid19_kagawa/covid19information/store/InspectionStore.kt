@@ -21,6 +21,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         private const val SUB_TITLE = "（累計）"
         private const val SUB_APPEND = "件"
         private const val SUB_APPEND_H = "人"
+        private const val MAIN_TITLE_NO = "不明"
     }
 
     var canFetchMore = false
@@ -53,20 +54,31 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         }
     }
 
-    private fun makeInspectionList(InspectionSummary: InspectionSummary): List<SummaryEntity> {
+    private fun makeInspectionList(inspectionSummary: InspectionSummary): List<SummaryEntity> {
         //検査実施人数
-        val totalEntity = SummaryEntity(
-            MAIN_TITLE,
-            SUB_TITLE,
-            InspectionSummary.value + SUB_APPEND_H,
-            ""
-        )
+        val totalEntity: SummaryEntity
+        if (inspectionSummary.value.toInt() < 0) {
+            totalEntity = SummaryEntity(
+                MAIN_TITLE,
+                SUB_TITLE,
+                MAIN_TITLE_NO,
+                ""
+            )
+
+        } else {
+            totalEntity = SummaryEntity(
+                MAIN_TITLE,
+                SUB_TITLE,
+                inspectionSummary.value + SUB_APPEND_H,
+                ""
+            )
+        }
 
         //検査実施件数
         val countEntity = SummaryEntity(
             COUNT_TITLE,
             SUB_TITLE,
-            InspectionSummary.count_inspection + SUB_APPEND,
+            inspectionSummary.count_inspection + SUB_APPEND,
             ""
         )
 
@@ -74,7 +86,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val insideEntity = SummaryEntity(
             INSIDE_TITLE,
             SUB_TITLE,
-            InspectionSummary.value_inside + SUB_APPEND,
+            inspectionSummary.value_inside + SUB_APPEND,
             ""
         )
 
@@ -82,7 +94,7 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val outsideEntity = SummaryEntity(
             OUTSIDE_TITLE,
             SUB_TITLE,
-            InspectionSummary.value_outside + SUB_APPEND,
+            inspectionSummary.value_outside + SUB_APPEND,
             ""
         )
 

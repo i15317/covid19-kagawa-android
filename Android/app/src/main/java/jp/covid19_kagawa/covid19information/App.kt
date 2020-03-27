@@ -7,7 +7,9 @@ import android.content.SharedPreferences
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import jp.covid19_kagawa.covid19information.actioncreator.*
 import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
+import jp.covid19_kagawa.covid19information.data.api.kagawa.KagawaAPi
 import jp.covid19_kagawa.covid19information.data.repository.DatabaseRepository
+import jp.covid19_kagawa.covid19information.data.repository.KagawaRepository
 import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
@@ -56,14 +58,26 @@ class App : Application() {
                 .build()
                 .create(TokyoAPi::class.java)
         }
+
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(KagawaAPi::class.java)
+        }
+        single { KagawaRepository(get()) }
         single { TokyoRepository(get()) }
-        single { ChartRepository(get()) }
-        single { InfectionRepository(get()) }
-        single { InspectionRepository(get()) }
-        single { ContactRepository(get()) }
-        single { EntranceRepository(get()) }
-        single { InspectionDetailRepository(get()) }
-        single { NewsRepository(get()) }
+        single { ChartRepository(get(), get()) }
+        single { InfectionRepository(get(), get()) }
+        single { InspectionRepository(get(), get()) }
+        single { ContactRepository(get(), get()) }
+        single { EntranceRepository(get(), get()) }
+        single { InspectionDetailRepository(get(), get()) }
+        single { NewsRepository(get(), get()) }
         single { GuideRepository() }
         single { DatabaseRepository() }
         single { PreferenceRepository(get()) }

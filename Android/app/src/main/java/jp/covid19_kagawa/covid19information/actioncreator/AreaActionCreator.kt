@@ -8,8 +8,9 @@ import jp.covid19_kagawa.covid19information.data.repository.DatabaseRepository
 import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
+import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
+import jp.covid19_kagawa.covid19information.room.database.PrefectureDatabase
 import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
-import timber.log.Timber
 
 class AreaActionCreator(
     private val repository: DatabaseRepository,
@@ -22,6 +23,14 @@ class AreaActionCreator(
     //判定はFragmentで行う（システムリソースの責務になるため）
     fun initDatabase(context: Context) = repository.initDatabase(context).also {
         preferenceRepository.updateCurrentPrefecture(defaultEntity)
+    }
+
+    fun updateDatabase(context: Context) {
+        if (preferenceRepository.checkCurrentVersion()) {
+            JapanTopDatabase.getInstance().japanTopDao().evilDeleteAllData()
+            PrefectureDatabase.getInstance().prefectureDao().evilDeleteAllData()
+            initDatabase(context)
+        }
     }
 
     fun getAreaNames() = repository.getAreaNames()
@@ -47,7 +56,7 @@ class AreaActionCreator(
                 dispatch(AreaAction.GetCurrentPrefectureNameAction(it))
             },
             onError = {
-            //    Timber.e(it)
+                //    Timber.e(it)
             }
         )
 
