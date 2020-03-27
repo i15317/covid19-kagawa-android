@@ -22,43 +22,46 @@
     <LinearLayout
         android:id="@+id/entrance_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginBottom="4dp"
         android:orientation="vertical"
         android:padding="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@id/chart_entrance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="2.5">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="5"
+                android:autoSizeTextType="uniform"
                 android:gravity="left|center_vertical"
-                android:text="受診窓口相談件数(総計）"
-                android:textSize="18sp" />
+                android:maxLines="1"
+                android:text="受診窓口相談件数(総計）" />
 
             <TextView
                 android:id="@+id/entrance_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
+                android:autoSizeTextType="uniform"
                 android:gravity="right|center_vertical"
-
-                android:text="0件"
-                android:textSize="18sp" />
+                android:maxLines="1"
+                android:text="0件" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_marginBottom="4dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:padding="3dp">
 
@@ -72,15 +75,18 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="（注意）"
-                    android:textSize="10sp" />
+                    android:autoSizeTextType="uniform"
+
+                    android:maxLines="1"
+                    android:text="（注意）" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:text="医療機関が保険適用で行った検査は含まれていない"
-                    android:textSize="10sp" />
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:text="医療機関が保険適用で行った検査は含まれていない" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,39 +99,40 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="（注意）"
-                    android:textSize="10sp" />
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:text="（注意）" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:text="チャーター機帰国者、クルーズ船乗客等は含まれていない"
-                    android:textSize="10sp" />
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:text="チャーター機帰国者、クルーズ船乗客等は含まれていない" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:maxLines="2"
-                    android:text="（注意）"
-                    android:textSize="10sp" />
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:text="（注意）" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:maxLines="2"
-
-                    android:text="速報値として公開するものであり、後日確定データとして修正される場合あり"
-                    android:textSize="10sp" />
+                    android:autoSizeTextType="uniform"
+                    android:maxLines="1"
+                    android:text="速報値であるため、後日修正される場合あり" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -139,7 +146,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toBottomOf="@id/entrance_title" />
+        app:layout_constraintTop_toBottomOf="@id/entrance_title"
+        app:layout_constraintVertical_weight="7.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -204,7 +204,8 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
             isLoading = it
         }
         store.inspectionNum.observe(this) {
-            this.view!!.findViewById<TextView>(R.id.inspection_num).text = it.toString() + "（人）"
+            this.view!!.findViewById<TextView>(R.id.inspection_num).text =
+                it.toString() + "（人）"
         }
 
     }
