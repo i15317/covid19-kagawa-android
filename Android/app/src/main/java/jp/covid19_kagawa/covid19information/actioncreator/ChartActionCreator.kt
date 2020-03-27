@@ -31,7 +31,9 @@ class ChartActionCreator(
                         )
                     )
                 },
-                onError = { Timber.e(it) }
+                onError = {
+                 //   Timber.e(it)
+                }
             )
 
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Covid19-kagawa</string>
+    <string name="app_name">Covid19 Information</string>
     <string name="title_home">トップ</string>
     <string name="title_dashboard">感染が心配な時</string>
     <string name="title_notifications">検査状況</string>

@@ -25,7 +25,7 @@ class PrefectureActionCreator(
                 dispatch(PrefectureAction.SelectPrefAction(it))
             },
             onError = {
-                Timber.e(it)
+               // Timber.e(it)
             }
         )
 

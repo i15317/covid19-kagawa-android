@@ -27,6 +27,8 @@ class ContactActionCreator(
                 onSuccess = {
                     dispatch(ContactAction.FetchContactData(it))
                 },
-                onError = { Timber.e(it) }
+                onError = {
+                  //  Timber.e(it)
+                }
             )
 }

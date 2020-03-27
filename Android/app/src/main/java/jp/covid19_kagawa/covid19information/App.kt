@@ -104,7 +104,7 @@ class App : Application() {
         viewModel {
             GuideStore(get())
         }
-        factory { GuideActionCreator(get(), get()) }
+        factory { GuideActionCreator(get(), get(), get()) }
 
         factory { PrefectureActionCreator(get(), get(), get()) }
         viewModel { PrefectureStore(get()) }

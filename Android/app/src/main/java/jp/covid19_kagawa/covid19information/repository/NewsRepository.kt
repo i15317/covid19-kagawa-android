@@ -22,7 +22,7 @@ class NewsRepository(
                                 emitter.onSuccess(TokyoMapper.getNewsData(it.newsItems))
                             },
                             onError = {
-                                Timber.e(it)
+                                //Timber.e(it)
                             }
                         )
                 }

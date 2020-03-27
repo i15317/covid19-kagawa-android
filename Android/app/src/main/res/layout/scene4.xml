@@ -152,7 +152,7 @@
             android:id="@+id/scene4_goto_call"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:padding="4dp"
             android:text="専門的な助言を必要とする場合"
             android:textAlignment="center"

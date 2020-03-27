@@ -16,7 +16,7 @@ class AreaActionCreator(
     private val preferenceRepository: PreferenceRepository,
     dispatcher: Dispatcher
 ) : ActionCreator<AreaAction>(dispatcher) {
-    private val defaultEntity = PrefectureEntity(0, "008", "未設定", "0")
+    private val defaultEntity = PrefectureEntity(0, "002", "東京", "13")
 
     //アンチパターンな気がするがまあ良し
     //判定はFragmentで行う（システムリソースの責務になるため）
@@ -36,7 +36,9 @@ class AreaActionCreator(
                     )
                 )
             },
-            onError = { Timber.e(it) }
+            onError = {
+                //Timber.e(it)
+            }
         )
 
     fun getCurrentPrefectureName() =
@@ -44,7 +46,9 @@ class AreaActionCreator(
             onSuccess = {
                 dispatch(AreaAction.GetCurrentPrefectureNameAction(it))
             },
-            onError = { Timber.e(it) }
+            onError = {
+            //    Timber.e(it)
+            }
         )
 
 }

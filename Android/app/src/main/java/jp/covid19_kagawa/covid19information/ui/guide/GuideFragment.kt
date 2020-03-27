@@ -1,5 +1,7 @@
 package jp.covid19_kagawa.covid19information.ui.guide
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.TransitionData
 import jp.covid19_kagawa.covid19information.actioncreator.GuideActionCreator
 import jp.covid19_kagawa.covid19information.databinding.*
+import jp.covid19_kagawa.covid19information.observe
 import jp.covid19_kagawa.covid19information.store.GuideStore
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -79,13 +82,15 @@ class GuideFragment : Fragment() {
         mScene3 = Scene(mSceneRoot, mView3.root)
         mScene4 = Scene(mSceneRoot, mView4.root)
 
-        //デフォルトのシーンに移動
-        actionCreator.changeGuideScene(selectScene(SCENE.SCENE1))
-
         //データバインディングの設定
+        //Todo:消せ
+        setClickItems()
         binding.lifecycleOwner = viewLifecycleOwner
         binding.item = store
         // END_INCLUDE(custom_transition_manager)
+        actionCreator.getWebsiteLinks()
+        //デフォルトのシーンに移動
+        actionCreator.changeGuideScene(selectScene(SCENE.SCENE1))
         return view
     }
 
@@ -97,5 +102,39 @@ class GuideFragment : Fragment() {
             SCENE.SCENE4 -> TransitionData(this.mScene4, GuideSelection.SCENE4)
         }
 
-
+    private fun setClickItems() {
+        store.webSiteLink.observe(this) { link ->
+            mView1.scene1GotoTel.setOnClickListener {
+                val test = link
+                val intent = Intent(
+                    Intent.ACTION_VIEW, Uri.parse(link)
+                )
+                startActivity(intent)
+            }
+            mView2.scene2GotoCall.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_VIEW, Uri.parse(link)
+                )
+                startActivity(intent)
+            }
+            mView3.scene3GotoCall.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_VIEW, Uri.parse(link)
+                )
+                startActivity(intent)
+            }
+            mView4.scene4GotoWeb.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_VIEW, Uri.parse(link)
+                )
+                startActivity(intent)
+            }
+            mView4.scene4GotoCall.setOnClickListener {
+                val intent = Intent(
+                    Intent.ACTION_VIEW, Uri.parse(link)
+                )
+                startActivity(intent)
+            }
+        }
+    }
 }

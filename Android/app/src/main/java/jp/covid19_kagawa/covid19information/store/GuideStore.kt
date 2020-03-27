@@ -12,6 +12,8 @@ class GuideStore(dispatcher: Dispatcher) : Store(dispatcher) {
     //    private val inspectionData = mutableListOf<InspectionData>()
     val loadingState = StoreLiveData<Boolean>()
     val titleMessage = StoreLiveData<String>()
+    val telephoneLink = StoreLiveData<String>()
+    val webSiteLink = StoreLiveData<String>()
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun on(action: GuideAction) {
@@ -23,6 +25,9 @@ class GuideStore(dispatcher: Dispatcher) : Store(dispatcher) {
                 titleMessage.postValue(action.title)
             }
 
+            is GuideAction.GetWebLinks -> {
+                webSiteLink.postValue(action.webEntity.centerLink)
+            }
         }
     }
 

@@ -32,7 +32,9 @@ class InfectionActionCreator(
                         )
                     )
                 },
-                onError = { Timber.e(it) }
+                onError = {
+                  //  Timber.e(it)
+                }
             )
 
     fun fetchNewsData() =
@@ -48,7 +50,7 @@ class InfectionActionCreator(
                     )
                 },
                 onError = {
-                    Timber.e(it)
+                    //Timber.e(it)
                 }
             )
 }

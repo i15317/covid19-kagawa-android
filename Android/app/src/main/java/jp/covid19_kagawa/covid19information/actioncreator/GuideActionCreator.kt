@@ -3,12 +3,15 @@ package jp.covid19_kagawa.covid19information.actioncreator
 import androidx.transition.TransitionManager
 import jp.covid19_kagawa.covid19information.TransitionData
 import jp.covid19_kagawa.covid19information.action.GuideAction
+import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.GuideRepository
+import jp.covid19_kagawa.covid19information.room.entity.WebEntity
 
 class GuideActionCreator(
     private val guideRepository: GuideRepository,
+    private val prefereceRepository: PreferenceRepository,
     dispatcher: Dispatcher
 ) : ActionCreator<GuideAction>(dispatcher) {
 
@@ -20,6 +23,23 @@ class GuideActionCreator(
                 dispatch(GuideAction.ChangeGuideScene(title))
             }
         }
+    }
+
+    //it.prefCode == preferenceRepository.getCurrentPrectureCode()
+    fun getWebsiteLinks() = prefereceRepository.getCurrentPrectureCode().also {
+        //現状はデータベースにアクセスしない
+        //Todo:消せ
+        val evilEntity = WebEntity(
+            0,
+            it.toString(),
+            "",
+            "",
+            "",
+            "https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html#cmsF9A3F",
+            "",
+            false
+        )
+        dispatch(GuideAction.GetWebLinks(evilEntity))
     }
 
 }

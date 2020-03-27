@@ -26,6 +26,8 @@ class EntranceActionCreator(
                 onSuccess = {
                     dispatch(EntranceAction.FetchEntranceData(it))
                 },
-                onError = { Timber.e(it) }
+                onError = {
+                  //  Timber.e(it)
+                }
             )
 }
