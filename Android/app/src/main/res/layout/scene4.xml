@@ -24,116 +24,167 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="3"
             app:srcCompat="@drawable/ic_sentiment_dissatisfied_black_96dp" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
             android:text="不安に思う方"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:layout_constraintVertical_weight="1" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <Button
             android:id="@+id/regular_strong"
-            android:layout_width="180dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="40dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/frame_style"
             android:maxLines="1"
-            android:padding="16dp"
+            android:padding="12dp"
             android:text="微熱"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/regular_like_cold"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/regular_like_cold"
-            app:layout_constraintTop_toBottomOf="@+id/regular_like_cold" />
-
-        <Button
-            android:id="@+id/regular_fever"
-            android:layout_width="180dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="16dp"
-            android:autoSizeTextType="uniform"
-            android:background="@drawable/frame_style"
-            android:maxLines="2"
-            android:padding="16dp"
-            android:text="軽い咳"
-            android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/regular_like_cold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.877"
-            app:layout_constraintStart_toEndOf="@+id/regular_like_cold"
-            app:layout_constraintTop_toTopOf="@+id/regular_like_cold"
-            app:layout_constraintVertical_bias="0.478" />
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline2"
+            app:layout_constraintEnd_toStartOf="@+id/regular_hard_breath"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/regular_like_cold"
+            app:layout_constraintVertical_weight="1" />
 
         <Button
             android:id="@+id/regular_like_cold"
-            android:layout_width="180dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/frame_style"
             android:maxLines="1"
-            android:padding="16dp"
+            android:padding="12dp"
             android:text="倦怠感"
             android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/regular_strong"
+            app:layout_constraintEnd_toStartOf="@id/regular_fever"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
+            app:layout_constraintVertical_weight="1" />
+
+        <Button
+            android:id="@+id/regular_fever"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/frame_style"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:text="軽い咳"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/regular_hard_breath"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/regular_like_cold"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
+            app:layout_constraintVertical_weight="1" />
 
         <Button
             android:id="@+id/regular_hard_breath"
-            android:layout_width="180dp"
-            android:layout_height="80dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
             android:autoSizeTextType="uniform"
             android:background="@drawable/frame_style"
             android:maxLines="1"
-            android:padding="16dp"
+            android:padding="12dp"
             android:text="感染の不安"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="@+id/regular_strong"
-            app:layout_constraintEnd_toEndOf="@+id/regular_fever"
-            app:layout_constraintHorizontal_bias="0.617"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/regular_strong"
-            app:layout_constraintStart_toStartOf="@+id/regular_fever"
-            app:layout_constraintTop_toTopOf="@+id/regular_strong" />
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@id/regular_strong"
+            app:layout_constraintTop_toBottomOf="@+id/regular_fever"
+            app:layout_constraintVertical_weight="1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.57"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/regular_four_text"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             android:autoSizeTextType="uniform"
             android:gravity="center"
+            android:maxLines="2"
             android:padding="8dp"
-
-            android:text="各都道府県の電話窓口相談を"
+            android:text="各都道府県の\n電話窓口相談へ"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/horizontal_guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/regular_strong" />
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_guideline2" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.75"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/scene4_goto_web"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="6dp"
             android:autoSizeTextType="uniform"
             android:background="@color/colorAccent"
@@ -146,19 +197,23 @@
             app:layout_constraintBottom_toTopOf="@+id/scene4_goto_call"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/regular_four_text" />
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_guideline3"
+            app:layout_constraintVertical_weight="3" />
 
         <Button
             android:id="@+id/scene4_goto_call"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:padding="4dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:maxLines="1"
+            android:padding="6dp"
             android:text="専門的な助言を必要とする場合"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scene4_goto_web"
+            app:layout_constraintVertical_weight="2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
