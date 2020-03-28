@@ -5,6 +5,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('C:\\Users\\Owner\\KeyStore\\covid19information_apk.jks')
+            storePassword 'Kentarou0815gabagaba!'
+            keyAlias = 'covid19information'
+            keyPassword 'Kentarou0815gabagaba!'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
@@ -19,8 +27,14 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+
+        }
+        release {
+            shrinkResources false // リソースの圧縮
+            minifyEnabled false // コードの圧縮
+            signingConfig signingConfigs.config  // 署名設定
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -105,5 +119,18 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$room_version"
     implementation "androidx.room:room-guava:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
+    implementation 'androidx.browser:browser:1.2.0'
+    implementation 'com.xwray:groupie:2.7.2'
+    implementation 'com.xwray:groupie-databinding:2.7.2'
+    // The base library. If you're using either the dbx and/or ktx libraries, you don't need this
+    implementation "dev.chrisbanes:insetter:0.2.1"
 
+    // If you're using data-binding use this
+    implementation "dev.chrisbanes:insetter-dbx:0.2.1"
+
+    // If you're using Kotlin use this too
+    implementation "dev.chrisbanes:insetter-ktx:0.2.1"
+
+    // If you would like to use the enhanced widget set, use this
+    implementation "dev.chrisbanes:insetter-widgets:0.2.1"
 }

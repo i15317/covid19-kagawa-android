@@ -1,5 +1,8 @@
 package jp.covid19_kagawa.covid19information.store
 
+import android.text.Spannable
+import android.text.style.RelativeSizeSpan
+import android.text.style.UnderlineSpan
 import jp.covid19_kagawa.covid19information.action.InfectionAction
 import jp.covid19_kagawa.covid19information.entity.InfectionSummary
 import jp.covid19_kagawa.covid19information.entity.SummaryEntity
@@ -23,6 +26,8 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         private const val DIED_TITLE = "死亡"
         private const val SUB_TITLE = "（累計）"
         private const val SUB_APPEND = "人"
+        private const val HOME_MAIN_TEXT = " の情報を表示中"
+        private const val HOME_MAIN_HEAD = "現在 "
     }
 
     var canFetchMore = false
@@ -34,7 +39,7 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
     private val loadingInfectionList = mutableListOf<SummaryEntity>()
     val loadingState = StoreLiveData<Boolean>()
     val loadedInfectionData = StoreLiveData<List<SummaryEntity>>()
-
+    val currentPrefectureName = StoreLiveData<Spannable>()
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun on(action: InfectionAction) {
@@ -50,7 +55,39 @@ class InfectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
                 loadedInfectionData.postValue(loadingInfectionList)
             }
 
+            is InfectionAction.GetCurrentPrefectureNameAction -> {
+                currentPrefectureName.postValue(makeText(action.prefName))
+            }
+
         }
+    }
+
+    private fun makeText(baseStr: String): Spannable {
+        val tmpStr = HOME_MAIN_HEAD + baseStr + HOME_MAIN_TEXT
+        val spannable = Spannable.Factory.getInstance().newSpannable(tmpStr)
+
+        val underlineSpan = UnderlineSpan()
+//        val styleSpan = StyleSpan(Typeface.BOLD)
+        val span = RelativeSizeSpan(1.5f)
+        spannable.setSpan(
+            underlineSpan,
+            HOME_MAIN_HEAD.length,
+            baseStr.length + HOME_MAIN_HEAD.length,
+            spannable.getSpanFlags(underlineSpan) // getSpanFlagsの引数に、引数1のインスタンスを指定してください
+        )
+//        spannable.setSpan(
+//           styleSpan,
+//            0,
+//            baseStr.length,
+//            spannable.getSpanFlags(styleSpan) // getSpanFlagsの引数に、引数1のインスタンスを指定してください
+//        )
+        spannable.setSpan(
+            span,
+            HOME_MAIN_HEAD.length,
+            baseStr.length + HOME_MAIN_HEAD.length,
+            spannable.getSpanFlags(span) // getSpanFlagsの引数に、引数1のインスタンスを指定してください
+        )
+        return spannable
     }
 
     private fun makeInfectionList(infectionSummary: InfectionSummary): List<SummaryEntity> {

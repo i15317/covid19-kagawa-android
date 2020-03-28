@@ -44,7 +44,6 @@ class PreferenceRepository(
             return false
         }
     }
-
-
+    
     fun getCurrentPrectureCode(): Int = currentPrefecture
 }

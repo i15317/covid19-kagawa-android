@@ -14,4 +14,5 @@
     <string name="title_setting">都道府県の設定</string>
     <string name="text_area_guide">エリアを選択</string>
     <string name="title_news">最新のニュース</string>
+    <string name="navigation_drawer_header">navigation_drawer_header</string>
 </resources>

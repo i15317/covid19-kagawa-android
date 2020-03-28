@@ -4,7 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.actioncreator.NewsActionCreator
 import jp.covid19_kagawa.covid19information.adapter.NewsAdapter
@@ -32,6 +34,11 @@ class NewsFragment : Fragment() {
         //アダプターセット
 
         binding.newsList.adapter = newsAdapter
+        val separateLine = DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+            this.setDrawable(ContextCompat.getDrawable(context!!, R.drawable.divider)!!)
+        }
+
+        binding.newsList.addItemDecoration(separateLine)
 
         newsAdapter.onItemClicked = {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.main_link))

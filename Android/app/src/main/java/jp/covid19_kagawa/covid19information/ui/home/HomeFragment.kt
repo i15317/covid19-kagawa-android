@@ -36,6 +36,7 @@ class HomeFragment : Fragment() {
         isLoading = true
 
         actionCreator.getInfectData()
+        actionCreator.getCurrentPrefectureName()
         return binding.root
     }
 
@@ -52,6 +53,10 @@ class HomeFragment : Fragment() {
             }
         }
 
+        store.currentPrefectureName.observe(this) {
+            binding.textHome.text = it
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,6 +68,8 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_sync -> {
             actionCreator.getInfectData()
+            actionCreator.getCurrentPrefectureName()
+
             true
         }
         else -> {

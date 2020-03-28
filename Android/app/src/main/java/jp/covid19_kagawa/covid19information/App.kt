@@ -46,7 +46,6 @@ class App : Application() {
         single { provideSettingsPreferences(androidApplication()) }
     }
 
-
     private val networkModule = module {
         single {
             Retrofit

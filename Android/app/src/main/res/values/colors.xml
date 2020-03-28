@@ -7,6 +7,9 @@
     <color name="green600">#43A047</color>
     <color name="green">#4DFF1A</color>
     <color name="colorBack">#EDFDFF</color>
-
+    <color name="color_divider">#C7C7C7</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorSurface">#1E8CBE</color>
 </resources>
 

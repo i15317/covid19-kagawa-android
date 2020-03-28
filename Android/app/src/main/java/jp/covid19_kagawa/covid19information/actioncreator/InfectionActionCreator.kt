@@ -36,5 +36,13 @@ class InfectionActionCreator(
                 }
             )
 
-
+    fun getCurrentPrefectureName() =
+        preferenceRepository.getCurrentPrefectureName().subscribeOn(Schedulers.io()).subscribeBy(
+            onSuccess = {
+                dispatch(InfectionAction.GetCurrentPrefectureNameAction(it))
+            },
+            onError = {
+                //    Timber.e(it)
+            }
+        )
 }

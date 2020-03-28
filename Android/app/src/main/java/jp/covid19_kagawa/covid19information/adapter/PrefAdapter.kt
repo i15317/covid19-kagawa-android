@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import jp.covid19_kagawa.covid19information.R
 import jp.covid19_kagawa.covid19information.databinding.PrefRepoItemBinding
+
 import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
 import jp.covid19_kagawa.covid19information.setSafeClickListener
 
