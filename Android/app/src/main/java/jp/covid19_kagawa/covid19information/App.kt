@@ -7,11 +7,13 @@ import android.content.SharedPreferences
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import jp.covid19_kagawa.covid19information.actioncreator.*
 import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
+import jp.covid19_kagawa.covid19information.data.api.aomori.AomoriAPi
+import jp.covid19_kagawa.covid19information.data.api.gumma.GummaAPi
+import jp.covid19_kagawa.covid19information.data.api.ibaraki.IbarakiAPi
+import jp.covid19_kagawa.covid19information.data.api.iwate.IwateAPi
 import jp.covid19_kagawa.covid19information.data.api.kagawa.KagawaAPi
-import jp.covid19_kagawa.covid19information.data.repository.DatabaseRepository
-import jp.covid19_kagawa.covid19information.data.repository.KagawaRepository
-import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
-import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
+import jp.covid19_kagawa.covid19information.data.api.miyagi.MiyagiAPi
+import jp.covid19_kagawa.covid19information.data.repository.*
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.*
 import jp.covid19_kagawa.covid19information.room.database.JapanTopDatabase
@@ -68,15 +70,71 @@ class App : Application() {
                 .build()
                 .create(KagawaAPi::class.java)
         }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(AomoriAPi::class.java)
+        }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(IwateAPi::class.java)
+        }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(MiyagiAPi::class.java)
+        }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(IbarakiAPi::class.java)
+        }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(GummaAPi::class.java)
+        }
         single { KagawaRepository(get()) }
+        single { AomoriRepository(get()) }
+        single { IwateRepository(get()) }
+        single { MiyagiRepository(get()) }
+        single { GummaRepository(get()) }
+        single { IbarakiRepository(get()) }
+
         single { TokyoRepository(get()) }
-        single { ChartRepository(get(), get()) }
-        single { InfectionRepository(get(), get()) }
-        single { InspectionRepository(get(), get()) }
-        single { ContactRepository(get(), get()) }
-        single { EntranceRepository(get(), get()) }
-        single { InspectionDetailRepository(get(), get()) }
-        single { NewsRepository(get(), get()) }
+        single { ChartRepository(get(), get(), get(), get(), get(), get(), get()) }
+        single { InfectionRepository(get(), get(), get(), get(), get(), get(), get()) }
+        single { InspectionRepository(get(), get(), get(), get(), get(), get(), get()) }
+        single { ContactRepository(get(), get(), get(), get(), get(), get(), get()) }
+        single { EntranceRepository(get(), get(), get(), get(), get(), get(), get()) }
+        single { InspectionDetailRepository(get(), get(), get(), get(), get(), get(), get()) }
+        single { NewsRepository(get(), get(), get(), get(), get(), get(), get()) }
         single { GuideRepository() }
         single { DatabaseRepository() }
         single { PreferenceRepository(get()) }

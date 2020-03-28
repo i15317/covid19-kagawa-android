@@ -6,14 +6,17 @@ import io.reactivex.schedulers.Schedulers
 import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.data.mapper.KagawaMapper
 import jp.covid19_kagawa.covid19information.data.mapper.TokyoMapper
-import jp.covid19_kagawa.covid19information.data.repository.KagawaRepository
-import jp.covid19_kagawa.covid19information.data.repository.TokyoRepository
+import jp.covid19_kagawa.covid19information.data.repository.*
 import jp.covid19_kagawa.covid19information.entity.NewsEntity
-import timber.log.Timber
 
 class NewsRepository(
     private val tokyoRepository: TokyoRepository,
-    private val kagawaRepository: KagawaRepository
+    private val kagawaRepository: KagawaRepository,
+    private val aomoriRepository: AomoriRepository,
+    private val iwateRepository: IwateRepository,
+    private val miyagiRepository: MiyagiRepository,
+    private val ibarakiRepository: IbarakiRepository,
+    private val gummaRepository: GummaRepository
 ) {
     fun fetchNewsData(prefecture: Prefecture): Single<List<NewsEntity>> {
         return Single.create<List<NewsEntity>> { emitter ->
@@ -29,8 +32,63 @@ class NewsRepository(
                             }
                         )
                 }
-                Prefecture.KAGAWA->{
+                Prefecture.KAGAWA -> {
                     kagawaRepository.fetchNewsData().subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))
+                            },
+                            onError = {
+                                //Timber.e(it)
+                            }
+                        )
+                }
+                Prefecture.AOMORI -> {
+                    aomoriRepository.fetchNewsData().subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))
+                            },
+                            onError = {
+                                //Timber.e(it)
+                            }
+                        )
+                }
+                Prefecture.IWATE -> {
+                    iwateRepository.fetchNewsData().subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))
+                            },
+                            onError = {
+                                //Timber.e(it)
+                            }
+                        )
+                }
+                Prefecture.MIYAGI -> {
+                    miyagiRepository.fetchNewsData().subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))
+                            },
+                            onError = {
+                                //Timber.e(it)
+                            }
+                        )
+                }
+                Prefecture.IBARAKI -> {
+                    ibarakiRepository.fetchNewsData().subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))
+                            },
+                            onError = {
+                                //Timber.e(it)
+                            }
+                        )
+                }
+                Prefecture.GUMMA -> {
+                    gummaRepository.fetchNewsData().subscribeOn(Schedulers.io())
                         .subscribeBy(
                             onSuccess = {
                                 emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))

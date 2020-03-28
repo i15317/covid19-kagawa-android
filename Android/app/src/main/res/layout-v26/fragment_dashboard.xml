@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="2.5">
+        app:layout_constraintVertical_weight="2">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -40,8 +40,8 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginEnd="4dp"
+                android:layout_weight="1"
                 android:autoSizeTextType="uniform"
                 android:gravity="left|center_vertical"
                 android:maxLines="1"
@@ -75,19 +75,19 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLines="1"
-
                     android:autoSizeTextType="uniform"
+
+                    android:maxLines="1"
                     android:text="（注意）" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:maxLines="1"
                     android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:text="医療機関が保険適用で行った検査は含まれていない" />
             </LinearLayout>
 
@@ -99,18 +99,18 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:maxLines="1"
                     android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:text="（注意）" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="7"
-                    android:maxLines="1"
                     android:autoSizeTextType="uniform"
+                    android:maxLines="1"
                     android:text="チャーター機帰国者、クルーズ船乗客等は含まれていない" />
             </LinearLayout>
 
@@ -122,7 +122,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:autoSizeTextType="uniform"
                     android:maxLines="1"
@@ -130,7 +130,7 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:autoSizeTextType="uniform"
                     android:maxLines="1"
@@ -149,6 +149,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inspection_detail_title"
-        app:layout_constraintVertical_weight="7.5" />
+        app:layout_constraintVertical_weight="8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,11 +25,11 @@
         android:layout_marginBottom="4dp"
         android:orientation="vertical"
         android:padding="3dp"
-        app:layout_constraintVertical_weight="2.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@id/chart_contact"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                     android:layout_weight="7"
                     android:autoSizeTextType="uniform"
                     android:maxLines="1"
-                    android:text="速報値であるため、後日修正される場合あり" />
+                    android:text="@string/miss_data_text" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -142,11 +142,11 @@
         android:id="@+id/chart_contact"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="7.5"
         android:layout_below="@+id/entrance_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/entrance_title" />
+        app:layout_constraintTop_toBottomOf="@id/entrance_title"
+        app:layout_constraintVertical_weight="8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

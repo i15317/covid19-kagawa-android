@@ -21,13 +21,24 @@
         <item>008</item>
     </string-array>
 
-    <string-array name="pref_hk"></string-array>
-    <string-array name="pref_hk_value"></string-array>
+    <string-array name="pref_hk">
+        <item>青森</item>
+        <item>岩手</item>
+        <item>宮城</item>
+    </string-array>
+
+    <string-array name="pref_hk_value">
+        <item>2</item>
+        <item>4</item>
+    </string-array>
 
     <string-array name="pref_tokyo">
+        <item>茨城</item>
         <item>東京</item>
     </string-array>
     <string-array name="pref_tokyo_value">
+        <item>8</item>
+        <item>10</item>
         <item>13</item>
     </string-array>
 
