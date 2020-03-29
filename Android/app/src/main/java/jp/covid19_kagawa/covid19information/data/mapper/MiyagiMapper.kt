@@ -27,13 +27,13 @@ object MiyagiMapper {
 
     fun getInspectionData(data: MiyagiData): List<InspectionData> {
         val rootData = data.inspection_persons.labels
-        val countData = data.inspection_persons.datasets.get(0).data
+
         val makeData = ArrayList<InspectionData>()
 
         for (i in 0 until rootData.count()) {
             makeData.add(
                 InspectionData(
-                    countData.get(i).toFloat(),
+                    0.0f,
                     TimeUnit.MILLISECONDS.toHours(getMilliFromDate(rootData.get(i))).toFloat()
                 )
             )
@@ -94,29 +94,24 @@ object MiyagiMapper {
         val inspection_inside = inspection.children.get(0).value
         //地域外
         val inspection_outside = inspection.children.get(1).value
+        val count = data.inspection_persons.datasets.get(0).data.sum()
 
         return InspectionSummary(
-            rootData.date,
-            rootData.value.toString(),
-            inspection_inside.toString(),
-            inspection_outside.toString(),
-            inspection.value.toString()
+            rootData.date, "-1", "-1", "-1", count.toString()
         )
     }
 
     fun getInspectionDetailData(data: MiyagiData): List<InspectionDetailSummary> {
-        val rootData = data.inspections_summary
-        val insideData = rootData.data.県内
-        val outsideData = rootData.data.その他
-        val label = data.inspection_persons.labels
         val list = ArrayList<InspectionDetailSummary>()
-        val count = minOf(label.count(), insideData.count(), outsideData.count())
-        for (i in 0 until count) {
+        val rootData = data.inspection_persons.labels
+        val countData = data.inspection_persons.datasets.get(0).data
+
+        for (i in 0 until rootData.count()) {
             list.add(
                 InspectionDetailSummary(
-                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(label[i])),
-                    insideData[i],
-                    outsideData[i]
+                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(rootData.get(i))),
+                    countData.get(i),
+                    0
                 )
             )
         }
@@ -146,7 +141,7 @@ object MiyagiMapper {
             list.add(
                 EntranceEntry(
                     TimeUnit.MILLISECONDS.toHours(getMilliFromDate(entry.日付)),
-                    entry.小計
+                    0
                 )
             )
         }

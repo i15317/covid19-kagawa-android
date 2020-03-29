@@ -94,13 +94,14 @@ object IbarakiMapper {
         val inspection_inside = inspection.children.get(0).value
         //地域外
         val inspection_outside = inspection.children.get(1).value
+        val countData = data.inspection_persons.datasets.get(0).data.sum()
 
         return InspectionSummary(
             rootData.date,
-            rootData.value.toString(),
-            inspection_inside.toString(),
-            inspection_outside.toString(),
-            inspection.value.toString()
+            countData.toString(),
+            "-1",
+            "-1",
+            "-1"
         )
     }
 
@@ -116,8 +117,7 @@ object IbarakiMapper {
             list.add(
                 InspectionDetailSummary(
                     TimeUnit.MILLISECONDS.toHours(getMilliFromDate(label[i])),
-                    insideData[i],
-                    outsideData[i]
+                    0, 0
                 )
             )
         }
@@ -147,7 +147,7 @@ object IbarakiMapper {
             list.add(
                 EntranceEntry(
                     TimeUnit.MILLISECONDS.toHours(getMilliFromDate(entry.日付)),
-                    entry.小計
+                    0
                 )
             )
         }
