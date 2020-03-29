@@ -1,8 +1,6 @@
 package jp.covid19_kagawa.covid19information.data.entity.tokyo
 
 
-
-
 data class InfectData(
     val contacts: Contacts,
     val discharges_summary: DischargesSummary,

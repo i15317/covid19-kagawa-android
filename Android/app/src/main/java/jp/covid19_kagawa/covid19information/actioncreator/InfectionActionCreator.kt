@@ -8,8 +8,6 @@ import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.InfectionRepository
-import jp.covid19_kagawa.covid19information.repository.NewsRepository
-import timber.log.Timber
 
 class InfectionActionCreator(
     private val infectionRepository: InfectionRepository,
@@ -32,7 +30,7 @@ class InfectionActionCreator(
                     )
                 },
                 onError = {
-                  //  Timber.e(it)
+                    //  Timber.e(it)
                 }
             )
 

@@ -2,7 +2,6 @@ package jp.covid19_kagawa.covid19information.data.api.gumma
 
 import io.reactivex.Single
 import jp.covid19_kagawa.covid19information.data.entity.NewsData
-import jp.covid19_kagawa.covid19information.data.entity.aomori.AomoriData
 import jp.covid19_kagawa.covid19information.data.entity.gumma.GummaData
 import retrofit2.http.GET
 

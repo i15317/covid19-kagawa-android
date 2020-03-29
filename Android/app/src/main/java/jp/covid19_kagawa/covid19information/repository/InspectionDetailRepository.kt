@@ -15,7 +15,8 @@ class InspectionDetailRepository(
     private val iwateRepository: IwateRepository,
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
-    private val gummaRepository: GummaRepository
+    private val gummaRepository: GummaRepository,
+    private val chibaRepository: ChibaRepository
 ) {
     fun fetchInspectionDetailData(prefecture: Prefecture): Single<List<InspectionDetailSummary>> {
         return Single.create<List<InspectionDetailSummary>> { emitter ->
@@ -113,6 +114,20 @@ class InspectionDetailRepository(
                             onSuccess = {
                                 emitter.onSuccess(
                                     GummaMapper.getInspectionDetailData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
+                Prefecture.CHIBA->{
+                    chibaRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                    ChibaMapper.getInspectionDetailData(
                                         it
                                     )
                                 )

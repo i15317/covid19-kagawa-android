@@ -10,6 +10,10 @@
             android:id="@+id/navigation_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/title_home" />
+        <item
+            android:id="@+id/navigation_browse"
+            android:icon="@drawable/ic_web_black_24dp"
+            android:title="ウェブで表示する" />
     </group>
     <group
         android:id="@+id/group_1"

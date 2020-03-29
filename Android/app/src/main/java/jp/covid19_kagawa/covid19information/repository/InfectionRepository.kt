@@ -15,7 +15,8 @@ class InfectionRepository(
     private val iwateRepository: IwateRepository,
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
-    private val gummaRepository: GummaRepository
+    private val gummaRepository: GummaRepository,
+    private val chibaRepository: ChibaRepository
 ) {
     fun fetchInfectionData(prefecture: Prefecture): Single<InfectionSummary> {
         return Single.create<InfectionSummary> { emitter ->
@@ -107,6 +108,20 @@ class InfectionRepository(
                             onSuccess = {
                                 emitter.onSuccess(
                                     GummaMapper.getInfectionData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
+                Prefecture.CHIBA->{
+                    chibaRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                   ChibaMapper.getInfectionData(
                                         it
                                     )
                                 )

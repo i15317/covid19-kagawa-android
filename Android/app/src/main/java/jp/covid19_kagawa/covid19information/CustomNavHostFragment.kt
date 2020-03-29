@@ -1,8 +1,6 @@
 package jp.covid19_kagawa.covid19information
 
 import androidx.navigation.NavController
-import androidx.navigation.Navigator
-import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.plusAssign
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -27,7 +28,9 @@ import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.OnSuccessListener
 import com.google.android.play.core.tasks.TaskExecutors
+import jp.covid19_kagawa.covid19information.ChromeCustomTabsNavigatorDirections.Companion.actionGlobalToChrome
 import jp.covid19_kagawa.covid19information.actioncreator.AreaActionCreator
+import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import org.koin.android.ext.android.inject
 import java.util.concurrent.Executor
 
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appNavBarConfiguration: AppBarConfiguration
     lateinit var installStateUpdatedListener: InstallStateUpdatedListener
 
+    private val preferenceRepository: PreferenceRepository by inject()
 
     lateinit var appUpdateManager: AppUpdateManager
 
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         navView = findViewById(R.id.nav_view)
         navDrawer = findViewById(R.id.nav_drawer)
         navController.navigatorProvider += ChromeCustomTabsNavigator(this)
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
@@ -93,6 +98,9 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appNavBarConfiguration)
         navView.setupWithNavController(navController)
         navDrawer.setupWithNavController(navController)
+        navDrawer.setNavigationItemSelectedListener {
+            handleNavigation(it.itemId)
+        }
 
     }
 
@@ -207,6 +215,25 @@ class MainActivity : AppCompatActivity() {
             setAction("RESTART") { appUpdateManager.completeUpdate() }
             show()
         }
+    }
+
+    private fun handleNavigation(@IdRes itemId: Int): Boolean {
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout.closeDrawers()
+
+        when (itemId) {
+            R.id.navigation_browse -> {
+                val url = preferenceRepository.getCurrentUrl()
+                if (url.isNotEmpty()) {
+                    navController.navigate(
+                        actionGlobalToChrome(
+                            url
+                        )
+                    )
+                }
+            }
+        }
+        return false
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,9 +1,8 @@
 package jp.covid19_kagawa.covid19information.data.api
 
 import io.reactivex.Single
-import jp.covid19_kagawa.covid19information.data.entity.tokyo.InfectData
 import jp.covid19_kagawa.covid19information.data.entity.NewsData
-
+import jp.covid19_kagawa.covid19information.data.entity.tokyo.InfectData
 import retrofit2.http.GET
 
 

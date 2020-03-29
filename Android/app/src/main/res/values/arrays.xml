@@ -35,10 +35,12 @@
 
     <string-array name="pref_tokyo">
         <item>茨城</item>
+        <item>千葉市</item>
         <item>東京</item>
     </string-array>
     <string-array name="pref_tokyo_value">
         <item>8</item>
+        <item>12</item>
         <item>13</item>
     </string-array>
 

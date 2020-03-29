@@ -1,4 +1,5 @@
 package jp.covid19_kagawa.covid19information.data.entity.miyagi
+
 data class MiyagiData(
     val contacts: Contacts,
     val discharges_summary: DischargesSummary,

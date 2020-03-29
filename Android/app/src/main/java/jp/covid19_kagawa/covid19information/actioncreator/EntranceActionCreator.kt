@@ -27,7 +27,7 @@ class EntranceActionCreator(
                     dispatch(EntranceAction.FetchEntranceData(it))
                 },
                 onError = {
-                   Timber.e(it)
+                    Timber.e(it)
                 }
             )
 }

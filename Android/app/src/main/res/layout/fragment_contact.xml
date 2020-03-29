@@ -130,10 +130,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:textColor="@color/colorRed"
                     android:autoSizeTextType="uniform"
                     android:maxLines="1"
-                    android:text="@string/miss_data_text" />
+                    android:text="@string/miss_data_text"
+                    android:textColor="@color/colorRed" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

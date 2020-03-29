@@ -24,12 +24,12 @@
         android:layout_height="0dp"
         android:layout_marginBottom="4dp"
         android:orientation="vertical"
-        app:layout_constraintVertical_weight="2"
         android:padding="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@id/chart_inspection_detail"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,10 +134,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="7"
-                    android:textColor="@color/colorRed"
                     android:autoSizeTextType="uniform"
                     android:maxLines="1"
-                    android:text="@string/miss_data_text" />
+                    android:text="@string/miss_data_text"
+                    android:textColor="@color/colorRed" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -147,12 +147,12 @@
         android:id="@+id/chart_inspection_detail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintVertical_weight="8"
-
         android:layout_below="@+id/inspection_detail_title"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inspection_detail_title" />
+        app:layout_constraintTop_toBottomOf="@id/inspection_detail_title"
+        app:layout_constraintVertical_weight="8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

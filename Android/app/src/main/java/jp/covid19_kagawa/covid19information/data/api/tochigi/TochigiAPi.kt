@@ -2,7 +2,6 @@ package jp.covid19_kagawa.covid19information.data.api.tochigi
 
 import io.reactivex.Single
 import jp.covid19_kagawa.covid19information.data.entity.NewsData
-import jp.covid19_kagawa.covid19information.data.entity.iwate.IwateData
 import jp.covid19_kagawa.covid19information.data.entity.tochigi.TochigiData
 import retrofit2.http.GET
 

@@ -3,7 +3,6 @@ package jp.covid19_kagawa.covid19information.data.api.ibaraki
 import io.reactivex.Single
 import jp.covid19_kagawa.covid19information.data.entity.NewsData
 import jp.covid19_kagawa.covid19information.data.entity.ibaraki.IbarakiData
-import jp.covid19_kagawa.covid19information.data.entity.iwate.IwateData
 import retrofit2.http.GET
 
 

@@ -8,6 +8,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import jp.covid19_kagawa.covid19information.actioncreator.*
 import jp.covid19_kagawa.covid19information.data.api.TokyoAPi
 import jp.covid19_kagawa.covid19information.data.api.aomori.AomoriAPi
+import jp.covid19_kagawa.covid19information.data.api.chiba.ChibaAPi
 import jp.covid19_kagawa.covid19information.data.api.gumma.GummaAPi
 import jp.covid19_kagawa.covid19information.data.api.ibaraki.IbarakiAPi
 import jp.covid19_kagawa.covid19information.data.api.iwate.IwateAPi
@@ -120,21 +121,42 @@ class App : Application() {
                 .build()
                 .create(GummaAPi::class.java)
         }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(ChibaAPi::class.java)
+        }
         single { KagawaRepository(get()) }
         single { AomoriRepository(get()) }
         single { IwateRepository(get()) }
         single { MiyagiRepository(get()) }
         single { GummaRepository(get()) }
         single { IbarakiRepository(get()) }
-
+        single { ChibaRepository(get()) }
         single { TokyoRepository(get()) }
-        single { ChartRepository(get(), get(), get(), get(), get(), get(), get()) }
-        single { InfectionRepository(get(), get(), get(), get(), get(), get(), get()) }
-        single { InspectionRepository(get(), get(), get(), get(), get(), get(), get()) }
-        single { ContactRepository(get(), get(), get(), get(), get(), get(), get()) }
-        single { EntranceRepository(get(), get(), get(), get(), get(), get(), get()) }
-        single { InspectionDetailRepository(get(), get(), get(), get(), get(), get(), get()) }
-        single { NewsRepository(get(), get(), get(), get(), get(), get(), get()) }
+        single { ChartRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { InfectionRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { InspectionRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { ContactRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { EntranceRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single {
+            InspectionDetailRepository(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
+        single { NewsRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
         single { GuideRepository() }
         single { DatabaseRepository() }
         single { PreferenceRepository(get()) }

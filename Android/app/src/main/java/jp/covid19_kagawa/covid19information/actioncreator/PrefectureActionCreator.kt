@@ -8,7 +8,6 @@ import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
-import timber.log.Timber
 
 class PrefectureActionCreator(
     private val repository: DatabaseRepository,
@@ -25,7 +24,7 @@ class PrefectureActionCreator(
                 dispatch(PrefectureAction.SelectPrefAction(it))
             },
             onError = {
-               // Timber.e(it)
+                // Timber.e(it)
             }
         )
 

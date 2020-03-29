@@ -3,6 +3,7 @@ package jp.covid19_kagawa.covid19information.data.repository
 import android.content.SharedPreferences
 import int
 import io.reactivex.Single
+import jp.covid19_kagawa.covid19information.Prefecture
 import jp.covid19_kagawa.covid19information.room.entity.PrefectureEntity
 import string
 
@@ -44,6 +45,10 @@ class PreferenceRepository(
             return false
         }
     }
-    
+
+    fun getCurrentUrl(): String = Prefecture.values()
+        .findLast { it.prefCode == currentPrefecture }!!
+        .prefecturePageLink()
+
     fun getCurrentPrectureCode(): Int = currentPrefecture
 }
