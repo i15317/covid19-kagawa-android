@@ -56,37 +56,28 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
 
     private fun makeInspectionList(inspectionSummary: InspectionSummary): List<SummaryEntity> {
         //検査実施人数
-        val totalEntity: SummaryEntity
-        if (inspectionSummary.value.toInt() < 0) {
-            totalEntity = SummaryEntity(
-                MAIN_TITLE,
-                SUB_TITLE,
-                MAIN_TITLE_NO,
-                ""
-            )
+        val totalEntity = SummaryEntity(
+            MAIN_TITLE,
+            SUB_TITLE,
+            if (inspectionSummary.value.toInt() < 0) MAIN_TITLE_NO else inspectionSummary.value + SUB_APPEND_H,
+            ""
+        )
 
-        } else {
-            totalEntity = SummaryEntity(
-                MAIN_TITLE,
-                SUB_TITLE,
-                inspectionSummary.value + SUB_APPEND_H,
-                ""
-            )
-        }
 
-        //検査実施件数
         val countEntity = SummaryEntity(
             COUNT_TITLE,
             SUB_TITLE,
-            inspectionSummary.count_inspection + SUB_APPEND,
+            if (inspectionSummary.count_inspection.toInt() < 0) MAIN_TITLE_NO else inspectionSummary.count_inspection + SUB_APPEND_H,
             ""
         )
+
 
         //地域内住民
         val insideEntity = SummaryEntity(
             INSIDE_TITLE,
             SUB_TITLE,
-            inspectionSummary.value_inside + SUB_APPEND,
+            if (inspectionSummary.value_inside.toInt() < 0) MAIN_TITLE_NO else inspectionSummary.value_inside + SUB_APPEND_H,
+
             ""
         )
 
@@ -94,7 +85,8 @@ class InspectionStore(dispatcher: Dispatcher) : Store(dispatcher) {
         val outsideEntity = SummaryEntity(
             OUTSIDE_TITLE,
             SUB_TITLE,
-            inspectionSummary.value_outside + SUB_APPEND,
+            if (inspectionSummary.value_outside.toInt() < 0) MAIN_TITLE_NO else inspectionSummary.value_outside + SUB_APPEND_H,
+
             ""
         )
 

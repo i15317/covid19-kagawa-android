@@ -25,15 +25,22 @@ object AomoriMapper {
         return date.time
     }
 
+
     fun getInspectionData(data: AomoriData): List<InspectionData> {
         val rootData = data.inspection_persons.labels
         val countData = data.inspection_persons.datasets.get(0).data
         val makeData = ArrayList<InspectionData>()
 
         for (i in 0 until rootData.count()) {
+//            makeData.add(
+//                InspectionData(
+//                    countData.get(i).toFloat(),
+//                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(rootData.get(i))).toFloat()
+//                )
+//            )
             makeData.add(
                 InspectionData(
-                    countData.get(i).toFloat(),
+                    0.0f,
                     TimeUnit.MILLISECONDS.toHours(getMilliFromDate(rootData.get(i))).toFloat()
                 )
             )
@@ -95,14 +102,19 @@ object AomoriMapper {
         //地域外
         val inspection_outside = inspection.children.get(1).value
 
+//        return InspectionSummary(
+//            rootData.date,
+//            rootData.value.toString(),
+//            inspection_inside.toString(),
+//            inspection_outside.toString(),
+//            inspection.value.toString()
+//        )
         return InspectionSummary(
             rootData.date,
-            rootData.value.toString(),
-            inspection_inside.toString(),
-            inspection_outside.toString(),
-            inspection.value.toString()
+            "-1", "-1", "-1", "-1"
         )
     }
+
 
     fun getInspectionDetailData(data: AomoriData): List<InspectionDetailSummary> {
         val rootData = data.inspections_summary
@@ -114,8 +126,8 @@ object AomoriMapper {
             list.add(
                 InspectionDetailSummary(
                     TimeUnit.MILLISECONDS.toHours(getMilliFromDate(label[i])),
-                    insideData[i],
-                    outsideData[i]
+                    0,
+                    0
                 )
             )
         }
