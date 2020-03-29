@@ -39,9 +39,9 @@ class NotificationsFragment : Fragment() {
         viewPager.adapter = object :
             FragmentStatePagerAdapter(childFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             override fun getItem(i: Int): Fragment {
-                Toast.makeText(context, "鍵アイコンでスワイプを無効にします", Toast.LENGTH_SHORT).show()
                 when (i) {
                     0 -> {
+                        Toast.makeText(context, "鍵アイコンでスワイプを無効にします", Toast.LENGTH_SHORT).show()
                         return InspectionFragment()
                     }
                     1 -> {

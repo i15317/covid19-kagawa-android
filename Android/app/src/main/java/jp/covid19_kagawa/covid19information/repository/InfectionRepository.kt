@@ -16,7 +16,9 @@ class InfectionRepository(
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
     private val gummaRepository: GummaRepository,
-    private val chibaRepository: ChibaRepository
+    private val chibaRepository: ChibaRepository,
+    private val tochigiRepository: TochigiRepository,
+    private val niigataRepository: NiigataRepository
 ) {
     fun fetchInfectionData(prefecture: Prefecture): Single<InfectionSummary> {
         return Single.create<InfectionSummary> { emitter ->
@@ -115,13 +117,41 @@ class InfectionRepository(
                             onError = { emitter.onError(it) }
                         )
                 }
-                Prefecture.CHIBA->{
+                Prefecture.CHIBA -> {
                     chibaRepository.fetchInspectData()
                         .subscribeOn(Schedulers.io())
                         .subscribeBy(
                             onSuccess = {
                                 emitter.onSuccess(
-                                   ChibaMapper.getInfectionData(
+                                    ChibaMapper.getInfectionData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
+                Prefecture.TOCHIGI -> {
+                    tochigiRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                    TochigiMapper.getInfectionData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
+                Prefecture.NIIGATA -> {
+                    niigataRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                    NiigataMapper.getInfectionData(
                                         it
                                     )
                                 )

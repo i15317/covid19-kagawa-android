@@ -16,7 +16,8 @@ class ContactRepository(
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
     private val gummaRepository: GummaRepository,
-    private val chibaRepository: ChibaRepository
+    private val chibaRepository: ChibaRepository,
+    private val niigataRepository: NiigataRepository
 ) {
     fun getContactData(prefecture: Prefecture): Single<ContactData> {
         return Single.create<ContactData> { emitter ->
@@ -126,6 +127,20 @@ class ContactRepository(
                             onSuccess = {
                                 emitter.onSuccess(
                                     ChibaMapper.getContactData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
+                Prefecture.NIIGATA -> {
+                    niigataRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                    NiigataMapper.getContactData(
                                         it
                                     )
                                 )

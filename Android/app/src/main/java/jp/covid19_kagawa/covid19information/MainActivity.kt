@@ -9,10 +9,7 @@ import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.plusAssign
+import androidx.navigation.*
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -35,27 +32,24 @@ import org.koin.android.ext.android.inject
 import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity() {
-    private val navController: NavController by lazy {
-        Navigation.findNavController(this, R.id.nav_host_fragment)
-    }
-
     companion object {
         val TAG: String = MainActivity::class.java.simpleName
         const val REQUEST_UPDATE_CODE = 1
     }
 
-    private lateinit var navView: BottomNavigationView
-    private lateinit var navDrawer: NavigationView
-    private val actionCreator: AreaActionCreator by inject()
-    private lateinit var appNavBarConfiguration: AppBarConfiguration
-    lateinit var installStateUpdatedListener: InstallStateUpdatedListener
+    private lateinit var installStateUpdatedListener: InstallStateUpdatedListener
+    private lateinit var appUpdateManager: AppUpdateManager
+    private lateinit var playServiceExecutor: Executor
 
     private val preferenceRepository: PreferenceRepository by inject()
+    private val actionCreator: AreaActionCreator by inject()
 
-    lateinit var appUpdateManager: AppUpdateManager
-
-    lateinit var playServiceExecutor: Executor
-
+    private lateinit var navView: BottomNavigationView
+    private lateinit var navDrawer: NavigationView
+    private lateinit var appNavBarConfiguration: AppBarConfiguration
+    private val navController: NavController by lazy {
+        Navigation.findNavController(this, R.id.nav_host_fragment)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -233,7 +227,23 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        return false
+
+        return try {
+            // ignore if current destination is selected
+            if (navController.currentDestination?.id == itemId) return false
+            val builder = NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setPopUpTo(R.id.navigation_home, false)
+                .setEnterAnim(R.anim.fade_in)
+                .setExitAnim(R.anim.fade_out)
+                .setPopEnterAnim(R.anim.fade_in)
+                .setPopExitAnim(R.anim.fade_out)
+            val options = builder.build()
+            navController.navigate(itemId, null, options)
+            true
+        } catch (e: IllegalArgumentException) {
+            false
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

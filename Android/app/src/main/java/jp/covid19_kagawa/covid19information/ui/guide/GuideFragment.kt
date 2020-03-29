@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.transition.Scene
 import jp.covid19_kagawa.covid19information.GuideSelection
@@ -104,36 +105,58 @@ class GuideFragment : Fragment() {
 
     private fun setClickItems() {
         store.webSiteLink.observe(this) { link ->
-            mView1.scene1GotoTel.setOnClickListener {
-                val test = link
-                val intent = Intent(
-                    Intent.ACTION_VIEW, Uri.parse(link)
-                )
-                startActivity(intent)
-            }
-            mView2.scene2GotoCall.setOnClickListener {
-                val intent = Intent(
-                    Intent.ACTION_VIEW, Uri.parse(link)
-                )
-                startActivity(intent)
-            }
-            mView3.scene3GotoCall.setOnClickListener {
-                val intent = Intent(
-                    Intent.ACTION_VIEW, Uri.parse(link)
-                )
-                startActivity(intent)
-            }
-            mView4.scene4GotoWeb.setOnClickListener {
-                val intent = Intent(
-                    Intent.ACTION_VIEW, Uri.parse(link)
-                )
-                startActivity(intent)
-            }
-            mView4.scene4GotoCall.setOnClickListener {
-                val intent = Intent(
-                    Intent.ACTION_VIEW, Uri.parse(link)
-                )
-                startActivity(intent)
+            if (link.isNotEmpty()) {
+                mView1.scene1GotoTel.setOnClickListener {
+                    val test = link
+                    val intent = Intent(
+                        Intent.ACTION_VIEW, Uri.parse(link)
+                    )
+                    startActivity(intent)
+                }
+                mView2.scene2GotoCall.setOnClickListener {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW, Uri.parse(link)
+                    )
+                    startActivity(intent)
+                }
+                mView3.scene3GotoCall.setOnClickListener {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW, Uri.parse(link)
+                    )
+                    startActivity(intent)
+                }
+                mView4.scene4GotoWeb.setOnClickListener {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW, Uri.parse(link)
+                    )
+                    startActivity(intent)
+                }
+                mView4.scene4GotoCall.setOnClickListener {
+                    val intent = Intent(
+                        Intent.ACTION_VIEW, Uri.parse(link)
+                    )
+                    startActivity(intent)
+                }
+            } else {
+                mView1.scene1GotoTel.setOnClickListener {
+                    Toast.makeText(context, "準備中です", Toast.LENGTH_SHORT).show()
+                }
+                mView2.scene2GotoCall.setOnClickListener {
+                    Toast.makeText(context, "準備中です", Toast.LENGTH_SHORT).show()
+
+                }
+                mView3.scene3GotoCall.setOnClickListener {
+                    Toast.makeText(context, "準備中です", Toast.LENGTH_SHORT).show()
+
+                }
+                mView4.scene4GotoWeb.setOnClickListener {
+                    Toast.makeText(context, "準備中です", Toast.LENGTH_SHORT).show()
+
+                }
+                mView4.scene4GotoCall.setOnClickListener {
+                    Toast.makeText(context, "準備中です", Toast.LENGTH_SHORT).show()
+
+                }
             }
         }
     }

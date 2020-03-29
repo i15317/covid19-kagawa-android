@@ -35,11 +35,14 @@ class GuideActionCreator(
             "",
             "",
             "",
-            "https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html#cmsF9A3F",
+            guideRepository.getCurrentWebLink(),
             "",
             false
         )
         dispatch(GuideAction.GetWebLinks(evilEntity))
     }
 
+    fun getCallLinks() = guideRepository.getCurrentCallLink().also {
+        dispatch(GuideAction.GetCallLink(it))
+    }
 }

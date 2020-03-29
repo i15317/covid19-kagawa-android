@@ -14,6 +14,8 @@ import jp.covid19_kagawa.covid19information.data.api.ibaraki.IbarakiAPi
 import jp.covid19_kagawa.covid19information.data.api.iwate.IwateAPi
 import jp.covid19_kagawa.covid19information.data.api.kagawa.KagawaAPi
 import jp.covid19_kagawa.covid19information.data.api.miyagi.MiyagiAPi
+import jp.covid19_kagawa.covid19information.data.api.niigata.NiigataAPi
+import jp.covid19_kagawa.covid19information.data.api.tochigi.TochigiAPi
 import jp.covid19_kagawa.covid19information.data.repository.*
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.*
@@ -131,6 +133,28 @@ class App : Application() {
                 .build()
                 .create(ChibaAPi::class.java)
         }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(TochigiAPi::class.java)
+        }
+        single {
+            Retrofit
+                .Builder()
+                .client(OkHttpClient.Builder().build())
+                .baseUrl("https://raw.githubusercontent.com/")
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
+                .build()
+                .create(NiigataAPi::class.java)
+        }
+        single { TochigiRepository(get()) }
+        single { NiigataRepository(get()) }
         single { KagawaRepository(get()) }
         single { AomoriRepository(get()) }
         single { IwateRepository(get()) }
@@ -139,13 +163,11 @@ class App : Application() {
         single { IbarakiRepository(get()) }
         single { ChibaRepository(get()) }
         single { TokyoRepository(get()) }
-        single { ChartRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
-        single { InfectionRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
-        single { InspectionRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
-        single { ContactRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
-        single { EntranceRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { ChartRepository(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
         single {
-            InspectionDetailRepository(
+            InfectionRepository(
+                get(),
+                get(),
                 get(),
                 get(),
                 get(),
@@ -156,8 +178,35 @@ class App : Application() {
                 get()
             )
         }
-        single { NewsRepository(get(), get(), get(), get(), get(), get(), get(), get()) }
-        single { GuideRepository() }
+        single {
+            InspectionRepository(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get()
+            )
+        }
+        single { ContactRepository(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { EntranceRepository(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+        single {
+            InspectionDetailRepository(
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(),
+                get(), get()
+            )
+        }
+        single { NewsRepository(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+        single { GuideRepository(get()) }
         single { DatabaseRepository() }
         single { PreferenceRepository(get()) }
     }

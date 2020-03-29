@@ -16,7 +16,8 @@ class ChartRepository(
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
     private val gummaRepository: GummaRepository,
-    private val chibaRepository: ChibaRepository
+    private val chibaRepository: ChibaRepository,
+    private val niigataRepository: NiigataRepository
 ) {
     fun fetchInspectData(prefecture: Prefecture): Single<List<InspectionData>> {
         return Single.create<List<InspectionData>> { emitter ->
@@ -127,6 +128,20 @@ class ChartRepository(
                             onSuccess = {
                                 emitter.onSuccess(
                                     ChibaMapper.getInspectionData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
+                Prefecture.NIIGATA -> {
+                    niigataRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                    NiigataMapper.getInspectionData(
                                         it
                                     )
                                 )

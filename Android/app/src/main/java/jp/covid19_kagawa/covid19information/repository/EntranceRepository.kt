@@ -16,7 +16,8 @@ class EntranceRepository(
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
     private val gummaRepository: GummaRepository,
-    private val chibaRepository: ChibaRepository
+    private val chibaRepository: ChibaRepository,
+    private val niigataRepository: NiigataRepository
 ) {
     fun fetchEntranceData(prefecture: Prefecture): Single<EntranceData> {
         return Single.create<EntranceData> { emitter ->
@@ -115,13 +116,28 @@ class EntranceRepository(
                             onError = { emitter.onError(it) }
                         )
                 }
-                Prefecture.CHIBA->{
+                Prefecture.CHIBA -> {
                     chibaRepository.fetchInspectData()
                         .subscribeOn(Schedulers.io())
                         .subscribeBy(
                             onSuccess = {
                                 emitter.onSuccess(
                                     ChibaMapper.getEntranceData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
+
+                Prefecture.NIIGATA -> {
+                    niigataRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                    NiigataMapper.getEntranceData(
                                         it
                                     )
                                 )

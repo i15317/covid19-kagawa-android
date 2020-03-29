@@ -35,17 +35,23 @@
 
     <string-array name="pref_tokyo">
         <item>茨城</item>
+        <item>栃木</item>
         <item>千葉市</item>
         <item>東京</item>
     </string-array>
     <string-array name="pref_tokyo_value">
         <item>8</item>
+        <item>9</item>
         <item>12</item>
         <item>13</item>
     </string-array>
 
-    <string-array name="pref_kanazawa"></string-array>
-    <string-array name="pref_kanazawa_value"></string-array>
+    <string-array name="pref_kanazawa">
+        <item>新潟</item>
+    </string-array>
+    <string-array name="pref_kanazawa_value">
+        <item>15</item>
+    </string-array>
 
     <string-array name="pref_central"></string-array>
     <string-array name="pref_central_value"></string-array>

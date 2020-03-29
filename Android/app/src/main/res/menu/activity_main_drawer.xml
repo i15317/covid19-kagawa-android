@@ -12,7 +12,7 @@
             android:title="@string/title_home" />
         <item
             android:id="@+id/navigation_browse"
-            android:icon="@drawable/ic_web_black_24dp"
+            android:icon="@drawable/ic_public_black_24dp"
             android:title="ウェブで表示する" />
     </group>
     <group

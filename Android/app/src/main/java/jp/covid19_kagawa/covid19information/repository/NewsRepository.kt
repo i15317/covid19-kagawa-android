@@ -17,7 +17,8 @@ class NewsRepository(
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
     private val gummaRepository: GummaRepository,
-    private val chibaRepository: ChibaRepository
+    private val chibaRepository: ChibaRepository,
+    private val niigataRepository: NiigataRepository
 ) {
     fun fetchNewsData(prefecture: Prefecture): Single<List<NewsEntity>> {
         return Single.create<List<NewsEntity>> { emitter ->
@@ -101,6 +102,17 @@ class NewsRepository(
                 }
                 Prefecture.CHIBA -> {
                     chibaRepository.fetchNewsData().subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))
+                            },
+                            onError = {
+                                //Timber.e(it)
+                            }
+                        )
+                }
+                Prefecture.NIIGATA -> {
+                    niigataRepository.fetchNewsData().subscribeOn(Schedulers.io())
                         .subscribeBy(
                             onSuccess = {
                                 emitter.onSuccess(KagawaMapper.getNewsData(it.newsItems))

@@ -17,7 +17,8 @@ class InspectionRepository(
     private val miyagiRepository: MiyagiRepository,
     private val ibarakiRepository: IbarakiRepository,
     private val gummaRepository: GummaRepository,
-    private val chibaRepository: ChibaRepository
+    private val chibaRepository: ChibaRepository,
+    private val niigataRepository: NiigataRepository
 ) {
     fun fetchInspectionData(prefecture: Prefecture): Single<InspectionSummary> {
         return Single.create<InspectionSummary> { emitter ->
@@ -135,6 +136,20 @@ class InspectionRepository(
                         )
                 }
 
+                Prefecture.NIIGATA -> {
+                    niigataRepository.fetchInspectData()
+                        .subscribeOn(Schedulers.io())
+                        .subscribeBy(
+                            onSuccess = {
+                                emitter.onSuccess(
+                                    NiigataMapper.getInspectionSummaryData(
+                                        it
+                                    )
+                                )
+                            },
+                            onError = { emitter.onError(it) }
+                        )
+                }
                 else -> {
                     emitter.onError(Throwable(message = "Type Error!"))
                 }
