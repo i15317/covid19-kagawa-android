@@ -3,18 +3,27 @@ package jp.covid19_kagawa.covid19information
 enum class Prefecture(val prefCode: Int) {
     HOKKAIDO(1) {
         override fun prefecturePageLink(): String = "https://stopcovid19.hokkaido.dev/"
-        override fun prefectureGuideLink(): String = "http://www.pref.hokkaido.lg.jp/hf/kth/kak/singatakoronahaien.htm#%E9%81%93%E6%B0%91%E3%81%B8"
-        override fun prefectureCallLink(): String = "http://www.pref.hokkaido.lg.jp/hf/kth/kak/singatakoronahaien.htm#%E9%81%93%E6%B0%91%E3%81%B8"
+        override fun prefectureGuideLink(): String =
+            "http://www.pref.hokkaido.lg.jp/hf/kth/kak/singatakoronahaien.htm#%E9%81%93%E6%B0%91%E3%81%B8"
+
+        override fun prefectureCallLink(): String =
+            "http://www.pref.hokkaido.lg.jp/hf/kth/kak/singatakoronahaien.htm#%E9%81%93%E6%B0%91%E3%81%B8"
     },
     AOMORI(2) {
         override fun prefecturePageLink(): String = "https://covid19.codeforaomori.org/"
-        override fun prefectureGuideLink(): String = "https://www.pref.aomori.lg.jp/welfare/health/wuhan-novel-coronavirus2020.html"
-        override fun prefectureCallLink(): String = "https://www.pref.aomori.lg.jp/welfare/health/wuhan-novel-coronavirus2020.html"
+        override fun prefectureGuideLink(): String =
+            "https://www.pref.aomori.lg.jp/welfare/health/wuhan-novel-coronavirus2020.html"
+
+        override fun prefectureCallLink(): String =
+            "https://www.pref.aomori.lg.jp/welfare/health/wuhan-novel-coronavirus2020.html"
     },
     IWATE(3) {
         override fun prefecturePageLink(): String = "https://iwate.stopcovid19.jp/"
-        override fun prefectureGuideLink(): String = "https://www.pref.iwate.jp/kurashikankyou/iryou/covid19/index.html#voice"
-        override fun prefectureCallLink(): String = "https://www.pref.iwate.jp/kurashikankyou/iryou/covid19/index.html#voice"
+        override fun prefectureGuideLink(): String =
+            "https://www.pref.iwate.jp/kurashikankyou/iryou/covid19/index.html#voice"
+
+        override fun prefectureCallLink(): String =
+            "https://www.pref.iwate.jp/kurashikankyou/iryou/covid19/index.html#voice"
     },
     MIYAGI(4) {
         override fun prefecturePageLink(): String = "https://miyagi.stopcovid19.jp/"
@@ -23,18 +32,27 @@ enum class Prefecture(val prefCode: Int) {
     },
     AKITA(5) {
         override fun prefecturePageLink(): String = ""
-        override fun prefectureGuideLink(): String = "https://www.pref.akita.lg.jp/pages/archive/16317#kennminnnominasamae"
-        override fun prefectureCallLink(): String = "https://www.pref.akita.lg.jp/pages/archive/16317#soudannmadoguchi"
+        override fun prefectureGuideLink(): String =
+            "https://www.pref.akita.lg.jp/pages/archive/16317#kennminnnominasamae"
+
+        override fun prefectureCallLink(): String =
+            "https://www.pref.akita.lg.jp/pages/archive/16317#soudannmadoguchi"
     },
     YAMAGATA(6) {
         override fun prefecturePageLink(): String = ""
-        override fun prefectureGuideLink(): String = "https://www.pref.yamagata.jp/ou/bosai/020072/kochibou/coronavirus/coronavirus.html"
-        override fun prefectureCallLink(): String = "https://www.pref.yamagata.jp/ou/bosai/020072/kochibou/coronavirus/coronavirus.html"
+        override fun prefectureGuideLink(): String =
+            "https://www.pref.yamagata.jp/ou/bosai/020072/kochibou/coronavirus/coronavirus.html"
+
+        override fun prefectureCallLink(): String =
+            "https://www.pref.yamagata.jp/ou/bosai/020072/kochibou/coronavirus/coronavirus.html"
     },
     FUKUSHIMA(7) {
         override fun prefecturePageLink(): String = "https://fukushima-covid19.firebaseapp.com/"
-        override fun prefectureGuideLink(): String = "https://www.pref.fukushima.lg.jp/sec/21045c/coronavirus-taiou.html"
-        override fun prefectureCallLink(): String = "https://www.pref.fukushima.lg.jp/sec/21045c/coronavirus-soudanmadoguchi.html"
+        override fun prefectureGuideLink(): String =
+            "https://www.pref.fukushima.lg.jp/sec/21045c/coronavirus-taiou.html"
+
+        override fun prefectureCallLink(): String =
+            "https://www.pref.fukushima.lg.jp/sec/21045c/coronavirus-soudanmadoguchi.html"
     },
     IBARAKI(8) {
         override fun prefecturePageLink(): String = "https://covid19-ibaraki.netlify.com/"

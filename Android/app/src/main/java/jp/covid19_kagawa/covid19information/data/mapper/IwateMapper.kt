@@ -29,8 +29,8 @@ object IwateMapper {
         val rootData = data.inspection_persons.labels
         val countData = data.inspection_persons.datasets.get(0).data
         val makeData = ArrayList<InspectionData>()
-
-        for (i in 0 until rootData.count()) {
+        val count = minOf(rootData.size, countData.size)
+        for (i in 0 until count) {
             makeData.add(
                 InspectionData(
                     countData.get(i).toFloat(),
