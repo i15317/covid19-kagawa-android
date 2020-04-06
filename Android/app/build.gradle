@@ -59,8 +59,8 @@ android {
 
 }
 
-ext.moshi_version = "1.5.0"
-ext.retrofit_version = "2.3.0"
+ext.moshi_version = "1.8.0"
+ext.retrofit_version = "2.7.0"
 ext.okhttp_version = "3.9.0"
 ext.glide_version = "4.2.0"
 ext.room_version = "2.2.5"
@@ -109,6 +109,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "com.github.bumptech.glide:okhttp-integration:$glide_version"

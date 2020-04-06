@@ -161,7 +161,7 @@ class DashboardFragment : Fragment(), SeekBar.OnSeekBarChangeListener,
             chart.data.notifyDataChanged()
             chart.notifyDataSetChanged()
         } else { // create a dataset and give it a type
-            set1 = BarDataSet(values, "東京都のＰＣＲ検査受診数")
+            set1 = BarDataSet(values, "ＰＣＲ検査受診数")
             set1.setDrawIcons(false)
 
             // customize legend entry

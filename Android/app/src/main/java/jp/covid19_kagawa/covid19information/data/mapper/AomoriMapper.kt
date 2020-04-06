@@ -2,7 +2,7 @@ package jp.covid19_kagawa.covid19information.data.mapper
 
 
 import jp.covid19_kagawa.covid19information.data.entity.NewsItem
-import jp.covid19_kagawa.covid19information.data.entity.aomori.AomoriData
+import jp.covid19_kagawa.covid19information.data.entity.aomori.*
 import jp.covid19_kagawa.covid19information.entity.*
 
 import java.text.ParseException
@@ -116,51 +116,67 @@ object AomoriMapper {
     }
 
 
-    fun getInspectionDetailData(data: AomoriData): List<InspectionDetailSummary> {
-        val rootData = data.inspections_summary
-        val insideData = rootData.data.都内
-        val outsideData = rootData.data.その他
-        val label = data.inspection_persons.labels
+    fun getInspectionDetailData(data: Array<AomoriInspectionDataItem>): List<InspectionDetailSummary> {
+        val formatter = SimpleDateFormat("yyyy年MM月dd日")
+
         val list = ArrayList<InspectionDetailSummary>()
-        for (i in 0 until label.count()) {
-            list.add(
-                InspectionDetailSummary(
-                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(label[i])),
-                    0,
-                    0
+        for (content in data) {
+            try {
+                val parseData = formatter.parse(content.検査日時)
+                list.add(
+                    InspectionDetailSummary(
+                        TimeUnit.MILLISECONDS.toHours(parseData.time),
+                        content.実施数.toInt(),
+                        0
+                    )
                 )
-            )
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
         }
         return list
     }
 
-    fun getContactData(data: AomoriData): ContactData {
-        val rootData = data.contacts
-        val entries = rootData.data
+    fun getContactData(entries: Array<AomoriCallDataItem>): ContactData {
+
         val list = ArrayList<ContactEntry>()
         for (entry in entries) {
-            list.add(
-                ContactEntry(
-                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(entry.日付)),
-                    entry.`13-17時` + entry.`17-21時` + entry.`9-13時`
+            val formatter = SimpleDateFormat("yyyy年MM月dd日")
+            try {
+                val parseData = formatter.parse(entry.受付_年月日)
+
+                list.add(
+                    ContactEntry(
+                        TimeUnit.MILLISECONDS.toHours(parseData.time),
+                        entry.contact.toInt()
+                    )
                 )
-            )
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+
         }
-        return ContactData(rootData.date, list)
+        return ContactData(entries.last().受付_年月日, list)
     }
 
-    fun getEntranceData(data: AomoriData): EntranceData {
-        val rootData = data.querents
-        val entries = rootData.data
+    fun getEntranceData(entries: Array<AomoriContactDataItem>): EntranceData {
+
         val list = ArrayList<EntranceEntry>()
         for (entry in entries) {
-            list.add(
-                EntranceEntry(
-                    TimeUnit.MILLISECONDS.toHours(getMilliFromDate(entry.日付)),
-                    entry.小計
+            val formatter = SimpleDateFormat("yyyy年MM月dd日")
+            try {
+                val parseData = formatter.parse(entry.受付_年月日)
+
+                list.add(
+                    EntranceEntry(
+                        TimeUnit.MILLISECONDS.toHours(parseData.time),
+                        entry.相談件数.toInt()
+                    )
                 )
-            )
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
         }
-        return EntranceData(rootData.date, list)
+        return EntranceData(entries.last().受付_年月日, list)
     }
 }

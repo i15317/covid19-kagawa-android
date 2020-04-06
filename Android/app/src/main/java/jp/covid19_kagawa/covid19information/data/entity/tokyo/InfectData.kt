@@ -1,6 +1,8 @@
 package jp.covid19_kagawa.covid19information.data.entity.tokyo
 
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class InfectData(
     val contacts: Contacts,
     val discharges_summary: DischargesSummary,

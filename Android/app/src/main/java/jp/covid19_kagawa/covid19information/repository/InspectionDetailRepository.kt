@@ -53,7 +53,7 @@ class InspectionDetailRepository(
 
                 }
                 Prefecture.AOMORI -> {
-                    aomoriRepository.fetchInspectData()
+                    aomoriRepository.fetchInspectionData()
                         .subscribeOn(Schedulers.io())
                         .subscribeBy(
                             onSuccess = {

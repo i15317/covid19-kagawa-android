@@ -51,7 +51,7 @@ class ContactRepository(
                         )
                 }
                 Prefecture.AOMORI -> {
-                    aomoriRepository.fetchInspectData()
+                    aomoriRepository.fetchCallData()
                         .subscribeOn(Schedulers.io())
                         .subscribeBy(
                             onSuccess = {

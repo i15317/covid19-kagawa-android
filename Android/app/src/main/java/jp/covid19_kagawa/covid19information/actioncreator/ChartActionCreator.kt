@@ -8,6 +8,7 @@ import jp.covid19_kagawa.covid19information.data.repository.PreferenceRepository
 import jp.covid19_kagawa.covid19information.flux.ActionCreator
 import jp.covid19_kagawa.covid19information.flux.Dispatcher
 import jp.covid19_kagawa.covid19information.repository.ChartRepository
+import timber.log.Timber
 
 class ChartActionCreator(
     private val repository: ChartRepository,
@@ -31,7 +32,7 @@ class ChartActionCreator(
                     )
                 },
                 onError = {
-                    //   Timber.e(it)
+                       Timber.e(it)
                 }
             )
 

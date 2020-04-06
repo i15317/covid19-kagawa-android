@@ -1,27 +1,21 @@
 package jp.covid19_kagawa.covid19information.data.entity.aomori
 
+import com.squareup.moshi.JsonClass
+
+
 data class AomoriData(
-    val contacts: Contacts,
     val discharges_summary: DischargesSummary,
     val inspection_persons: InspectionPersons,
     val inspection_status_simple: InspectionStatusSimple,
     val inspection_status_summary: InspectionStatusSummary,
-    val inspections_summary: InspectionsSummary,
     val lastUpdate: String,
     val main_summary: MainSummary,
     val patients: Patients,
-    val patients_summary: PatientsSummary,
-    val querents: Querents,
-    val sickbeds_summary: SickbedsSummary
-)
-
-data class Contacts(
-    val `data`: List<Data>,
-    val date: String
+    val patients_summary: PatientsSummary
 )
 
 data class DischargesSummary(
-    val `data`: List<DataX>,
+    val `data`: List<Data>,
     val date: String
 )
 
@@ -45,12 +39,6 @@ data class InspectionStatusSummary(
     val value: Int
 )
 
-data class InspectionsSummary(
-    val `data`: DataXX,
-    val date: String,
-    val labels: List<String>
-)
-
 data class MainSummary(
     val attr: String,
     val children: List<ChildrenXXX>,
@@ -58,38 +46,16 @@ data class MainSummary(
 )
 
 data class Patients(
-    val `data`: List<DataXXX>,
+    val `data`: List<DataX>,
     val date: String
 )
 
 data class PatientsSummary(
-    val `data`: List<DataXXXX>,
+    val `data`: List<DataXX>,
     val date: String
-)
-
-data class Querents(
-    val `data`: List<DataXXXXX>,
-    val date: String
-)
-
-data class SickbedsSummary(
-    val `data`: DataXXXXXX,
-    val last_update: String
 )
 
 data class Data(
-    val `13-17時`: Int,
-    val `17-21時`: Int,
-    val `9-13時`: Int,
-    val date: String,
-    val short_date: String,
-    val w: Int,
-    val 小計: Int,
-    val 日付: String,
-    val 曜日: String
-)
-
-data class DataX(
     val 小計: Int,
     val 日付: String
 )
@@ -115,11 +81,6 @@ data class ChildrenXX(
     val value: Int
 )
 
-data class DataXX(
-    val その他: List<Int>,
-    val 都内: List<Int>
-)
-
 data class ChildrenXXX(
     val attr: String,
     val children: List<ChildrenXXXX>,
@@ -137,7 +98,7 @@ data class ChildrenXXXXX(
     val value: Int
 )
 
-data class DataXXX(
+data class DataX(
     val date: String,
     val リリース日: String,
     val 居住地: String,
@@ -146,23 +107,7 @@ data class DataXXX(
     val 退院: Any
 )
 
-data class DataXXXX(
+data class DataXX(
     val 小計: Int,
     val 日付: String
-)
-
-data class DataXXXXX(
-    val `17-翌9時`: Int,
-    val `9-17時`: Int,
-    val date: String,
-    val short_date: String,
-    val w: Int,
-    val 小計: Int,
-    val 日付: String,
-    val 曜日: String
-)
-
-data class DataXXXXXX(
-    val 入院患者数: Int,
-    val 残り病床数: Int
 )
