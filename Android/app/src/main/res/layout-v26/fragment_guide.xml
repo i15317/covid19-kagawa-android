@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="jp.covid19_kagawa.covid19information.store.GuideStore" />
+            type="jp.covid19_kagawa.covid19information2.store.GuideStore" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

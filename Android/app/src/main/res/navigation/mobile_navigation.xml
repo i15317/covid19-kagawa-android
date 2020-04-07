@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="jp.covid19_kagawa.covid19information.ui.home.HomeFragment"
+        android:name="jp.covid19_kagawa.covid19information2.ui.home.HomeFragment"
         android:label="@string/title_home"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="jp.covid19_kagawa.covid19information.ui.news.NewsFragment"
+        android:name="jp.covid19_kagawa.covid19information2.ui.news.NewsFragment"
         android:label="@string/title_news"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="jp.covid19_kagawa.covid19information.ui.guide.GuideFragment"
+        android:name="jp.covid19_kagawa.covid19information2.ui.guide.GuideFragment"
         android:label="@string/title_dashboard"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="jp.covid19_kagawa.covid19information.ui.notifications.NotificationsFragment"
+        android:name="jp.covid19_kagawa.covid19information2.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -49,12 +49,12 @@
 
     <fragment
         android:id="@+id/navigation_setting_area"
-        android:name="jp.covid19_kagawa.covid19information.ui.preferences.AreaFragment"
+        android:name="jp.covid19_kagawa.covid19information2.ui.preferences.AreaFragment"
         android:label="都道府県の設定"
         android:layout="@layout/fragment_area">
         <action
             android:id="@+id/action_area_to_pref"
-            app:argType="jp.covid19_kagawa.covid19information.room.entity.AreaEntity"
+            app:argType="jp.covid19_kagawa.covid19information2.room.entity.AreaEntity"
             app:destination="@id/navigation_setting_pref"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -64,13 +64,13 @@
 
     <fragment
         android:id="@+id/navigation_setting_pref"
-        android:name="jp.covid19_kagawa.covid19information.ui.preferences.PrefectureFragment"
+        android:name="jp.covid19_kagawa.covid19information2.ui.preferences.PrefectureFragment"
         android:label="都道府県の設定"
         android:layout="@layout/fragment_pref">
 
         <argument
             android:name="content"
-            app:argType="jp.covid19_kagawa.covid19information.room.entity.AreaEntity" />
+            app:argType="jp.covid19_kagawa.covid19information2.room.entity.AreaEntity" />
         <action
             android:id="@+id/action_pref_to_area"
             app:destination="@id/navigation_setting_area"
@@ -84,7 +84,7 @@
 
     <fragment
         android:id="@+id/navigation_about"
-        android:name="jp.covid19_kagawa.covid19information.ui.about.AboutFragment"
+        android:name="jp.covid19_kagawa.covid19information2.ui.about.AboutFragment"
         android:label="このアプリについて"
         android:layout="@layout/fragment_about">
         <action
@@ -107,6 +107,6 @@
 
     <chrome
         android:id="@+id/chrome"
-        android:name="jp.covid19_kagawa.covid19information.ChromeCustomTabsNavigator"
+        android:name="jp.covid19_kagawa.covid19information2.ChromeCustomTabsNavigator"
         android:label="chrome" />
 </navigation>

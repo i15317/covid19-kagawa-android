@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/nav_host_fragment"
-        android:name="jp.covid19_kagawa.covid19information.CustomNavHostFragment"
+        android:name="jp.covid19_kagawa.covid19information2.CustomNavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
