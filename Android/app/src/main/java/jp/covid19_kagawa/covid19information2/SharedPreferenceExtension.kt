@@ -4,6 +4,8 @@ import com.squareup.moshi.Moshi
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
+//Qiitaの記事のコードを引っ張りました（リンク失念）
+
 /**
  * Boolean Read Write Delegate
  */

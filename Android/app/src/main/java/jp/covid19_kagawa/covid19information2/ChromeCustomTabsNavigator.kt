@@ -14,6 +14,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import jp.covid19_kagawa.covid19information2.ext.getThemeColor
 
+//DroidKaigi2020公式アプリのソースコードより引用
 
 @Navigator.Name("chrome")
 class ChromeCustomTabsNavigator(private val context: Context) :
